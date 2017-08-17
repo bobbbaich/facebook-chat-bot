@@ -153,7 +153,7 @@ public class MessengerPlatformCallbackHandler {
                         sendImageMessage(senderId);
                         break;
 
-                    case "gif":
+                    case "gifgif":
                         sendGifMessage(senderId);
                         break;
 
