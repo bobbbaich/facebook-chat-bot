@@ -11,10 +11,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@PropertySource("messenger4j.properties")
 public class MessengerConfig {
     private static final Logger LOG = LoggerFactory.getLogger(MessengerConfig.class);
 
@@ -57,7 +55,7 @@ public class MessengerConfig {
      */
     @Bean
     @Profile("local")
-    public MessengerSendClient messengerSendClientDev(@Value("${local.messenger4j.pageAccessToken}") String pageAccessToken) {
+    public MessengerSendClient messengerSendClientDev(@Value("${messenger4j.local.pageAccessToken}") String pageAccessToken) {
         LOG.debug("Initializing MessengerSendClient - pageAccessToken: {}", pageAccessToken);
         return MessengerPlatform.newSendClientBuilder(pageAccessToken).build();
     }
@@ -72,8 +70,8 @@ public class MessengerConfig {
 
     @Bean
     @Profile("local")
-    public MessengerReceiveClient messengerReceiveClientDev(@Value("${local.messenger4j.appSecret}") final String appSecret,
-                                                            @Value("${local.messenger4j.verifyToken}") final String verifyToken) {
+    public MessengerReceiveClient messengerReceiveClientDev(@Value("${messenger4j.local.appSecret}") final String appSecret,
+                                                            @Value("${messenger4j.local.verifyToken}") final String verifyToken) {
         LOG.debug("Initializing MessengerReceiveClient - appSecret: {} | verifyToken: {}", appSecret, verifyToken);
         return MessengerPlatform.newReceiveClientBuilder(appSecret, verifyToken)
                 .onTextMessageEvent(textMessageEventHandler)
