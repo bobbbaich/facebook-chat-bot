@@ -1,0 +1,22 @@
+#---Profile Properties---
+#Available profiles: local, remote
+#Set remote when deploy to server
+spring:
+  profiles:
+    active: remote
+
+#---Messenger Properties---
+#profile: remote
+messenger4j:
+  appSecret: ${MESSENGER_APP_SECRET}
+  verifyToken: ${MESSENGER_VERIFY_TOKEN}
+  pageAccessToken: ${MESSENGER_PAGE_ACCESS_TOKEN}
+  local:
+      appSecret: 1
+      verifyToken: 1
+      pageAccessToken: 1
+
+#---Loggin Properties---
+logging:
+  file: system.log
+  level: debug
