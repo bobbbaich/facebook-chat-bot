@@ -8,9 +8,9 @@ spring:
 #---Messenger Properties---
 #profile: remote
 messenger4j:
-  appSecret: MESSENGER_APP_SECRET
-  verifyToken: MESSENGER_VERIFY_TOKEN
-  pageAccessToken: MESSENGER_PAGE_ACCESS_TOKEN
+  appSecret: ${MESSENGER_APP_SECRET}
+  verifyToken: ${MESSENGER_VERIFY_TOKEN}
+  pageAccessToken: ${MESSENGER_PAGE_ACCESS_TOKEN}
   local:
       appSecret: 1
       verifyToken: 1
@@ -18,6 +18,8 @@ messenger4j:
 
 #---Loggin Properties---
 logging:
-#'to file' settings
-  file: system.log
-  level: info
+  level:
+    org.springframework.web: INFO
+    com.bobbbaich: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
