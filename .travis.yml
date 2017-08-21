@@ -10,4 +10,9 @@ jdk:
   - oraclejdk8
 before_install:
     - chmod +x mvnw
+deploy:
+  provider: heroku
+  app:
+    master: messenger4j-app-bot
+    dev: dev-chat-bot
 script: HEROKU_API_KEY="$HEROKU_API_KEY" mvn clean spring-boot:run -Pheroku
