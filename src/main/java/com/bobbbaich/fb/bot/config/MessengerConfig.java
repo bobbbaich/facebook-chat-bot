@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
+import javax.annotation.Resource;
+
 import static com.bobbbaich.fb.bot.config.Profile.REMOTE;
 
 @Configuration
@@ -24,6 +26,7 @@ public class MessengerConfig {
     private static final String LOCAL_VERIFY_TOKEN = "messenger4j.local.verifyToken";
     private static final String LOCAL_PAGE_ACCESS_TOKEN = "messenger4j.local.pageAccessToken";
 
+    @Resource
     private Environment env;
     private TextMessageEventHandler textMessageEventHandler;
 
@@ -67,10 +70,5 @@ public class MessengerConfig {
     @Autowired
     public void setTextMessageEventHandler(TextMessageEventHandler textMessageEventHandler) {
         this.textMessageEventHandler = textMessageEventHandler;
-    }
-
-    @Autowired
-    public void setEnv(Environment env) {
-        this.env = env;
     }
 }
