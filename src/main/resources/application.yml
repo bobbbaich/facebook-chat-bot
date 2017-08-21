@@ -18,6 +18,8 @@ messenger4j:
 
 #---Loggin Properties---
 logging:
-#'to file' settings
-  file: system.log
-  level: info
+  level:
+    org.springframework.web: INFO
+    com.bobbbaich: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"

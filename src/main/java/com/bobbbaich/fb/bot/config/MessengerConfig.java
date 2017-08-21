@@ -36,7 +36,7 @@ public class MessengerConfig {
      */
     @Bean
     public MessengerSendClient messengerSendClient() {
-        String pageAccessToken = LOCAL_PAGE_ACCESS_TOKEN;
+        String pageAccessToken = env.getProperty(LOCAL_PAGE_ACCESS_TOKEN);
         if (env.acceptsProfiles(REMOTE.name())) {
             pageAccessToken = env.getRequiredProperty(PAGE_ACCESS_TOKEN);
         }
