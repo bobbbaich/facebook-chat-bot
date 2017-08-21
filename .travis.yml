@@ -1,0 +1,11 @@
+language: java
+branches:
+  only:
+    - dev
+notifications:
+  email:
+    recipients:
+      - bpogoriliy@gmail.com
+jdk:
+  - oraclejdk8
+script: HEROKU_API_KEY="$HEROKU_API_KEY" mvn clean spring-boot:run -Pheroku
