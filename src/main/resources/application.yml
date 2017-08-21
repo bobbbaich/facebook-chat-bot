@@ -8,9 +8,9 @@ spring:
 #---Messenger Properties---
 #profile: remote
 messenger4j:
-  appSecret: MESSENGER_APP_SECRET
-  verifyToken: MESSENGER_VERIFY_TOKEN
-  pageAccessToken: MESSENGER_PAGE_ACCESS_TOKEN
+  appSecret: ${MESSENGER_APP_SECRET}
+  verifyToken: ${MESSENGER_VERIFY_TOKEN}
+  pageAccessToken: ${MESSENGER_PAGE_ACCESS_TOKEN}
   local:
       appSecret: 1
       verifyToken: 1
