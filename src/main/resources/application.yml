@@ -18,5 +18,6 @@ messenger4j:
 
 #---Loggin Properties---
 logging:
+#'to file' settings
   file: system.log
   level: debug
