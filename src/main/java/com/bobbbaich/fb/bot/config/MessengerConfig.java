@@ -7,71 +7,60 @@ import com.github.messenger4j.send.MessengerSendClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
+import org.springframework.core.env.Environment;
+
+import javax.annotation.Resource;
+
+import static com.bobbbaich.fb.bot.config.Profile.REMOTE;
 
 @Configuration
 public class MessengerConfig {
     private static final Logger LOG = LoggerFactory.getLogger(MessengerConfig.class);
 
+    private static final String PAGE_ACCESS_TOKEN = "messenger4j.pageAccessToken";
+    private static final String APP_SECRET = "messenger4j.appSecret";
+    private static final String VERIFY_TOKEN = "messenger4j.verifyToken";
+    private static final String LOCAL_APP_SECRET = "messenger4j.local.appSecret";
+    private static final String LOCAL_VERIFY_TOKEN = "messenger4j.local.verifyToken";
+    private static final String LOCAL_PAGE_ACCESS_TOKEN = "messenger4j.local.pageAccessToken";
+
+    @Resource
+    private Environment env;
     private TextMessageEventHandler textMessageEventHandler;
+
 
     /**
      * Initializes the {@code MessengerSendClient}.
-     *
-     * @param pageAccessToken the generated {@code Page Access Token}
      */
     @Bean
-    @Profile("remote")
-    public MessengerSendClient messengerSendClient(@Value("${messenger4j.pageAccessToken}") String pageAccessToken) {
+    public MessengerSendClient messengerSendClient() {
+        String pageAccessToken = LOCAL_PAGE_ACCESS_TOKEN;
+        if (env.acceptsProfiles(REMOTE.name())) {
+            pageAccessToken = env.getRequiredProperty(PAGE_ACCESS_TOKEN);
+        }
         LOG.debug("Initializing MessengerSendClient - pageAccessToken: {}", pageAccessToken);
         return MessengerPlatform.newSendClientBuilder(pageAccessToken).build();
     }
 
     /**
      * Initializes the {@code MessengerReceiveClient}.
-     *
-     * @param appSecret   the {@code Application Secret}
-     * @param verifyToken the {@code Verification Token} that has been provided by you during the setup of the {@code
-     *                    Webhook}
+     * <p>
+     * the {@code Application Secret}
+     * the {@code Verification Token} that has been provided by you during the setup of the {@code
+     * Webhook}
      */
 
     @Bean
-    @Profile("remote")
-    public MessengerReceiveClient messengerReceiveClient(@Value("${messenger4j.appSecret}") final String appSecret,
-                                                         @Value("${messenger4j.verifyToken}") final String verifyToken) {
-        LOG.debug("Initializing MessengerReceiveClient - appSecret: {} | verifyToken: {}", appSecret, verifyToken);
-        return MessengerPlatform.newReceiveClientBuilder(appSecret, verifyToken)
-                .onTextMessageEvent(textMessageEventHandler)
-                .build();
-    }
+    public MessengerReceiveClient messengerReceiveClient() {
+        String appSecret = env.getProperty(LOCAL_APP_SECRET);
+        String verifyToken = env.getProperty(LOCAL_VERIFY_TOKEN);
+        if (env.acceptsProfiles(REMOTE.name())) {
+            appSecret = env.getRequiredProperty(APP_SECRET);
+            verifyToken = env.getRequiredProperty(VERIFY_TOKEN);
+        }
 
-    /**
-     * Initializes the {@code MessengerSendClient} for profile 'local'.
-     *
-     * @param pageAccessToken the generated {@code Page Access Token}
-     */
-    @Bean
-    @Profile("local")
-    public MessengerSendClient messengerSendClientDev(@Value("${messenger4j.local.pageAccessToken}") String pageAccessToken) {
-        LOG.debug("Initializing MessengerSendClient - pageAccessToken: {}", pageAccessToken);
-        return MessengerPlatform.newSendClientBuilder(pageAccessToken).build();
-    }
-
-    /**
-     * Initializes the {@code MessengerReceiveClient} for profile 'local'.
-     *
-     * @param appSecret   the {@code Application Secret}
-     * @param verifyToken the {@code Verification Token} that has been provided by you during the setup of the {@code
-     *                    Webhook}
-     */
-
-    @Bean
-    @Profile("local")
-    public MessengerReceiveClient messengerReceiveClientDev(@Value("${messenger4j.local.appSecret}") final String appSecret,
-                                                            @Value("${messenger4j.local.verifyToken}") final String verifyToken) {
         LOG.debug("Initializing MessengerReceiveClient - appSecret: {} | verifyToken: {}", appSecret, verifyToken);
         return MessengerPlatform.newReceiveClientBuilder(appSecret, verifyToken)
                 .onTextMessageEvent(textMessageEventHandler)
