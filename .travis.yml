@@ -1,7 +1,4 @@
 language: java
-branches:
-  only:
-    - dev
 notifications:
   email:
     recipients:
