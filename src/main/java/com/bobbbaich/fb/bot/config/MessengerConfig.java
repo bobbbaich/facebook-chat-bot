@@ -15,9 +15,9 @@ import org.springframework.context.annotation.Configuration;
 public class MessengerConfig {
     private static final Logger LOG = LoggerFactory.getLogger(MessengerConfig.class);
 
-    private static final String APP_SECRET = "${messenger4j.appSecret}";
-    private static final String VERIFY_TOKEN = "${messenger4j.verifyToken}";
-    private static final String PAGE_ACCESS_TOKEN = "${messenger4j.pageAccessToken}";
+    private static final String APP_SECRET = "messenger4j.appSecret";
+    private static final String VERIFY_TOKEN = "messenger4j.verifyToken";
+    private static final String PAGE_ACCESS_TOKEN = "messenger4j.pageAccessToken";
 
     private TextMessageEventHandler textMessageEventHandler;
 
