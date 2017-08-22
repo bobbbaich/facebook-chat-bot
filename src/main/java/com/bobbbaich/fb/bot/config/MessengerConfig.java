@@ -2,7 +2,6 @@ package com.bobbbaich.fb.bot.config;
 
 import com.github.messenger4j.MessengerPlatform;
 import com.github.messenger4j.receive.MessengerReceiveClient;
-import com.github.messenger4j.receive.handlers.FallbackEventHandler;
 import com.github.messenger4j.receive.handlers.TextMessageEventHandler;
 import com.github.messenger4j.send.MessengerSendClient;
 import org.slf4j.Logger;
@@ -21,7 +20,6 @@ public class MessengerConfig {
     private static final String PAGE_ACCESS_TOKEN = "${messenger4j.pageAccessToken}";
 
     private TextMessageEventHandler textMessageEventHandler;
-//    private FallbackEventHandler fallbackEvent;
 
     /**
      * Initializes the {@code MessengerSendClient}.
@@ -47,8 +45,7 @@ public class MessengerConfig {
                                                          @Value(VERIFY_TOKEN) final String verifyToken) {
         LOG.debug("Initializing MessengerReceiveClient - appSecret: {} | verifyToken: {}", appSecret, verifyToken);
         return MessengerPlatform.newReceiveClientBuilder(appSecret, verifyToken)
-                                .onTextMessageEvent(textMessageEventHandler)
-//                .fallbackEventHandler(fallbackEvent)
+                .onTextMessageEvent(textMessageEventHandler)
                 .build();
     }
 
@@ -56,9 +53,4 @@ public class MessengerConfig {
     public void setTextMessageEventHandler(TextMessageEventHandler textMessageEventHandler) {
         this.textMessageEventHandler = textMessageEventHandler;
     }
-
-//    @Autowired
-//    public void setFallbackEvent(FallbackEventHandler fallbackEvent) {
-//        this.fallbackEvent = fallbackEvent;
-//    }
 }
