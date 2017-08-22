@@ -1,0 +1,11 @@
+#Remote profile configuration
+messenger4j:
+  appSecret: ${MESSENGER_APP_SECRET}
+  verifyToken: ${MESSENGER_VERIFY_TOKEN}
+  pageAccessToken: ${MESSENGER_PAGE_ACCESS_TOKEN}
+spring:
+#Spring Data configuration
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}
+

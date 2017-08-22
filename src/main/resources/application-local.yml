@@ -1,0 +1,11 @@
+#LOCAL profile configuration
+messenger4j:
+  appSecret: 1
+  verifyToken: 1
+  pageAccessToken: 1
+spring:
+#Spring Data configuration
+  data:
+    mongodb:
+      uri: mongodb://127.0.0.1:27017/fbbot
+
