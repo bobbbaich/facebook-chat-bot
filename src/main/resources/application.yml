@@ -3,7 +3,7 @@
 #Set remote when deploy to server
 spring:
   profiles:
-    active: REMOTE
+    active: LOCAL
 
 #---Loggin Properties---
 logging:
