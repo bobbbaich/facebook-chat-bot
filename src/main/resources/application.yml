@@ -1,9 +1,9 @@
 #---Profile Properties---
-#Available profiles: LOCAL, REMOTE
+#Available profiles: local, remote
 #Set remote when deploy to server
 spring:
   profiles:
-    active: REMOTE
+    active: remote
 
 #---Loggin Properties---
 logging:
