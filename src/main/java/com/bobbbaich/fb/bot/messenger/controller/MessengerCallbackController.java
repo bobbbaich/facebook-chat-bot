@@ -18,9 +18,9 @@ import static com.github.messenger4j.MessengerPlatform.*;
  */
 @RestController
 @RequestMapping("/callback")
-public class MessengerPlatformCallbackHandler {
+public class MessengerCallbackController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(MessengerPlatformCallbackHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MessengerCallbackController.class);
 
     private final MessengerReceiveClient receiveClient;
 
@@ -30,7 +30,7 @@ public class MessengerPlatformCallbackHandler {
      * @param receiveClient the initialized {@code MessengerReceiveClient}
      */
     @Autowired
-    public MessengerPlatformCallbackHandler(final MessengerReceiveClient receiveClient) {
+    public MessengerCallbackController(final MessengerReceiveClient receiveClient) {
         this.receiveClient = receiveClient;
     }
 
