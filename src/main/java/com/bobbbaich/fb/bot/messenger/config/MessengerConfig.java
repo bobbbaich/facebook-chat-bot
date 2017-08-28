@@ -2,6 +2,7 @@ package com.bobbbaich.fb.bot.messenger.config;
 
 import com.github.messenger4j.MessengerPlatform;
 import com.github.messenger4j.receive.MessengerReceiveClient;
+import com.github.messenger4j.receive.handlers.PostbackEventHandler;
 import com.github.messenger4j.receive.handlers.TextMessageEventHandler;
 import com.github.messenger4j.send.MessengerSendClient;
 import com.github.messenger4j.setup.MessengerSetupClient;
@@ -22,6 +23,7 @@ public class MessengerConfig {
     private static final String PAGE_ACCESS_TOKEN = "${messenger4j.pageAccessToken}";
 
     private TextMessageEventHandler textMessageEventHandler;
+    private PostbackEventHandler postbackEventHandler;
 
     /**
      * Initializes the {@code MessengerSendClient}.
@@ -48,6 +50,7 @@ public class MessengerConfig {
         LOG.debug("Initializing MessengerReceiveClient - appSecret: {} | verifyToken: {}", appSecret, verifyToken);
         return MessengerPlatform.newReceiveClientBuilder(appSecret, verifyToken)
                 .onTextMessageEvent(textMessageEventHandler)
+                .onPostbackEvent(postbackEventHandler)
                 .build();
     }
 
