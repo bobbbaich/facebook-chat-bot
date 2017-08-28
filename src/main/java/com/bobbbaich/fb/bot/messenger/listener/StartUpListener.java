@@ -25,7 +25,6 @@ public class StartUpListener implements ApplicationListener<ApplicationReadyEven
     private String GREETING;
 
     private MessengerSetupClient setupClient;
-    private UserProfileClient profileClient;
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
@@ -52,11 +51,5 @@ public class StartUpListener implements ApplicationListener<ApplicationReadyEven
     @Autowired
     public void setSendClient(@Lazy MessengerSetupClient setupClient) {
         this.setupClient = setupClient;
-    }
-
-    @Autowired
-    public void setProfileClient(@Lazy UserProfileClient profileClient) {
-        this.profileClient = profileClient;
-        UserProfile userProfile = profileClient.queryUserProfile(s);
     }
 }
