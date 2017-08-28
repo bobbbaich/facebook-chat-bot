@@ -5,6 +5,7 @@ import com.github.messenger4j.receive.MessengerReceiveClient;
 import com.github.messenger4j.receive.handlers.TextMessageEventHandler;
 import com.github.messenger4j.send.MessengerSendClient;
 import com.github.messenger4j.setup.MessengerSetupClient;
+import com.github.messenger4j.user.UserProfileClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,12 @@ public class MessengerConfig {
     public MessengerSetupClient messengerSetupClient(@Value(PAGE_ACCESS_TOKEN) String pageAccessToken) {
         LOG.debug("Initializing MessengerSetupClient - pageAccessToken: {}", pageAccessToken);
         return MessengerPlatform.newSetupClientBuilder(pageAccessToken).build();
+    }
+
+    @Bean
+    public UserProfileClient userProfileClient(@Value(PAGE_ACCESS_TOKEN) String pageAccessToken) {
+        LOG.debug("Initializing UserProfileClient - pageAccessToken: {}", pageAccessToken);
+        return MessengerPlatform.newUserProfileClientBuilder(pageAccessToken).build();
     }
 
     @Autowired

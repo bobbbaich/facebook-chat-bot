@@ -4,6 +4,8 @@ import com.github.messenger4j.exceptions.MessengerApiException;
 import com.github.messenger4j.exceptions.MessengerIOException;
 import com.github.messenger4j.setup.MessengerSetupClient;
 import com.github.messenger4j.setup.SetupResponse;
+import com.github.messenger4j.user.UserProfile;
+import com.github.messenger4j.user.UserProfileClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ public class StartUpListener implements ApplicationListener<ApplicationReadyEven
     private String GREETING;
 
     private MessengerSetupClient setupClient;
+    private UserProfileClient profileClient;
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
@@ -49,5 +52,11 @@ public class StartUpListener implements ApplicationListener<ApplicationReadyEven
     @Autowired
     public void setSendClient(@Lazy MessengerSetupClient setupClient) {
         this.setupClient = setupClient;
+    }
+
+    @Autowired
+    public void setProfileClient(@Lazy UserProfileClient profileClient) {
+        this.profileClient = profileClient;
+        UserProfile userProfile = profileClient.queryUserProfile(s);
     }
 }
