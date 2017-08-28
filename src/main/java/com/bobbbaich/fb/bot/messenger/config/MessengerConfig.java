@@ -70,4 +70,9 @@ public class MessengerConfig {
     public void setTextMessageEventHandler(TextMessageEventHandler textMessageEventHandler) {
         this.textMessageEventHandler = textMessageEventHandler;
     }
+
+    @Autowired
+    public void setPostbackEventHandler(PostbackEventHandler postbackEventHandler) {
+        this.postbackEventHandler = postbackEventHandler;
+    }
 }
