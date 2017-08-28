@@ -1,9 +1,10 @@
-package com.bobbbaich.fb.bot.config;
+package com.bobbbaich.fb.bot.messenger.config;
 
 import com.github.messenger4j.MessengerPlatform;
 import com.github.messenger4j.receive.MessengerReceiveClient;
 import com.github.messenger4j.receive.handlers.TextMessageEventHandler;
 import com.github.messenger4j.send.MessengerSendClient;
+import com.github.messenger4j.setup.MessengerSetupClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,12 @@ public class MessengerConfig {
         return MessengerPlatform.newReceiveClientBuilder(appSecret, verifyToken)
                 .onTextMessageEvent(textMessageEventHandler)
                 .build();
+    }
+
+    @Bean
+    public MessengerSetupClient messengerSetupClient(@Value(PAGE_ACCESS_TOKEN) String pageAccessToken) {
+        LOG.debug("Initializing MessengerSetupClient - pageAccessToken: {}", pageAccessToken);
+        return MessengerPlatform.newSetupClientBuilder(pageAccessToken).build();
     }
 
     @Autowired

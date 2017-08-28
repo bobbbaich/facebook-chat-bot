@@ -1,4 +1,4 @@
-package com.bobbbaich.fb.bot.controller;
+package com.bobbbaich.fb.bot.messenger.controller;
 
 import com.github.messenger4j.exceptions.MessengerVerificationException;
 import com.github.messenger4j.receive.MessengerReceiveClient;
