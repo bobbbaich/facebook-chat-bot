@@ -42,23 +42,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/", "/login**", "/webjars/**", "/callback").permitAll()
                 .anyRequest().permitAll()
-                .and().requiresChannel().withObjectPostProcessor(getObjectPostProcessor()).antMatchers("/callback").requiresSecure()
                 .and().exceptionHandling()
                 .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/")).and().logout()
-                .logoutSuccessUrl("/").permitAll().and().csrf()
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .and()
+                .logoutSuccessUrl("/").permitAll().and().csrf().disable()
+//                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+//                .and()
                 .addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
-    }
-
-    private ObjectPostProcessor getObjectPostProcessor() {
-        return new ObjectPostProcessor<FilterSecurityInterceptor>() {
-            public <O extends FilterSecurityInterceptor> O postProcess(
-                    O fsi) {
-                fsi.setPublishAuthorizationSuccess(true);
-                return fsi;
-            }
-        };
     }
 
     @Configuration
