@@ -40,7 +40,7 @@ public class MessengerCallbackController {
      * The passed verification token (as query parameter) must match the configured verification token.
      * In case this is true, the passed challenge string must be returned by this endpoint.
      */
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public ResponseEntity<String> verifyWebhook(@RequestParam(MODE_REQUEST_PARAM_NAME) final String mode,
                                                 @RequestParam(VERIFY_TOKEN_REQUEST_PARAM_NAME) final String verifyToken,
                                                 @RequestParam(CHALLENGE_REQUEST_PARAM_NAME) final String challenge) {
@@ -58,7 +58,7 @@ public class MessengerCallbackController {
     /**
      * Callback endpoint responsible for processing the inbound messages and events.
      */
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public ResponseEntity<Void> handleCallback(@RequestBody final String payload,
                                                @RequestHeader(SIGNATURE_HEADER_NAME) final String signature) {
 
