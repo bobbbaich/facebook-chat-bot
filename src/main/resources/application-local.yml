@@ -3,6 +3,10 @@ messenger4j:
   appSecret: 1
   verifyToken: 1
   pageAccessToken: 1
+facebook:
+  client:
+    clientId: 1
+    clientSecret: 1
 spring:
 #Spring Data configuration
   data:

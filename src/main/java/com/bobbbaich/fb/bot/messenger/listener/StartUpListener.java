@@ -4,8 +4,6 @@ import com.github.messenger4j.exceptions.MessengerApiException;
 import com.github.messenger4j.exceptions.MessengerIOException;
 import com.github.messenger4j.setup.MessengerSetupClient;
 import com.github.messenger4j.setup.SetupResponse;
-import com.github.messenger4j.user.UserProfile;
-import com.github.messenger4j.user.UserProfileClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +11,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
+@Profile("remote")
 public class StartUpListener implements ApplicationListener<ApplicationReadyEvent> {
     private static final Logger LOG = LoggerFactory.getLogger(StartUpListener.class);
 

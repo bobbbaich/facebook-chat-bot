@@ -3,6 +3,10 @@ messenger4j:
   appSecret: ${MESSENGER_APP_SECRET}
   verifyToken: ${MESSENGER_VERIFY_TOKEN}
   pageAccessToken: ${MESSENGER_PAGE_ACCESS_TOKEN}
+facebook:
+  client:
+    clientId: ${FACEBOOK_CLIENT_ID}
+    clientSecret: ${FACEBOOK_CLIENT_SECRET}
 spring:
 #Spring Data configuration
   data:

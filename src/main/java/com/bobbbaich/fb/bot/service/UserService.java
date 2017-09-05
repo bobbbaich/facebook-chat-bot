@@ -1,10 +1,12 @@
 package com.bobbbaich.fb.bot.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
+public interface UserService {
 
-@Service
-public class UserService {
-    private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
+    /**
+     * Useful to create user on first interaction with messenger.com
+     *
+     * @param facebookId - value of fb-user id
+     * @return ID of created entity in inner DB
+     */
+    String create(String facebookId);
 }
