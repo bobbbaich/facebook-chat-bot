@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.antMatcher("/**").authorizeRequests()
+        http.authorizeRequests()
                 .antMatchers("/", "/login**", "/webjars/**", "/callback").permitAll()
                 .anyRequest().authenticated()
                 .and().exceptionHandling()
@@ -45,11 +45,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/").permitAll().and().csrf()
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
                 .addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
-    }
-
-    @Autowired
-    public void setOauth2ClientContext(OAuth2ClientContext oauth2ClientContext) {
-        this.oauth2ClientContext = oauth2ClientContext;
     }
 
     @Configuration
@@ -93,5 +88,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         tokenServices.setRestTemplate(template);
         filter.setTokenServices(tokenServices);
         return filter;
+    }
+
+    @Autowired
+    public void setOauth2ClientContext(OAuth2ClientContext oauth2ClientContext) {
+        this.oauth2ClientContext = oauth2ClientContext;
     }
 }
