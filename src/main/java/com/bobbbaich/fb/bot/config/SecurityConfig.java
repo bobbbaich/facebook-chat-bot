@@ -41,12 +41,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/", "/login**", "/webjars/**", "/callback").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
+                .and().requiresChannel().withObjectPostProcessor(getObjectPostProcessor()).antMatchers("/callback").requiresSecure()
                 .and().exceptionHandling()
                 .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/")).and().logout()
                 .logoutSuccessUrl("/").permitAll().and().csrf()
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
-                .requiresChannel().withObjectPostProcessor(getObjectPostProcessor()).antMatchers("/callback").requiresSecure()
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and()
                 .addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
     }
