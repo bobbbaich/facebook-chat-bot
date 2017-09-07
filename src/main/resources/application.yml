@@ -3,7 +3,7 @@
 #Set remote when deploy to server
 spring:
   profiles:
-    active: remote
+    active: local
 
 security:
   oauth2:
