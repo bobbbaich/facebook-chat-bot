@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.social.security.SocialUser;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,10 +24,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
+        LOG.debug("userRepository.findByUsername(username): {}", user);
         if (user == null) {
             throw new UsernameNotFoundException(username);
         } else {
-            return new org.springframework.security.core.userdetails.User(
+            return new SocialUser(
                     user.getUsername(),
                     user.getPassword(),
                     user.getUserRoles());
