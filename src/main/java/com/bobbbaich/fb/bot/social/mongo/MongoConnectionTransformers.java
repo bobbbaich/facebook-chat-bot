@@ -1,5 +1,6 @@
-package com.bobbbaich.fb.bot.social;
+package com.bobbbaich.fb.bot.social.mongo;
 
+import com.bobbbaich.fb.bot.social.SocialConnection;
 import com.google.common.base.Function;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.social.connect.Connection;

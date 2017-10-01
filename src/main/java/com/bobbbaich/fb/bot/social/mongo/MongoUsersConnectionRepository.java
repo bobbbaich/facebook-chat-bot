@@ -1,5 +1,6 @@
-package com.bobbbaich.fb.bot.social;
+package com.bobbbaich.fb.bot.social.mongo;
 
+import com.bobbbaich.fb.bot.social.SocialConnection;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import org.slf4j.Logger;

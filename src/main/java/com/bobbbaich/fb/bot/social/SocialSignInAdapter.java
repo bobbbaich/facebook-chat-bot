@@ -1,4 +1,4 @@
-package com.bobbbaich.fb.bot.social.facebook;
+package com.bobbbaich.fb.bot.social;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.NativeWebRequest;
 
 @Service
-public class FacebookSignInAdapter implements SignInAdapter {
+public class SocialSignInAdapter implements SignInAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;

@@ -1,5 +1,6 @@
-package com.bobbbaich.fb.bot.social;
+package com.bobbbaich.fb.bot.social.mongo;
 
+import com.bobbbaich.fb.bot.social.SocialConnection;
 import com.google.common.collect.ImmutableList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
