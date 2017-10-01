@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Query;
@@ -25,15 +26,14 @@ public class MongoUsersConnectionRepository implements UsersConnectionRepository
 
     private final MongoOperations mongo;
     private final MongoConnectionTransformers mongoConnectionTransformers;
-    private final ConnectionSignUp connectionSignUp;
     private final MongoConnectionRepository mongoConnectionRepository;
+    private ConnectionSignUp connectionSignUp;
 
 
     public MongoUsersConnectionRepository(MongoOperations mongo, MongoConnectionTransformers mongoConnectionTransformers,
-                                          ConnectionSignUp connectionSignUp, MongoConnectionRepository mongoConnectionRepository) {
+                                          MongoConnectionRepository mongoConnectionRepository) {
         this.mongo = mongo;
         this.mongoConnectionTransformers = mongoConnectionTransformers;
-        this.connectionSignUp = connectionSignUp;
         this.mongoConnectionRepository = mongoConnectionRepository;
     }
 
@@ -42,7 +42,7 @@ public class MongoUsersConnectionRepository implements UsersConnectionRepository
         ConnectionKey key = connection.getKey();
         Query query = query(where("providerId").is(key.getProviderId()).and("providerUserId").is(key.getProviderUserId()));
         query.fields().include("userId");
-        List<String> localUserIds = ImmutableList.copyOf(transform(mongo.find(query, MongoConnection.class), mongoConnectionTransformers.toUserId()));
+        List<String> localUserIds = ImmutableList.copyOf(transform(mongo.find(query, SocialConnection.class), mongoConnectionTransformers.toUserId()));
         if (localUserIds.isEmpty() && connectionSignUp != null) {
             String newUserId = connectionSignUp.execute(connection);
             if (newUserId != null) {
@@ -57,7 +57,7 @@ public class MongoUsersConnectionRepository implements UsersConnectionRepository
     public Set<String> findUserIdsConnectedTo(final String providerId, final Set<String> providerUserIds) {
         Query query = query(where("providerId").is(providerId).and("providerUserId").in(providerUserIds));
         query.fields().include("userId");
-        return ImmutableSet.copyOf(transform(mongo.find(query, MongoConnection.class), mongoConnectionTransformers.toUserId()));
+        return ImmutableSet.copyOf(transform(mongo.find(query, SocialConnection.class), mongoConnectionTransformers.toUserId()));
     }
 
     @Override
@@ -65,5 +65,11 @@ public class MongoUsersConnectionRepository implements UsersConnectionRepository
         checkArgument(userId != null, "userId must be defined");
         mongoConnectionRepository.setUserId(userId);
         return mongoConnectionRepository;
+    }
+
+    @Override
+    @Autowired
+    public void setConnectionSignUp(ConnectionSignUp connectionSignUp) {
+        this.connectionSignUp = connectionSignUp;
     }
 }

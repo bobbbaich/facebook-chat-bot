@@ -5,11 +5,12 @@ messenger4j:
   pageAccessToken: 1
 facebook:
   client:
-    clientId: 1
-    clientSecret: 1
+    clientId: 740743756119649
+    clientSecret: 2d6f7bfae3a55fbd05f05eb15e906d6d
 spring:
 #Spring Data configuration
   data:
     mongodb:
       uri: mongodb://127.0.0.1:27017/fbbot
+
 

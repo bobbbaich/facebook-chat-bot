@@ -86,7 +86,7 @@ public class MongoConnectionRepository implements ConnectionRepository {
         criteria.orOperator(filters.toArray(new Criteria[filters.size()]));
 
         final Query query = new Query(criteria).with(sortByProviderId().and(sortByCreated()));
-        final List<Connection<?>> results = transform(mongo.find(query, MongoConnection.class), mongoConnectionTransformers.toConnection());
+        final List<Connection<?>> results = transform(mongo.find(query, SocialConnection.class), mongoConnectionTransformers.toConnection());
 
         MultiValueMap<String, Connection<?>> connectionsForUsers = new LinkedMultiValueMap<>();
         for (Connection<?> connection : results) {
@@ -147,8 +147,8 @@ public class MongoConnectionRepository implements ConnectionRepository {
     @Override
     public void addConnection(final Connection<?> connection) {
         try {
-            final MongoConnection mongoConnection = mongoConnectionTransformers.fromConnection(userId).apply(connection);
-            mongo.insert(mongoConnection);
+            final SocialConnection socialConnection = mongoConnectionTransformers.fromConnection(userId).apply(connection);
+            mongo.insert(socialConnection);
         } catch (DuplicateKeyException ex) {
             throw new DuplicateConnectionException(connection.getKey());
         }
@@ -156,29 +156,29 @@ public class MongoConnectionRepository implements ConnectionRepository {
 
     @Override
     public void updateConnection(final Connection<?> connection) {
-        final MongoConnection mongoConnection = mongoConnectionTransformers.fromConnection(userId).apply(connection);
-        final Query query = query(where("userId").is(userId).and("providerId").is(mongoConnection.getProviderId()).and("providerUserId").is(mongoConnection.getProviderUserId()));
+        final SocialConnection socialConnection = mongoConnectionTransformers.fromConnection(userId).apply(connection);
+        final Query query = query(where("userId").is(userId).and("providerId").is(socialConnection.getProviderId()).and("providerUserId").is(socialConnection.getProviderUserId()));
         final Update update =
-                update("displayName", mongoConnection.getDisplayName())
-                        .set("profileUrl", mongoConnection.getProfileUrl())
-                        .set("imageUrl", mongoConnection.getImageUrl())
-                        .set("accessToken", mongoConnection.getAccessToken())
-                        .set("secret", mongoConnection.getSecret())
-                        .set("refreshToken", mongoConnection.getRefreshToken())
-                        .set("expireTime", mongoConnection.getExpireTime());
-        mongo.updateFirst(query, update, MongoConnection.class);
+                update("displayName", socialConnection.getDisplayName())
+                        .set("profileUrl", socialConnection.getProfileUrl())
+                        .set("imageUrl", socialConnection.getImageUrl())
+                        .set("accessToken", socialConnection.getAccessToken())
+                        .set("secret", socialConnection.getSecret())
+                        .set("refreshToken", socialConnection.getRefreshToken())
+                        .set("expireTime", socialConnection.getExpireTime());
+        mongo.updateFirst(query, update, SocialConnection.class);
     }
 
     @Override
     public void removeConnections(final String providerId) {
         final Query query = query(where("userId").is(userId).and("providerId").is(providerId));
-        mongo.remove(query, MongoConnection.class);
+        mongo.remove(query, SocialConnection.class);
     }
 
     @Override
     public void removeConnection(final ConnectionKey connectionKey) {
         final Query query = query(where("userId").is(userId).and("providerId").is(connectionKey.getProviderId()).and("providerUserId").is(connectionKey.getProviderUserId()));
-        mongo.remove(query, MongoConnection.class);
+        mongo.remove(query, SocialConnection.class);
     }
 
     private Connection<?> findPrimaryConnection(String providerId) {
@@ -187,11 +187,11 @@ public class MongoConnectionRepository implements ConnectionRepository {
     }
 
     private List<Connection<?>> findConnections(Query query) {
-        return transform(mongo.find(query, MongoConnection.class), mongoConnectionTransformers.toConnection());
+        return transform(mongo.find(query, SocialConnection.class), mongoConnectionTransformers.toConnection());
     }
 
     private Connection<?> findOneConnection(Query query) {
-        return mongoConnectionTransformers.toConnection().apply(mongo.findOne(query, MongoConnection.class));
+        return mongoConnectionTransformers.toConnection().apply(mongo.findOne(query, SocialConnection.class));
     }
 
     private <A> String getProviderId(Class<A> apiType) {

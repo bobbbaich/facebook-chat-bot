@@ -1,4 +1,4 @@
-package com.bobbbaich.fb.bot.social;
+package com.bobbbaich.fb.bot.social.facebook;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

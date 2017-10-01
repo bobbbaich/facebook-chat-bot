@@ -8,7 +8,7 @@ import org.springframework.social.facebook.api.PagedList;
 import org.springframework.social.facebook.api.Post;
 import org.springframework.stereotype.Service;
 
-import java.util.Iterator;
+import java.util.List;
 
 @Service
 public class FacebookService {
@@ -19,7 +19,9 @@ public class FacebookService {
 
     public void test() {
         LOG.debug("FacebookService test()");
-        PagedList<Post> feed = facebook.feedOperations().getFeed();
+
+        List<Post> feed = facebook.feedOperations().getFeed();
+
         System.out.println();
     }
 }

@@ -12,7 +12,7 @@ import java.util.Date;
         @CompoundIndex(name = "primary", def = "{ 'userId' : 1, 'providerId' : 1, 'providerUserId' : 1 }", unique = true),
         @CompoundIndex(name = "rank", def = "{ 'userId' : 1, 'providerId' : 1, 'created' : 1 }", unique = true)
 })
-public class MongoConnection {
+public class SocialConnection {
     @Id
     private String id;
     private Date created;

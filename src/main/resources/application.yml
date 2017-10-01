@@ -4,6 +4,10 @@
 spring:
   profiles:
     active: local
+  social:
+    twitter:
+      app-id: 1TbklIzewbPjwqXwwvDohBXSd
+      app-secret: R9xyjE0g7OUzZLBkVogLFwJaGzMIJ3Ab01i89gjdiGm51JCQuN
 
 security:
   oauth2:
@@ -12,6 +16,8 @@ security:
       client-secret: acmesecret
       scope: read,write
       auto-approve-scopes: '.*'
+
+
 
 facebook:
   client:
@@ -22,6 +28,7 @@ facebook:
     clientAuthenticationScheme: form
   resource:
     userInfoUri: https://graph.facebook.com/me?fields=id,name,email
+
 #---Loggin Properties---
 logging:
   level:

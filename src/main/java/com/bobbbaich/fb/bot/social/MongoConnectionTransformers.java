@@ -20,7 +20,7 @@ public class MongoConnectionTransformers {
         this.textEncryptor = textEncryptor;
     }
 
-    public Function<MongoConnection, String> toUserId() {
+    public Function<SocialConnection, String> toUserId() {
         return input -> {
             if (input == null) {
                 return null;
@@ -29,7 +29,7 @@ public class MongoConnectionTransformers {
         };
     }
 
-    public Function<MongoConnection, Connection<?>> toConnection() {
+    public Function<SocialConnection, Connection<?>> toConnection() {
         return input -> {
             if (input == null) {
                 return null;
@@ -51,25 +51,25 @@ public class MongoConnectionTransformers {
         };
     }
 
-    public Function<Connection<?>, MongoConnection> fromConnection(final String userId) {
+    public Function<Connection<?>, SocialConnection> fromConnection(final String userId) {
         return input -> {
             if (input == null) {
                 return null;
             }
             final ConnectionData cd = input.createData();
-            final MongoConnection mongoConnection = new MongoConnection();
-            mongoConnection.setCreated(new Date());
-            mongoConnection.setUserId(userId);
-            mongoConnection.setProviderId(cd.getProviderId());
-            mongoConnection.setProviderUserId(cd.getProviderUserId());
-            mongoConnection.setDisplayName(cd.getDisplayName());
-            mongoConnection.setProfileUrl(cd.getProfileUrl());
-            mongoConnection.setImageUrl(cd.getImageUrl());
-            mongoConnection.setAccessToken(encrypt(cd.getAccessToken()));
-            mongoConnection.setSecret(encrypt(cd.getSecret()));
-            mongoConnection.setRefreshToken(encrypt(cd.getRefreshToken()));
-            mongoConnection.setExpireTime(cd.getExpireTime());
-            return mongoConnection;
+            final SocialConnection socialConnection = new SocialConnection();
+            socialConnection.setCreated(new Date());
+            socialConnection.setUserId(userId);
+            socialConnection.setProviderId(cd.getProviderId());
+            socialConnection.setProviderUserId(cd.getProviderUserId());
+            socialConnection.setDisplayName(cd.getDisplayName());
+            socialConnection.setProfileUrl(cd.getProfileUrl());
+            socialConnection.setImageUrl(cd.getImageUrl());
+            socialConnection.setAccessToken(encrypt(cd.getAccessToken()));
+            socialConnection.setSecret(encrypt(cd.getSecret()));
+            socialConnection.setRefreshToken(encrypt(cd.getRefreshToken()));
+            socialConnection.setExpireTime(cd.getExpireTime());
+            return socialConnection;
         };
     }
 

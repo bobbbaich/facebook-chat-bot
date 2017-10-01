@@ -4,13 +4,11 @@ import com.bobbbaich.fb.bot.social.MongoUsersConnectionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.core.env.Environment;
-import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.Authentication;
@@ -22,13 +20,17 @@ import org.springframework.social.UserIdSource;
 import org.springframework.social.config.annotation.ConnectionFactoryConfigurer;
 import org.springframework.social.config.annotation.EnableSocial;
 import org.springframework.social.config.annotation.SocialConfigurerAdapter;
-import org.springframework.social.connect.*;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.ConnectionFactoryLocator;
+import org.springframework.social.connect.ConnectionRepository;
+import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
 import org.springframework.social.security.SocialAuthenticationFilter;
 import org.springframework.social.security.SocialAuthenticationProvider;
 import org.springframework.social.security.SocialAuthenticationServiceLocator;
 import org.springframework.social.security.SocialUserDetailsService;
+import org.springframework.social.twitter.connect.TwitterConnectionFactory;
 
 @Configuration
 @EnableSocial
@@ -38,17 +40,15 @@ public class SocialConfig extends SocialConfigurerAdapter {
 
     private static final String FACEBOOK_CLIENT_ID = "facebook.client.clientId";
     private static final String FACEBOOK_CLIENT_SECRET = "facebook.client.clientSecret";
+    private static final String LOGIN_FORM_URL = "/signin";
 
-    private MongoOperations mongo;
-    private AuthenticationManager authenticationManager;
     private MongoUsersConnectionRepository mongoUsersConnectionRepository;
 
     @Bean
     @Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
     public Facebook facebook(ConnectionRepository repository) {
         Connection<Facebook> connection = repository.findPrimaryConnection(Facebook.class);
-        LOG.debug("Facebook connection was initialized: {}", connection);
-        return connection != null ? connection.getApi() : null;
+        return (connection != null) ? connection.getApi() : null;
     }
 
     @Override
@@ -73,7 +73,6 @@ public class SocialConfig extends SocialConfigurerAdapter {
 
     @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
-        LOG.debug("MongoUsersConnectionRepository was initialised.");
         return mongoUsersConnectionRepository;
     }
 
@@ -86,16 +85,16 @@ public class SocialConfig extends SocialConfigurerAdapter {
 
     @Bean
     public LoginUrlAuthenticationEntryPoint socialAuthenticationEntryPoint() {
-        return new LoginUrlAuthenticationEntryPoint("/signin");
+        return new LoginUrlAuthenticationEntryPoint(LOGIN_FORM_URL);
     }
 
     @Bean
-    @Qualifier()
     public SocialAuthenticationFilter socialAuthenticationFilter(UsersConnectionRepository connectionRepository,
-                                                                 ConnectionFactoryLocator connectionFactoryLocator) {
+                                                                 ConnectionFactoryLocator connectionFactoryLocator,
+                                                                 AuthenticationManager authenticationManager) {
         SocialAuthenticationFilter filter = new SocialAuthenticationFilter(authenticationManager, getUserIdSource(),
                 connectionRepository, (SocialAuthenticationServiceLocator) connectionFactoryLocator);
-        filter.setFilterProcessesUrl("/signin");
+        filter.setFilterProcessesUrl(LOGIN_FORM_URL);
         filter.setSignupUrl("/signup");
         filter.setConnectionAddedRedirectUrl("/test");
         filter.setPostLoginUrl("/test");
@@ -108,12 +107,7 @@ public class SocialConfig extends SocialConfigurerAdapter {
     }
 
     @Autowired
-    public void setMongo(MongoOperations mongo) {
-        this.mongo = mongo;
-    }
-
-    @Autowired
-    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
+    public void setMongoUsersConnectionRepository(MongoUsersConnectionRepository mongoUsersConnectionRepository) {
+        this.mongoUsersConnectionRepository = mongoUsersConnectionRepository;
     }
 }
