@@ -11,8 +11,8 @@ spring:
       uri: mongodb://127.0.0.1:27017/fbbot
   social:
       twitter:
-        app-id: 1TbklIzewbPjwqXwwvDohBXSd
-        app-secret: R9xyjE0g7OUzZLBkVogLFwJaGzMIJ3Ab01i89gjdiGm51JCQuN
+        app-id: 1
+        app-secret: 1
       facebook:
         app-id: 1
         app-secret: 1
