@@ -20,7 +20,7 @@ logging:
     org.springframework.security: INFO
     com.bobbbaich: DEBUG
   pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){yellow} - %clr(%-4relative [%thread] %-5level %logger{35}){cyan} - %msg%n"
 
 messenger:
   setup:

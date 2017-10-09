@@ -22,8 +22,6 @@ import org.springframework.social.security.SocialAuthenticationFilter;
 import org.springframework.social.security.SocialAuthenticationProvider;
 import org.springframework.social.security.SocialAuthenticationServiceLocator;
 import org.springframework.social.security.SocialUserDetailsService;
-import org.springframework.social.twitter.api.Twitter;
-import org.springframework.social.twitter.api.impl.TwitterTemplate;
 
 @Configuration
 @EnableSocial
@@ -65,6 +63,7 @@ public class SocialConfig extends SocialConfigurerAdapter {
     }
 
     @Bean
+    //TODO: UsersConnectionRepository inject as a class property
     public SocialAuthenticationFilter socialAuthenticationFilter(UsersConnectionRepository connectionRepository,
                                                                  ConnectionFactoryLocator connectionFactoryLocator,
                                                                  AuthenticationManager authenticationManager) {
