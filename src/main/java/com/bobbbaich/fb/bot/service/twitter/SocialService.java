@@ -18,8 +18,6 @@ public class SocialService {
     private static final Logger LOG = LoggerFactory.getLogger(SocialService.class);
 
     private StreamingOperations streamOperations;
-
-    @Autowired
     private TwitterStreamListener twitterStreamListener;
 
     public void runStream() {
@@ -32,21 +30,8 @@ public class SocialService {
         streamOperations.filter(params, listeners);
     }
 
-    private Stream streamFilter;
-
-    public void openStream() {
-        LOG.debug("FacebookService openStream()");
-        streamFilter.open();
-    }
-
-    public void closeStream() {
-        LOG.debug("FacebookService closeStream()");
-        streamFilter.close();
-    }
-
-
     @Autowired
-    public void setTwitter(StreamingOperations streamOperations) {
+    public void setStreamingOperations(StreamingOperations streamOperations) {
         this.streamOperations = streamOperations;
     }
 
