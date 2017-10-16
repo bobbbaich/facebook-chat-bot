@@ -4,7 +4,6 @@
 spring:
   profiles:
     active: local
-
 security:
   oauth2:
     client:
@@ -13,7 +12,7 @@ security:
       scope: read,write
       auto-approve-scopes: '.*'
 
-#---Loggin Properties---
+##---Loggin Properties---
 logging:
   level:
     org.springframework.web: INFO
@@ -22,7 +21,15 @@ logging:
   pattern:
     console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){yellow} - %clr(%-4relative [%thread] %-5level %logger{35}){cyan} - %msg%n"
 
+hibernate:
+  dialect: org.hibernate.dialect.PostgreSQL9Dialect
+  show_sql: true
+  batch-size: 20
+  hbm2ddl-auto: create-drop
+  current-session-context-class: org.springframework.orm.hibernate5.SpringSessionContext
+
 messenger:
   setup:
     getStartedButton: "Get Started"
     greeting: "Hello {{user_full_name}}!"
+

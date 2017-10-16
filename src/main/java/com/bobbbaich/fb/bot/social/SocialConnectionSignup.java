@@ -1,7 +1,7 @@
 package com.bobbbaich.fb.bot.social;
 
 import com.bobbbaich.fb.bot.model.UserRole;
-import com.bobbbaich.fb.bot.repository.UserRepository;
+import com.bobbbaich.fb.bot.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionSignUp;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public final class SocialConnectionSignup implements ConnectionSignUp {
     @Autowired
-    private UserRepository userRepository;
+    private UserDao userDao;
 
     public String execute(Connection<?> connection) {
         //TODO: rewrite method to handle different connection types
@@ -30,7 +30,7 @@ public final class SocialConnectionSignup implements ConnectionSignUp {
         newUser.setUserRole(UserRole.ROLE_USER);
         newUser.setPassword("pass");
 
-        userRepository.insert(newUser);
+        userDao.insert(newUser);
         return email;
     }
 

@@ -3,12 +3,19 @@ messenger4j:
   appSecret: 1
   verifyToken: 1
   pageAccessToken: 1
-
 spring:
-#Spring Data configuration
-  data:
-    mongodb:
-      uri: mongodb://127.0.0.1:27017/fbbot
+  datasource:
+      url: jdbc:postgresql://localhost:5432/social
+      username: postgres
+      password: 123123
+      driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+        ddl-auto: create
+  batch:
+    initializer:
+      enabled: true
   social:
       twitter:
         app-id: 1TbklIzewbPjwqXwwvDohBXSd

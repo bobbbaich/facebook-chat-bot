@@ -1,6 +1,5 @@
 package com.bobbbaich.fb.bot.config;
 
-import com.bobbbaich.fb.bot.social.mongo.MongoUsersConnectionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
@@ -18,10 +15,10 @@ import org.springframework.social.config.annotation.EnableSocial;
 import org.springframework.social.config.annotation.SocialConfigurerAdapter;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.UsersConnectionRepository;
-import org.springframework.social.security.SocialAuthenticationFilter;
-import org.springframework.social.security.SocialAuthenticationProvider;
-import org.springframework.social.security.SocialAuthenticationServiceLocator;
-import org.springframework.social.security.SocialUserDetailsService;
+import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
+import org.springframework.social.security.*;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableSocial
@@ -31,23 +28,16 @@ public class SocialConfig extends SocialConfigurerAdapter {
 
     private static final String LOGIN_FORM_URL = "/signin";
 
-    private MongoUsersConnectionRepository mongoUsersConnectionRepository;
+    private DataSource dataSource;
 
     @Override
     public UserIdSource getUserIdSource() {
-        return () -> {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            if (authentication == null) {
-                throw new IllegalStateException("Unable to get a ConnectionRepository: no user signed in");
-            }
-            LOG.debug("UserIdSource with value '{}' was received.", authentication.getName());
-            return authentication.getName();
-        };
+        return new AuthenticationNameUserIdSource();
     }
 
     @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
-        return mongoUsersConnectionRepository;
+        return new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, Encryptors.noOpText());
     }
 
     @Bean
@@ -76,13 +66,8 @@ public class SocialConfig extends SocialConfigurerAdapter {
         return filter;
     }
 
-    @Bean
-    public TextEncryptor textEncryptor() {
-        return Encryptors.noOpText();
-    }
-
     @Autowired
-    public void setMongoUsersConnectionRepository(MongoUsersConnectionRepository mongoUsersConnectionRepository) {
-        this.mongoUsersConnectionRepository = mongoUsersConnectionRepository;
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 }

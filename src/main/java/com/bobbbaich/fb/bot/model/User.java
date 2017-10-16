@@ -1,23 +1,20 @@
 package com.bobbbaich.fb.bot.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
-
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Document(collection = "users")
+@Entity
+@Table(name = "users")
 public class User {
-    @Id
     private String id;
-    @Field("username")
     private String username;
-    @Field("password")
     private String password;
-    @Field("roles")
     private Set<UserRole> userRoles = new HashSet<>();
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     public String getId() {
         return id;
     }
@@ -26,6 +23,7 @@ public class User {
         this.id = id;
     }
 
+    @Column(name = "username")
     public String getUsername() {
         return username;
     }
@@ -34,6 +32,7 @@ public class User {
         this.username = username;
     }
 
+    @Column(name = "password")
     public String getPassword() {
         return password;
     }
@@ -42,8 +41,16 @@ public class User {
         this.password = password;
     }
 
+    @Column(name = "user_roles", nullable = false)
+    @Enumerated(EnumType.STRING)
+    @ElementCollection(targetClass = UserRole.class)
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "role_id"))
     public Set<UserRole> getUserRoles() {
         return userRoles;
+    }
+
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
     }
 
     public void setUserRole(UserRole userRole) {
@@ -57,6 +64,4 @@ public class User {
                 ", username='" + username + '\'' +
                 '}';
     }
-
-
 }
