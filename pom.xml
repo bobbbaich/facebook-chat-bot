@@ -43,11 +43,11 @@
             <groupId>org.springframework.security.oauth</groupId>
             <artifactId>spring-security-oauth2</artifactId>
         </dependency>
+        <!--Persistence-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
         </dependency>
-        <!--Hibernate-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
@@ -137,7 +137,6 @@
             <version>23.0</version>
         </dependency>
     </dependencies>
-
     <repositories>
         <repository>
             <id>repository.spring.milestone</id>
@@ -145,7 +144,6 @@
             <url>http://repo.spring.io/milestone</url>
         </repository>
     </repositories>
-
     <build>
         <plugins>
             <plugin>

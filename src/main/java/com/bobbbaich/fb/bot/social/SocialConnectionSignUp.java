@@ -10,7 +10,7 @@ import org.springframework.social.twitter.api.TwitterProfile;
 import org.springframework.stereotype.Service;
 
 @Service
-public final class SocialConnectionSignup implements ConnectionSignUp {
+public final class SocialConnectionSignUp implements ConnectionSignUp {
     @Autowired
     private UserDao userDao;
 
@@ -30,7 +30,7 @@ public final class SocialConnectionSignup implements ConnectionSignUp {
         newUser.setUserRole(UserRole.ROLE_USER);
         newUser.setPassword("pass");
 
-        userDao.insert(newUser);
+        userDao.create(newUser);
         return email;
     }
 

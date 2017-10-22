@@ -1,10 +1,13 @@
 package com.bobbbaich.fb.bot.social;
 
+import javax.persistence.*;
 import java.util.Date;
 
 
-public class SocialConnection {
-    private String id;
+@Entity
+@Table(name = "userconnection")
+public class SocialUserConnection {
+    private Long id;
     private Date created;
     private String userId;
     private String providerId;
@@ -16,12 +19,15 @@ public class SocialConnection {
     private String secret;
     private String refreshToken;
     private Long expireTime;
+    private Integer rank;
 
-    public String getId() {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -111,5 +117,13 @@ public class SocialConnection {
 
     public void setExpireTime(Long expireTime) {
         this.expireTime = expireTime;
+    }
+
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
     }
 }

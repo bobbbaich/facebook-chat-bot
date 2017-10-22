@@ -8,12 +8,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.encrypt.Encryptors;
-import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.social.UserIdSource;
 import org.springframework.social.config.annotation.EnableSocial;
 import org.springframework.social.config.annotation.SocialConfigurerAdapter;
 import org.springframework.social.connect.ConnectionFactoryLocator;
+import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
 import org.springframework.social.security.*;
@@ -29,6 +29,7 @@ public class SocialConfig extends SocialConfigurerAdapter {
     private static final String LOGIN_FORM_URL = "/signin";
 
     private DataSource dataSource;
+    private ConnectionSignUp connectionSignUp;
 
     @Override
     public UserIdSource getUserIdSource() {
@@ -37,7 +38,9 @@ public class SocialConfig extends SocialConfigurerAdapter {
 
     @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
-        return new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, Encryptors.noOpText());
+        JdbcUsersConnectionRepository jdbcUsersConnectionRepository = new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, Encryptors.noOpText());
+        jdbcUsersConnectionRepository.setConnectionSignUp(connectionSignUp);
+        return jdbcUsersConnectionRepository;
     }
 
     @Bean
@@ -69,5 +72,10 @@ public class SocialConfig extends SocialConfigurerAdapter {
     @Autowired
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
+    }
+
+    @Autowired
+    public void setConnectionSignUp(ConnectionSignUp connectionSignUp) {
+        this.connectionSignUp = connectionSignUp;
     }
 }

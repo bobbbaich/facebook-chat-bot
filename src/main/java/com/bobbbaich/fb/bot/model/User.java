@@ -7,7 +7,7 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User {
-    private String id;
+    private Long id;
     private String username;
     private String password;
     private Set<UserRole> userRoles = new HashSet<>();
@@ -15,11 +15,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -41,9 +41,9 @@ public class User {
         this.password = password;
     }
 
-    @Column(name = "user_roles", nullable = false)
+    @Column(name = "user_roles",nullable = false)
     @Enumerated(EnumType.STRING)
-    @ElementCollection(targetClass = UserRole.class)
+    @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "role_id"))
     public Set<UserRole> getUserRoles() {
         return userRoles;
@@ -58,10 +58,32 @@ public class User {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (!id.equals(user.id)) return false;
+        if (!username.equals(user.username)) return false;
+        return userRoles.equals(user.userRoles);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + username.hashCode();
+        result = 31 * result + userRoles.hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "User{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", username='" + username + '\'' +
+                ", password='" + "?" + '\'' +
+                ", userRoles=" + userRoles +
                 '}';
     }
 }

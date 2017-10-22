@@ -49,11 +49,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String register(User user) {
-        if (userDao.exists(user)) {
+//        if (userDao.exists(user)) {
             return null;
-        } else {
-            return userDao.save(user).getId();
-        }
+//        } else {
+//            return userDao.create(user);
+//        }
     }
 
     @Autowired
