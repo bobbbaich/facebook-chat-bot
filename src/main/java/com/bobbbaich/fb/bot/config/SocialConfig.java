@@ -22,7 +22,6 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableSocial
-@EnableWebSecurity
 public class SocialConfig extends SocialConfigurerAdapter {
     private static final Logger LOG = LoggerFactory.getLogger(SocialConfig.class);
 

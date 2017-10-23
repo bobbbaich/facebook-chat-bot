@@ -14,16 +14,16 @@ import org.springframework.social.twitter.api.Twitter;
 public class TwitterConfig {
     private static final Logger LOG = LoggerFactory.getLogger(TwitterConfig.class);
 
-    private final Twitter twitter;
-
-    @Autowired
-    public TwitterConfig(Twitter twitter) {
-        this.twitter = twitter;
-    }
+    private Twitter twitter;
 
     @Bean
-    @Scope(value = "session", proxyMode = ScopedProxyMode.INTERFACES)
+    @Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
     public StreamingOperations streamingOperations() {
         return twitter.streamingOperations();
+    }
+
+    @Autowired
+    public void setTwitter(Twitter twitter) {
+        this.twitter = twitter;
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.twitter.api.FilterStreamParameters;
 import org.springframework.social.twitter.api.StreamListener;
 import org.springframework.social.twitter.api.StreamingOperations;
+import org.springframework.social.twitter.api.Twitter;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;

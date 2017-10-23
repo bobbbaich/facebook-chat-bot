@@ -22,7 +22,7 @@ public class PostbackHandler implements PostbackEventHandler {
         switch (postbackPayload) {
             case "Get Started":
                 String newUserId = event.getSender().getId();
-                userService.create(newUserId);
+//               TODO: create new user
                 break;
             default:
                 break;
