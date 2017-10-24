@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.social.UserIdSource;
@@ -16,6 +15,8 @@ import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
+import org.springframework.social.connect.web.ProviderSignInController;
+import org.springframework.social.connect.web.SignInAdapter;
 import org.springframework.social.security.*;
 
 import javax.sql.DataSource;
@@ -29,6 +30,7 @@ public class SocialConfig extends SocialConfigurerAdapter {
 
     private DataSource dataSource;
     private ConnectionSignUp connectionSignUp;
+//    private UsersConnectionRepository connectionRepository;
 
     @Override
     public UserIdSource getUserIdSource() {
@@ -45,7 +47,6 @@ public class SocialConfig extends SocialConfigurerAdapter {
     @Bean
     public SocialAuthenticationProvider socialAuthenticationProvider(UsersConnectionRepository usersConnectionRepository,
                                                                      SocialUserDetailsService userDetailsService) {
-        LOG.debug("SocialAuthenticationProvider was initialised.");
         return new SocialAuthenticationProvider(usersConnectionRepository, userDetailsService);
     }
 
@@ -57,15 +58,23 @@ public class SocialConfig extends SocialConfigurerAdapter {
     @Bean
     //TODO: UsersConnectionRepository inject as a class property
     public SocialAuthenticationFilter socialAuthenticationFilter(UsersConnectionRepository connectionRepository,
-                                                                 ConnectionFactoryLocator connectionFactoryLocator,
+                                                                 ConnectionFactoryLocator factoryLocator,
                                                                  AuthenticationManager authenticationManager) {
         SocialAuthenticationFilter filter = new SocialAuthenticationFilter(authenticationManager, getUserIdSource(),
-                connectionRepository, (SocialAuthenticationServiceLocator) connectionFactoryLocator);
+                connectionRepository, (SocialAuthenticationServiceLocator) factoryLocator);
         filter.setFilterProcessesUrl(LOGIN_FORM_URL);
         filter.setSignupUrl("/signup");
         filter.setConnectionAddedRedirectUrl("/test");
         filter.setPostLoginUrl("/test");
         return filter;
+    }
+
+
+    @Bean
+    public ProviderSignInController providerSignInController(ConnectionFactoryLocator connectionFactoryLocator,
+                                                             UsersConnectionRepository usersConnectionRepository,
+                                                             SignInAdapter signInAdapter) {
+        return new ProviderSignInController(connectionFactoryLocator, usersConnectionRepository, signInAdapter);
     }
 
     @Autowired
@@ -77,4 +86,9 @@ public class SocialConfig extends SocialConfigurerAdapter {
     public void setConnectionSignUp(ConnectionSignUp connectionSignUp) {
         this.connectionSignUp = connectionSignUp;
     }
+
+//    @Autowired
+//    public void setConnectionRepository(UsersConnectionRepository connectionRepository) {
+//        this.connectionRepository = connectionRepository;
+//    }
 }
