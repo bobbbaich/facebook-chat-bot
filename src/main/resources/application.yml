@@ -4,13 +4,12 @@
 spring:
   profiles:
     active: local
-security:
-  oauth2:
-    client:
-      client-id: acme
-      client-secret: acmesecret
-      scope: read,write
-      auto-approve-scopes: '.*'
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+
+management:
+  security:
+    roles: ROLE_USER
 
 ##---Loggin Properties---
 logging:

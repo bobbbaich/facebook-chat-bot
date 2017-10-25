@@ -1,13 +1,9 @@
 package com.bobbbaich.fb.bot.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.encrypt.Encryptors;
-import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.social.UserIdSource;
 import org.springframework.social.config.annotation.EnableSocial;
 import org.springframework.social.config.annotation.SocialConfigurerAdapter;
@@ -15,27 +11,17 @@ import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
-import org.springframework.social.connect.web.ProviderSignInController;
-import org.springframework.social.connect.web.SignInAdapter;
-import org.springframework.social.security.*;
+import org.springframework.social.connect.web.ProviderSignInUtils;
+import org.springframework.social.security.AuthenticationNameUserIdSource;
 
 import javax.sql.DataSource;
 
 @Configuration
 @EnableSocial
 public class SocialConfig extends SocialConfigurerAdapter {
-    private static final Logger LOG = LoggerFactory.getLogger(SocialConfig.class);
-
-    private static final String LOGIN_FORM_URL = "/signin";
 
     private DataSource dataSource;
     private ConnectionSignUp connectionSignUp;
-//    private UsersConnectionRepository connectionRepository;
-
-    @Override
-    public UserIdSource getUserIdSource() {
-        return new AuthenticationNameUserIdSource();
-    }
 
     @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
@@ -45,36 +31,13 @@ public class SocialConfig extends SocialConfigurerAdapter {
     }
 
     @Bean
-    public SocialAuthenticationProvider socialAuthenticationProvider(UsersConnectionRepository usersConnectionRepository,
-                                                                     SocialUserDetailsService userDetailsService) {
-        return new SocialAuthenticationProvider(usersConnectionRepository, userDetailsService);
+    public ProviderSignInUtils providerSignInUtils(ConnectionFactoryLocator connectionFactoryLocator, UsersConnectionRepository connectionRepository) {
+        return new ProviderSignInUtils(connectionFactoryLocator, connectionRepository);
     }
 
-    @Bean
-    public LoginUrlAuthenticationEntryPoint socialAuthenticationEntryPoint() {
-        return new LoginUrlAuthenticationEntryPoint(LOGIN_FORM_URL);
-    }
-
-    @Bean
-    //TODO: UsersConnectionRepository inject as a class property
-    public SocialAuthenticationFilter socialAuthenticationFilter(UsersConnectionRepository connectionRepository,
-                                                                 ConnectionFactoryLocator factoryLocator,
-                                                                 AuthenticationManager authenticationManager) {
-        SocialAuthenticationFilter filter = new SocialAuthenticationFilter(authenticationManager, getUserIdSource(),
-                connectionRepository, (SocialAuthenticationServiceLocator) factoryLocator);
-        filter.setFilterProcessesUrl(LOGIN_FORM_URL);
-        filter.setSignupUrl("/signup");
-        filter.setConnectionAddedRedirectUrl("/test");
-        filter.setPostLoginUrl("/test");
-        return filter;
-    }
-
-
-    @Bean
-    public ProviderSignInController providerSignInController(ConnectionFactoryLocator connectionFactoryLocator,
-                                                             UsersConnectionRepository usersConnectionRepository,
-                                                             SignInAdapter signInAdapter) {
-        return new ProviderSignInController(connectionFactoryLocator, usersConnectionRepository, signInAdapter);
+    @Override
+    public UserIdSource getUserIdSource() {
+        return new AuthenticationNameUserIdSource();
     }
 
     @Autowired
@@ -86,9 +49,4 @@ public class SocialConfig extends SocialConfigurerAdapter {
     public void setConnectionSignUp(ConnectionSignUp connectionSignUp) {
         this.connectionSignUp = connectionSignUp;
     }
-
-//    @Autowired
-//    public void setConnectionRepository(UsersConnectionRepository connectionRepository) {
-//        this.connectionRepository = connectionRepository;
-//    }
 }
