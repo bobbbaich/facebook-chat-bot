@@ -1,12 +1,8 @@
 package com.bobbbaich.fb.bot.service;
 
-public interface UserService {
+import com.bobbbaich.fb.bot.model.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
-    /**
-     * Useful to create user on first interaction with messenger.com
-     *
-     * @param facebookId - value of fb-user id
-     * @return ID of created entity in inner DB
-     */
-    String create(String facebookId);
+public interface UserService extends UserDetailsService {
+    Long create(User user);
 }

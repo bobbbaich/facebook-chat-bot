@@ -3,13 +3,16 @@ messenger4j:
   appSecret: ${MESSENGER_APP_SECRET}
   verifyToken: ${MESSENGER_VERIFY_TOKEN}
   pageAccessToken: ${MESSENGER_PAGE_ACCESS_TOKEN}
-facebook:
-  client:
-    clientId: ${FACEBOOK_CLIENT_ID}
-    clientSecret: ${FACEBOOK_CLIENT_SECRET}
 spring:
 #Spring Data configuration
   data:
     mongodb:
       uri: ${MONGODB_URI}
+  social:
+      twitter:
+        app-id: ${SOCIAL_TWITTER_APP_ID}
+        app-secret: ${SOCIAL_TWITTER_APP_SECRET}
+      facebook:
+        app-id: ${SOCIAL_FACEBOOK_APP_ID}
+        app-secret: ${SOCIAL_FACEBOOK_APP_SECRET}
 
