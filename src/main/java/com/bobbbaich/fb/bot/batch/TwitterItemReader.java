@@ -17,6 +17,7 @@ public class TwitterItemReader implements ItemStreamReader<Tweet> {
     @Override
     public Tweet read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
         LOG.debug("read");
+        socialService.openStream();
         return null;
     }
 
