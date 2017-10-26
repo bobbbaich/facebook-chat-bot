@@ -11,11 +11,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.social.security.SpringSocialConfigurer;
 
+import javax.annotation.Resource;
+
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String COOKIE_J_SESSION_ID = "JSESSIONID";
 
+    @Resource
     private UserDetailsService userService;
 
     @Bean
@@ -46,10 +49,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder authManagerBuilder) throws Exception {
         authManagerBuilder.userDetailsService(userService).passwordEncoder(passwordEncoder());
-    }
-
-    @Autowired
-    public void setUserService(UserDetailsService userService) {
-        this.userService = userService;
     }
 }

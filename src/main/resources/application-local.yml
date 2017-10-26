@@ -9,13 +9,6 @@ spring:
       username: postgres
       password: postgres
       driver-class-name: org.postgresql.Driver
-  jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-        ddl-auto: create-drop
-  batch:
-    initializer:
-      enabled: true
   social:
       twitter:
         app-id: 1TbklIzewbPjwqXwwvDohBXSd
