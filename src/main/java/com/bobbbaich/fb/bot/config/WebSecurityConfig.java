@@ -11,12 +11,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.social.security.SpringSocialConfigurer;
 
-import javax.annotation.Resource;
-
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Resource
+    private static final String COOKIE_J_SESSION_ID = "JSESSIONID";
+
     private UserDetailsService userService;
 
     @Bean
@@ -27,19 +26,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/signin/**").permitAll()
                 .anyRequest().authenticated();
-
         http
                 .formLogin()
                 .loginPage("/")
-                .permitAll().and()
+                .permitAll();
+        http
                 .logout()
-                .deleteCookies("JSESSIONID")
+                .deleteCookies(COOKIE_J_SESSION_ID)
                 .permitAll()
                 .and().apply(new SpringSocialConfigurer());
     }
@@ -48,5 +46,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder authManagerBuilder) throws Exception {
         authManagerBuilder.userDetailsService(userService).passwordEncoder(passwordEncoder());
+    }
+
+    @Autowired
+    public void setUserService(UserDetailsService userService) {
+        this.userService = userService;
     }
 }

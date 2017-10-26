@@ -4,10 +4,6 @@ messenger4j:
   verifyToken: ${MESSENGER_VERIFY_TOKEN}
   pageAccessToken: ${MESSENGER_PAGE_ACCESS_TOKEN}
 spring:
-#Spring Data configuration
-  data:
-    mongodb:
-      uri: ${MONGODB_URI}
   social:
       twitter:
         app-id: ${SOCIAL_TWITTER_APP_ID}
@@ -15,4 +11,6 @@ spring:
       facebook:
         app-id: ${SOCIAL_FACEBOOK_APP_ID}
         app-secret: ${SOCIAL_FACEBOOK_APP_SECRET}
-
+  datasource:
+      url: ${DATABASE_URL}
+      driver-class-name: org.postgresql.Driver
