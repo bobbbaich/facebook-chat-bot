@@ -20,35 +20,10 @@ public class UserDaoImpl implements UserDao {
     private SessionFactory sessionFactory;
 
     @Override
-    public Long create(User entity) {
-        return (Long) sessionFactory.getCurrentSession().save(entity);
-    }
-
-    @Override
-    public User read(Long id) {
-        return sessionFactory.getCurrentSession().find(User.class, id);
-    }
-
-    @Override
-    public void update(User entity) {
-        sessionFactory.getCurrentSession().update(entity);
-    }
-
-    @Override
-    public void delete(User entity) {
-        sessionFactory.getCurrentSession().delete(entity);
-    }
-
-    @Override
     public User findByUsername(String username) {
         Query<User> query = sessionFactory.getCurrentSession().createQuery(HQL_SELECT_USER_BY_USERNAME, User.class);
         query.setParameter("username", username);
         return query.uniqueResult();
-    }
-
-    @Override
-    public boolean exists(User user) {
-        return true;
     }
 
     @Autowired

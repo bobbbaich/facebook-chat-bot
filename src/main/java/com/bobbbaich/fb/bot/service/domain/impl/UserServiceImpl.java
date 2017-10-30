@@ -1,7 +1,9 @@
-package com.bobbbaich.fb.bot.service;
+package com.bobbbaich.fb.bot.service.domain.impl;
 
 import com.bobbbaich.fb.bot.dao.UserDao;
+import com.bobbbaich.fb.bot.dao.common.CrudDao;
 import com.bobbbaich.fb.bot.model.User;
+import com.bobbbaich.fb.bot.service.domain.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +17,11 @@ public class UserServiceImpl implements UserService {
     private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
 
     private UserDao userDao;
+    private CrudDao<User, Long> userCrudDao;
 
     @Override
     public Long create(User user) {
-        return userDao.create(user);
+        return userCrudDao.create(user);
     }
 
     @Override

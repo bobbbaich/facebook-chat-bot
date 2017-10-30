@@ -9,10 +9,12 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-        ddl-auto: create-drop
+      ddl-auto: create-drop
   batch:
     initializer:
       enabled: true
+    job:
+      enabled: false
 management:
   security:
     roles: ROLE_USER
@@ -22,6 +24,7 @@ logging:
   level:
     org.springframework.web: INFO
     org.springframework.security: INFO
+    org.springframework.batch: DEBUG
     com.bobbbaich: DEBUG
   pattern:
     console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){yellow} - %clr(%-4relative [%thread] %-5level %logger{35}){cyan} - %msg%n"
@@ -32,6 +35,7 @@ hibernate:
   batch-size: 20
   hbm2ddl-auto: create-drop
   current-session-context-class: org.springframework.orm.hibernate5.SpringSessionContext
+  default-schema: public
 
 messenger:
   setup:

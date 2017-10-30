@@ -1,7 +1,7 @@
 package com.bobbbaich.fb.bot.social;
 
 import com.bobbbaich.fb.bot.model.UserRole;
-import com.bobbbaich.fb.bot.service.UserService;
+import com.bobbbaich.fb.bot.service.domain.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionSignUp;

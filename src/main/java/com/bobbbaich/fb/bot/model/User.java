@@ -11,10 +11,11 @@ public class User {
     private String username;
     private String password;
     private Set<UserRole> userRoles = new HashSet<>();
+    private Set<Fact> facts;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "id", updatable = false, nullable = false)
     public Long getId() {
         return id;
     }
@@ -55,6 +56,15 @@ public class User {
 
     public void setUserRole(UserRole userRole) {
         this.userRoles.add(userRole);
+    }
+
+    @OneToMany(mappedBy="requestBy", fetch = FetchType.LAZY)
+    public Set<Fact> getFacts() {
+        return facts;
+    }
+
+    public void setFacts(Set<Fact> facts) {
+        this.facts = facts;
     }
 
     @Override

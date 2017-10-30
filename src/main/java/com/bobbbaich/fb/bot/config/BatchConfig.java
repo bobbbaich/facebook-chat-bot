@@ -1,6 +1,5 @@
 package com.bobbbaich.fb.bot.config;
 
-import com.bobbbaich.fb.bot.batch.JobCompletionNotificationListener;
 import com.bobbbaich.fb.bot.batch.TweetItemProcessor;
 import com.bobbbaich.fb.bot.batch.TwitterItemReader;
 import com.bobbbaich.fb.bot.batch.TwitterItemWriter;
@@ -9,7 +8,6 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +22,7 @@ public class BatchConfig {
     private StepBuilderFactory stepBuilderFactory;
 
     @Bean
-    public TwitterItemReader reader() {
+    public TwitterItemReader twitterReader() {
         return new TwitterItemReader();
     }
 
@@ -39,12 +37,10 @@ public class BatchConfig {
     }
 
     @Bean
-    public Job importUserJob(JobCompletionNotificationListener listener) {
-        return jobBuilderFactory.get("importUserJob")
-                .incrementer(new RunIdIncrementer())
-                .listener(listener)
-                .flow(step1())
-                .end()
+    public Job job(Step step1) {
+        return jobBuilderFactory
+                .get("myJob")
+                .start(step1)
                 .build();
     }
 
@@ -52,7 +48,7 @@ public class BatchConfig {
     public Step step1() {
         return stepBuilderFactory.get("step1")
                 .<Tweet, Tweet>chunk(CHUNK_SIZE_TWEETS)
-                .reader(reader())
+                .reader(twitterReader())
                 .processor(processor())
                 .writer(writer())
                 .build();

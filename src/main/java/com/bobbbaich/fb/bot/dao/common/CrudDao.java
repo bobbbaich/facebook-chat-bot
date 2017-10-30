@@ -2,7 +2,7 @@ package com.bobbbaich.fb.bot.dao.common;
 
 import java.io.Serializable;
 
-public interface GenericDao<T, PK extends Serializable> {
+public interface CrudDao<T, PK extends Serializable> {
 
     PK create(T entity);
 

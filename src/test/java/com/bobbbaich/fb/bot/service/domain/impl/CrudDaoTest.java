@@ -1,6 +1,6 @@
-package com.bobbbaich.fb.bot.dao.impl;
+package com.bobbbaich.fb.bot.service.domain.impl;
 
-import com.bobbbaich.fb.bot.dao.UserDao;
+import com.bobbbaich.fb.bot.dao.common.CrudDao;
 import com.bobbbaich.fb.bot.model.User;
 import com.bobbbaich.fb.bot.model.UserRole;
 import org.junit.After;
@@ -16,11 +16,11 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class UserDaoImplTest {
+public class CrudDaoTest {
 
     private User initialUser;
     @Autowired
-    private UserDao userDao;
+    private CrudDao<User, Long> userCrudDao;
 
     @Before
     public void setUp() throws Exception {
@@ -32,33 +32,33 @@ public class UserDaoImplTest {
 
     @After
     public void tearDown() throws Exception {
-        userDao.delete(initialUser);
+        userCrudDao.delete(initialUser);
     }
 
     @Test
     public void create() throws Exception {
-        Long id = userDao.create(initialUser);
+        Long id = userCrudDao.create(initialUser);
 
         Assert.assertNotNull(id);
     }
 
     @Test
     public void read() throws Exception {
-        Long id = userDao.create(initialUser);
+        Long id = userCrudDao.create(initialUser);
 
-        User obtainedUser = userDao.read(id);
+        User obtainedUser = userCrudDao.read(id);
 
         assertEquals(initialUser, obtainedUser);
     }
 
     @Test
     public void update() throws Exception {
-        Long id = userDao.create(initialUser);
+        Long id = userCrudDao.create(initialUser);
         initialUser.setUserRole(UserRole.ROLE_ADMIN);
         initialUser.setUsername("changed_test_user");
-        userDao.update(initialUser);
+        userCrudDao.update(initialUser);
 
-        User updatedUser = userDao.read(id);
+        User updatedUser = userCrudDao.read(id);
 
         assertEquals(initialUser, updatedUser);
     }
@@ -66,25 +66,11 @@ public class UserDaoImplTest {
 //    TODO: fix delete method
 //    @Test
 //    public void delete() throws Exception {
-//        Long id = userDao.create(initialUser);
+//        Long id = userCrudDao.create(initialUser);
 //
-//        userDao.delete(initialUser);
+//        userCrudDao.delete(initialUser);
 //
-//        User obtainedUser = userDao.read(id);
+//        User obtainedUser = userCrudDao.read(id);
 //        assertNull(obtainedUser);
 //    }
-
-    @Test
-    public void findByUsername() throws Exception {
-        userDao.create(initialUser);
-
-        User userByUsername = userDao.findByUsername(initialUser.getUsername());
-
-        assertEquals(initialUser, userByUsername);
-    }
-
-    @Test
-    public void exists() throws Exception {
-    }
-
 }

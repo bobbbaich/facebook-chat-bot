@@ -1,9 +1,7 @@
 package com.bobbbaich.fb.bot.controller;
 
+import com.bobbbaich.fb.bot.service.twitter.BatchService;
 import com.bobbbaich.fb.bot.service.twitter.SocialService;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobParameters;
-import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,15 +15,11 @@ public class TestController {
     @Autowired
     private SocialService socialService;
 
-    @Autowired
-    private JobLauncher jobLauncher;
-
-    @Autowired
-    private Job job;
+    private BatchService batchService;
 
     @RequestMapping("/job")
-    public void handle() throws Exception {
-        jobLauncher.run(job, new JobParameters());
+    public void runJob() {
+        batchService.runJob();
     }
 
     @GetMapping("/openStream")
@@ -38,5 +32,10 @@ public class TestController {
     public String isAuth() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return String.valueOf(authentication != null);
+    }
+
+    @Autowired
+    public void setBatchService(BatchService batchService) {
+        this.batchService = batchService;
     }
 }
