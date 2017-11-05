@@ -1,11 +1,8 @@
-package com.bobbbaich.fb.bot.service.domain.impl;
+package com.bobbbaich.fb.bot.dao;
 
-import com.bobbbaich.fb.bot.dao.UserDao;
-import com.bobbbaich.fb.bot.dao.common.CrudDao;
 import com.bobbbaich.fb.bot.model.User;
 import com.bobbbaich.fb.bot.model.UserRole;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

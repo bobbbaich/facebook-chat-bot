@@ -1,5 +1,7 @@
 package com.bobbbaich.fb.bot.service.twitter.listener;
 
+import com.bobbbaich.fb.bot.model.Opinion;
+import com.bobbbaich.fb.bot.model.SocialNetwork;
 import com.bobbbaich.fb.bot.service.twitter.events.ItemsCollectedEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +19,7 @@ public class TwitterStreamListener extends DefaultStreamListener {
     private final static Logger LOG = LoggerFactory.getLogger(TwitterStreamListener.class);
     private final ApplicationEventPublisher publisher;
 
-    private static Set<Tweet> tweetSet = new HashSet<>();
+    private static Set<Opinion> opinionSet = new HashSet<>();
 
     @Autowired
     public TwitterStreamListener(ApplicationEventPublisher publisher) {
@@ -26,10 +28,21 @@ public class TwitterStreamListener extends DefaultStreamListener {
 
     @Override
     public void onTweet(Tweet tweet) {
-        tweetSet.add(tweet);
-        LOG.debug("tweetSet size: {}", tweetSet.size());
-        if (tweetSet.size() == 10) {
-            this.publisher.publishEvent(new ItemsCollectedEvent<>(tweetSet));
+        processTweet(tweet);
+        LOG.debug("opinionSet size: {}", opinionSet.size());
+        if (opinionSet.size() == 100) {
+            this.publisher.publishEvent(new ItemsCollectedEvent(opinionSet));
         }
+    }
+
+    private void processTweet(Tweet tweet) {
+        Opinion opinion = new Opinion();
+        opinion.setPayload(tweet.getUnmodifiedText());
+        opinion.setSocialNetwork(SocialNetwork.TWITTER);
+        opinion.setCreatedAt(tweet.getCreatedAt());
+        opinion.setRetweetCount(tweet.getRetweetCount());
+        opinion.setFavoriteCount(tweet.getFavoriteCount());
+
+        opinionSet.add(opinion);
     }
 }

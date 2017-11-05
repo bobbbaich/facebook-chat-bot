@@ -74,14 +74,14 @@ public class User {
 
         User user = (User) o;
 
-        if (!id.equals(user.id)) return false;
+        if (id != null ? !id.equals(user.id) : user.id != null) return false;
         if (!username.equals(user.username)) return false;
         return userRoles.equals(user.userRoles);
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + username.hashCode();
         result = 31 * result + userRoles.hashCode();
         return result;

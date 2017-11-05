@@ -1,9 +1,8 @@
 package com.bobbbaich.fb.bot.dao.impl;
 
-import com.bobbbaich.fb.bot.dao.common.CrudDao;
+import com.bobbbaich.fb.bot.dao.CrudDao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
@@ -17,7 +16,8 @@ public class CrudDaoImpl<T, PK extends Serializable> implements CrudDao<T, PK> {
     public CrudDaoImpl() {
     }
 
-    public CrudDaoImpl(Class<T> type) {
+    public CrudDaoImpl(SessionFactory sessionFactory, Class<T> type) {
+        this.sessionFactory = sessionFactory;
         this.type = type;
     }
 
@@ -44,10 +44,5 @@ public class CrudDaoImpl<T, PK extends Serializable> implements CrudDao<T, PK> {
 
     private Session getSession() {
         return sessionFactory.getCurrentSession();
-    }
-
-    @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
     }
 }

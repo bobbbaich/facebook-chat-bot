@@ -1,4 +1,4 @@
-package com.bobbbaich.fb.bot.dao.common;
+package com.bobbbaich.fb.bot.dao;
 
 import java.io.Serializable;
 

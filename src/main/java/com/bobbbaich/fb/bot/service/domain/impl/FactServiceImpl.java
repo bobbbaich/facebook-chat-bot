@@ -1,6 +1,6 @@
 package com.bobbbaich.fb.bot.service.domain.impl;
 
-import com.bobbbaich.fb.bot.dao.common.CrudDao;
+import com.bobbbaich.fb.bot.dao.CrudDao;
 import com.bobbbaich.fb.bot.model.Fact;
 import com.bobbbaich.fb.bot.service.domain.FactService;
 import org.springframework.beans.factory.annotation.Autowired;

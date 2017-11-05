@@ -1,7 +1,7 @@
 package com.bobbbaich.fb.bot.service.domain.impl;
 
 import com.bobbbaich.fb.bot.dao.UserDao;
-import com.bobbbaich.fb.bot.dao.common.CrudDao;
+import com.bobbbaich.fb.bot.dao.CrudDao;
 import com.bobbbaich.fb.bot.model.User;
 import com.bobbbaich.fb.bot.service.domain.UserService;
 import org.slf4j.Logger;
@@ -41,5 +41,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
+    }
+
+    @Autowired
+    public void setUserCrudDao(CrudDao<User, Long> userCrudDao) {
+        this.userCrudDao = userCrudDao;
     }
 }
