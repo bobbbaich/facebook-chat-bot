@@ -1,13 +1,15 @@
 package com.bobbbaich.fb.bot.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.AvailableSettings;
+import org.postgresql.ds.PGPoolingDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -18,10 +20,10 @@ import java.util.Properties;
 
 import static org.hibernate.cfg.AvailableSettings.*;
 
+@Slf4j
 @Configuration
 @EnableTransactionManagement
 public class HibernateConfig {
-    private static final Logger LOG = LoggerFactory.getLogger(HibernateConfig.class);
 
     private static final String HIBERNATE_DIALECT = "hibernate.dialect";
     private static final String HIBERNATE_SHOW_SQL = "hibernate.show_sql";
@@ -31,8 +33,6 @@ public class HibernateConfig {
 
     @Resource
     private Environment env;
-
-    private DataSource dataSource;
 
     @Bean
     public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
@@ -44,7 +44,7 @@ public class HibernateConfig {
     @Bean
     public LocalSessionFactoryBean getSessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource);
+        sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan("com.bobbbaich.fb.bot");
         sessionFactory.setHibernateProperties(getHibernateProperties());
         return sessionFactory;
@@ -60,8 +60,13 @@ public class HibernateConfig {
         return properties;
     }
 
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
+    @Bean
+    public DriverManagerDataSource dataSource() {
+        DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
+        driverManagerDataSource.setDriverClassName("org.postgresql.Driver");
+        driverManagerDataSource.setUrl("jdbc:postgresql://localhost:5432/social");
+        driverManagerDataSource.setUsername("postgres");
+        driverManagerDataSource.setPassword("123123");
+        return driverManagerDataSource;
     }
 }

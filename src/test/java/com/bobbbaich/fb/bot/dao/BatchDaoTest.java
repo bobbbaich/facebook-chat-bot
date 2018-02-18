@@ -21,8 +21,6 @@ public class BatchDaoTest {
     private Set<User> users;
 
     @Autowired
-    private BatchDao<User, Long> userBatchDao;
-    @Autowired
     private CrudDao<User, Long> userCrudDao;
 
 
@@ -45,11 +43,5 @@ public class BatchDaoTest {
         for (User user : users) {
             userCrudDao.delete(user);
         }
-    }
-
-
-    @Test
-    public void insertBatch() throws Exception {
-        userBatchDao.insertBatch(users);
     }
 }
