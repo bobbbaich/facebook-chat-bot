@@ -1,8 +1,8 @@
-package com.bobbbaich.fb.bot.service.domain;
+package com.bobbbaich.fb.bot.service;
 
 import com.bobbbaich.fb.bot.model.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserService extends UserDetailsService {
-    Long create(User user);
+    User create(User user);
 }

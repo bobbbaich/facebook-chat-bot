@@ -11,6 +11,3 @@ spring:
       facebook:
         app-id: ${SOCIAL_FACEBOOK_APP_ID}
         app-secret: ${SOCIAL_FACEBOOK_APP_SECRET}
-  datasource:
-      url: ${DATABASE_URL}
-      driver-class-name: org.postgresql.Driver

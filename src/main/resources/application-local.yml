@@ -4,11 +4,6 @@ messenger4j:
   verifyToken: 1
   pageAccessToken: 1
 spring:
-  datasource:
-      url: jdbc:postgresql://localhost:5432/social
-      username: postgres
-      password: 123123
-      driver-class-name: org.postgresql.Driver
   social:
       twitter:
         app-id: 1TbklIzewbPjwqXwwvDohBXSd
@@ -16,3 +11,6 @@ spring:
       facebook:
         app-id: 740743756119649
         app-secret: 2d6f7bfae3a55fbd05f05eb15e906d6d
+  data:
+      mongodb:
+        uri:  mongodb://127.0.0.1:27017/social

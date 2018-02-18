@@ -1,6 +1,6 @@
 package com.bobbbaich.fb.bot.messenger.handler;
 
-import com.bobbbaich.fb.bot.service.domain.UserService;
+import com.bobbbaich.fb.bot.service.UserService;
 import com.github.messenger4j.receive.events.PostbackEvent;
 import com.github.messenger4j.receive.handlers.PostbackEventHandler;
 import org.slf4j.Logger;

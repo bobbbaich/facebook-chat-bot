@@ -1,33 +1,50 @@
 package com.bobbbaich.fb.bot.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.bobbbaich.fb.bot.social.mongo.ConnectionConverter;
+import com.bobbbaich.fb.bot.social.mongo.ConnectionService;
+import com.bobbbaich.fb.bot.social.mongo.MongoConnectionService;
+import com.bobbbaich.fb.bot.social.mongo.MongoUsersConnectionRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.security.crypto.encrypt.Encryptors;
+import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.social.UserIdSource;
 import org.springframework.social.config.annotation.EnableSocial;
 import org.springframework.social.config.annotation.SocialConfigurerAdapter;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UsersConnectionRepository;
-import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
 import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.social.security.AuthenticationNameUserIdSource;
 
-import javax.sql.DataSource;
-
+@Slf4j
 @Configuration
+@RequiredArgsConstructor
 @EnableSocial
 public class SocialConfig extends SocialConfigurerAdapter {
 
-    private DataSource dataSource;
-    private ConnectionSignUp connectionSignUp;
+    private final MongoTemplate mongoTemplate;
+    private final ConnectionSignUp connectionSignUp;
+
+    @Override
+    public UserIdSource getUserIdSource() {
+        return new AuthenticationNameUserIdSource();
+    }
 
     @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
-        JdbcUsersConnectionRepository jdbcUsersConnectionRepository = new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, Encryptors.noOpText());
-        jdbcUsersConnectionRepository.setConnectionSignUp(connectionSignUp);
-        return jdbcUsersConnectionRepository;
+        ConnectionService mongoService = getConnectionService(connectionFactoryLocator);
+        MongoUsersConnectionRepository mongoUsersConnectionRepository = new MongoUsersConnectionRepository(mongoService, connectionFactoryLocator, getTextEncryptor());
+        mongoUsersConnectionRepository.setConnectionSignUp(connectionSignUp);
+        return mongoUsersConnectionRepository;
+    }
+
+    @Bean
+    public TextEncryptor getTextEncryptor() {
+        return Encryptors.noOpText();
     }
 
     @Bean
@@ -35,18 +52,7 @@ public class SocialConfig extends SocialConfigurerAdapter {
         return new ProviderSignInUtils(connectionFactoryLocator, connectionRepository);
     }
 
-    @Override
-    public UserIdSource getUserIdSource() {
-        return new AuthenticationNameUserIdSource();
-    }
-
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
-
-    @Autowired
-    public void setConnectionSignUp(ConnectionSignUp connectionSignUp) {
-        this.connectionSignUp = connectionSignUp;
+    private ConnectionService getConnectionService(ConnectionFactoryLocator connectionFactoryLocator) {
+        return new MongoConnectionService(mongoTemplate, new ConnectionConverter(connectionFactoryLocator, getTextEncryptor()));
     }
 }

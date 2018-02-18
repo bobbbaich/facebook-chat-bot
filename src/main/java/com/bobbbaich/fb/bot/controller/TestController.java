@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
-
     @GetMapping("/isAuth")
     public String isAuth() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
