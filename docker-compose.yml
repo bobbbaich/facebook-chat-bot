@@ -1,0 +1,20 @@
+version: '3.3'
+
+services:
+  web:
+    build: .
+    image: csipon/twitter-stream-analysis
+    container_name: twitter-stream-analysis
+    ports:
+      - 9999:8080
+    working_dir: /app
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:3.2.4
+    ports:
+    - 27017:27017
+    command: --smallfiles
+    environment:
+      - MONGOCLIENT_DEFAULT_CONNECTION_URL=mongodb://mongo:27017
