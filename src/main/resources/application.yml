@@ -32,3 +32,8 @@ messenger:
     getStartedButton: "Get Started"
     greeting: "Hello {{user_full_name}}!"
 
+kafka:
+  producer:
+    bootstrap: localhost:9092
+    topic: topic
+
