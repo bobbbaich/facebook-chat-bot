@@ -3,7 +3,7 @@ version: '3.3'
 services:
   web:
     build: .
-    image: csipon/twitter-stream-analysis
+    image: bobbbaich/twitter-stream-analysis
     container_name: twitter-stream-analysis
     ports:
       - 9999:8080

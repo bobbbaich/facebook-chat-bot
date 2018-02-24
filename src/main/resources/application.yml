@@ -1,31 +1,19 @@
 #---Profile Properties---
-#Available profiles: local, remote
+#Available profiles: local, remote, docker
 #Set remote when deploy to server
 spring:
   profiles:
     active: local
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
-  jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: create-drop
 ##---Loggin Properties---
 logging:
   level:
     org.springframework.web: INFO
+    org.springframework.social: DEBUG
     org.springframework.security: INFO
     org.springframework.batch: DEBUG
     org.springframework.web.servlet.mvc.method.annotation: ERROR
     org.springframework.boot.actuate.endpoint.mvc: ERROR
     com.bobbbaich: DEBUG
-hibernate:
-  dialect: org.hibernate.dialect.PostgreSQL9Dialect
-  show_sql: true
-  batch-size: 20
-  hbm2ddl-auto: create-drop
-  current-session-context-class: org.springframework.orm.hibernate5.SpringSessionContext
-  default-schema: public
 
 messenger:
   setup:

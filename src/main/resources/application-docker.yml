@@ -13,5 +13,5 @@ spring:
         app-secret: 2d6f7bfae3a55fbd05f05eb15e906d6d
   data:
       mongodb:
-        uri: mongodb://127.0.0.1:27017
+        uri: mongodb://mongo:27017
         database: social
