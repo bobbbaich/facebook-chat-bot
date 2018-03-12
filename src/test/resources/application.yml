@@ -15,17 +15,7 @@ logging:
     org.springframework.boot.actuate.endpoint.mvc: ERROR
     com.bobbbaich: DEBUG
 
-messenger:
-  setup:
-    getStartedButton: "Get Started"
-    greeting: "Hello {{user_full_name}}!"
-
 kafka:
-  bootstrap-servers: localhost:9092
+  bootstrap-servers: ${spring.embedded.kafka.brokers}
   topic:
-    twitter: tweet.t
-
-timeout:
-  time: 10000
-  thread:
-    pool: 2
+    helloworld: helloworld.t

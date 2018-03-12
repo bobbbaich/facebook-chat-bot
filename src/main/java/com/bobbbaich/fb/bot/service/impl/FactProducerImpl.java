@@ -18,8 +18,8 @@ public class FactProducerImpl implements FactProducer {
         kafkaTemplate.send("TextLinesTopic", "hello world!");
     }
 
-//    @KafkaListener(topics = "WordsWithCountsTopic")
-//    public void listen(String message) {
-//        System.out.println("Received Message: " + message);
-//    }
+    @KafkaListener(topics = "WordsWithCountsTopic")
+    public void listen(String message) {
+        System.out.println("Received Message: " + message);
+    }
 }

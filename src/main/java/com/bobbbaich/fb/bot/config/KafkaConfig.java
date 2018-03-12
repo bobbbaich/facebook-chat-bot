@@ -15,20 +15,20 @@ import java.util.Map;
 
 @Slf4j
 @Configuration
-@EnableKafka
-@EnableKafkaStreams
+//@EnableKafka
+//@EnableKafkaStreams
 public class KafkaConfig {
-    @Bean(name = KafkaStreamsDefaultConfiguration.DEFAULT_STREAMS_CONFIG_BEAN_NAME)
-    public StreamsConfig streamsConfig(KafkaProperties properties) {
-        Map<String, String> props = properties.getProperties();
-        props.put(StreamsConfig.APPLICATION_ID_CONFIG, "default-app-id");
-        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-        return new StreamsConfig(props);
-    }
+//    @Bean(name = KafkaStreamsDefaultConfiguration.DEFAULT_STREAMS_CONFIG_BEAN_NAME)
+//    public StreamsConfig streamsConfig(KafkaProperties properties) {
+//        Map<String, String> props = properties.getProperties();
+//        props.put(StreamsConfig.APPLICATION_ID_CONFIG, "default-app-id");
+//        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+//        return new StreamsConfig(props);
+//    }
 
-    @Bean
-    public KafkaTemplate kafkaTemplate(ProducerFactory producerFactory) {
-        return new KafkaTemplate(producerFactory);
-    }
+//    @Bean
+//    public KafkaTemplate kafkaTemplate(ProducerFactory producerFactory) {
+//        return new KafkaTemplate(producerFactory);
+//    }
 
 }
