@@ -1,6 +1,14 @@
 version: "3"
 
 services:
+  mongo:
+      image: mongo:3.2.4
+      ports:
+      - 27017:27017
+      command: --smallfiles
+      environment:
+        - MONGOCLIENT_DEFAULT_CONNECTION_URL=mongodb://mongo:27017
+
   zookeeper:
     image: wurstmeister/zookeeper
     ports:
@@ -13,6 +21,7 @@ services:
     ports:
       - "9092:9092"
     environment:
+      GROUP_ID: 0
       KAFKA_ADVERTISED_HOST_NAME: localhost
       KAFKA_CREATE_TOPICS: "test:1:1"
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
