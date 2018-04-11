@@ -1,5 +1,6 @@
 package com.bobbbaich.fb.bot.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,12 +15,12 @@ import org.springframework.social.security.SpringSocialConfigurer;
 import javax.annotation.Resource;
 
 @Configuration
+@RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String COOKIE_J_SESSION_ID = "JSESSIONID";
 
-    @Resource
-    private UserDetailsService userService;
+    private final UserDetailsService userService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {

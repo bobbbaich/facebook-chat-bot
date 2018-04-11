@@ -2,7 +2,7 @@ package com.bobbbaich.fb.bot.social;
 
 import com.bobbbaich.fb.bot.model.User;
 import com.bobbbaich.fb.bot.model.UserRole;
-import com.bobbbaich.fb.bot.service.UserService;
+import com.bobbbaich.fb.bot.service.api.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.social.connect.Connection;

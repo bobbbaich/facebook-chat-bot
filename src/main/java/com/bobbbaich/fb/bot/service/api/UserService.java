@@ -1,4 +1,4 @@
-package com.bobbbaich.fb.bot.service;
+package com.bobbbaich.fb.bot.service.api;
 
 import com.bobbbaich.fb.bot.model.User;
 import org.springframework.security.core.userdetails.UserDetailsService;

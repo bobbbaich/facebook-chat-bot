@@ -23,7 +23,7 @@ messenger:
 kafka:
   bootstrap-servers: localhost:9092
   topic:
-    twitter: tweet.t
+    tweet: test
 
 timeout:
   time: 10000

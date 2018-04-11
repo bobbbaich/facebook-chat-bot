@@ -1,4 +1,4 @@
-package com.bobbbaich.fb.bot.service.impl;
+package com.bobbbaich.fb.bot.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class FactProducerImpl {
+public class FactConsumerImpl {
 
     @KafkaListener(topics = "test")
     public void listen(String message) {

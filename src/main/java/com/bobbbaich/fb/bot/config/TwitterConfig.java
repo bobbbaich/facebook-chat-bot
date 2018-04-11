@@ -36,4 +36,9 @@ public class TwitterConfig {
     public ExecutorService executorService() {
         return Executors.newFixedThreadPool(timeoutThreads);
     }
+
+//    @Bean
+//    TwitterTemplate getTwtTemplate(){
+//        return new TwitterTemplate(consumerKey, consumerSecret, accessToken, accessTokenSecret);
+//    }
 }

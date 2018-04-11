@@ -1,19 +1,21 @@
 package com.bobbbaich.fb.bot.controller;
 
+import com.bobbbaich.fb.bot.service.api.TweetService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.core.KafkaTemplate;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class TestController {
-    @Autowired
-    private KafkaTemplate<String, String> kafkaTemplate;
 
+    private final TweetService tweetService;
 
     @GetMapping("/isAuth")
     public String isAuth() {
@@ -21,9 +23,9 @@ public class TestController {
         return String.valueOf(authentication != null);
     }
 
-    @GetMapping("/kafka/send")
-    public String sendHello() {
-        kafkaTemplate.send("test", "Hello Kafka!");
+    @GetMapping("/kafka/send/{word}")
+    public String trackByKeyWord(@Value("${kafka.topic.tweet:test}") String tweetTopicName, @PathVariable("word") String keyWord) {
+        tweetService.onTweetWord(tweetTopicName, keyWord);
         return "Test message sent.";
     }
 }
