@@ -13,7 +13,7 @@ import static com.github.messenger4j.MessengerPlatform.*;
 
 /**
  * This is the main class for inbound and outbound communication with the Facebook Messenger Platform.
- * The callback controller is responsible for the webhook verification and processing of the inbound messages and events.
+ * The callback controller is responsible for the webhook verification and processing of the inbound messages and event.
  * It showcases the features of the Messenger Platform.
  */
 @RestController
@@ -56,7 +56,7 @@ public class MessengerCallbackController {
     }
 
     /**
-     * Callback endpoint responsible for processing the inbound messages and events.
+     * Callback endpoint responsible for processing the inbound messages and event.
      */
     @PostMapping
     public ResponseEntity<Void> handleCallback(@RequestBody final String payload,

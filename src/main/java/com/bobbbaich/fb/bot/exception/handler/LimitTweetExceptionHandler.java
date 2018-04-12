@@ -1,4 +1,4 @@
-package com.bobbbaich.fb.bot.exceptions.handlers;
+package com.bobbbaich.fb.bot.exception.handler;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

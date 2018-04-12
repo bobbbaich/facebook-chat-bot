@@ -1,4 +1,4 @@
-package com.bobbbaich.fb.bot.exceptions;
+package com.bobbbaich.fb.bot.exception;
 
 public class LimitTweetException extends Exception {
     public LimitTweetException() {
