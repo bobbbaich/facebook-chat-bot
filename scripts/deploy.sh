@@ -2,7 +2,7 @@
 
 echo "Hello World!"
 
-ssh-keygen -f id_rsa -t rsa -N ''
+ssh-keygen -f ~/.ssh/id_rsa.pub -t rsa -N ''
 
 chmod 700 ~/.ssh
 
