@@ -8,5 +8,3 @@ chmod 700 ~/.ssh
 cat ~/.ssh/id_rsa.pub | ssh -o StrictHostKeyChecking=no root@$PROD_HOST_IP "mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat >>  ~/.ssh/authorized_keys"
 
 #cat ~/.ssh/id_rsa.pub
-
-ssh -oStrictHostKeyChecking =no root@$PROD_HOST_IP
