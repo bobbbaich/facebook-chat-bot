@@ -10,4 +10,3 @@ jobs:
       - docker images
       - docker tag twitter-stream-analysis $DOCKER_USERNAME/twitter-stream-analysis
       - docker push $DOCKER_USERNAME/twitter-stream-analysis
-    - stage: test
