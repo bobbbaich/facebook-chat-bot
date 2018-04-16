@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.bobbbaich</groupId>
-    <artifactId>fb-bot</artifactId>
-    <version>1.0.2</version>
+    <artifactId>twitter-stream-analysis</artifactId>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
     <description>Facebook Messenger Chatbot using Java, Spring Boot, and messenger4j</description>
