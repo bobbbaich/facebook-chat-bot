@@ -1,4 +1,4 @@
-package com.bobbbaich.fb.bot.service;
+package com.bobbbaich.fb.bot.messenger.handler;
 
 import com.github.messenger4j.exceptions.MessengerApiException;
 import com.github.messenger4j.exceptions.MessengerIOException;
@@ -10,6 +10,7 @@ import com.github.messenger4j.send.Recipient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -18,12 +19,7 @@ import java.util.Date;
 public class TextMessageHandler implements TextMessageEventHandler {
     private static final Logger LOG = LoggerFactory.getLogger(TextMessageHandler.class);
 
-    private final MessengerSendClient sendClient;
-
-    @Autowired
-    public TextMessageHandler(MessengerSendClient sendClient) {
-        this.sendClient = sendClient;
-    }
+    private MessengerSendClient sendClient;
 
     @Override
     public void handle(TextMessageEvent event) {
@@ -57,5 +53,10 @@ public class TextMessageHandler implements TextMessageEventHandler {
 
     private void handleSendException(Exception e) {
         LOG.error("Message could not be sent. An unexpected error occurred.", e);
+    }
+
+    @Autowired
+    public void setSendClient(@Lazy MessengerSendClient sendClient) {
+        this.sendClient = sendClient;
     }
 }

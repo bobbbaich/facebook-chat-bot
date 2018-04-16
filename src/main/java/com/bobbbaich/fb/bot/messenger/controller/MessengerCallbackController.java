@@ -1,4 +1,4 @@
-package com.bobbbaich.fb.bot.controller;
+package com.bobbbaich.fb.bot.messenger.controller;
 
 import com.github.messenger4j.exceptions.MessengerVerificationException;
 import com.github.messenger4j.receive.MessengerReceiveClient;
@@ -13,14 +13,14 @@ import static com.github.messenger4j.MessengerPlatform.*;
 
 /**
  * This is the main class for inbound and outbound communication with the Facebook Messenger Platform.
- * The callback controller is responsible for the webhook verification and processing of the inbound messages and events.
+ * The callback controller is responsible for the webhook verification and processing of the inbound messages and event.
  * It showcases the features of the Messenger Platform.
  */
 @RestController
 @RequestMapping("/callback")
-public class MessengerPlatformCallbackHandler {
+public class MessengerCallbackController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(MessengerPlatformCallbackHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MessengerCallbackController.class);
 
     private final MessengerReceiveClient receiveClient;
 
@@ -30,7 +30,7 @@ public class MessengerPlatformCallbackHandler {
      * @param receiveClient the initialized {@code MessengerReceiveClient}
      */
     @Autowired
-    public MessengerPlatformCallbackHandler(final MessengerReceiveClient receiveClient) {
+    public MessengerCallbackController(final MessengerReceiveClient receiveClient) {
         this.receiveClient = receiveClient;
     }
 
@@ -40,7 +40,7 @@ public class MessengerPlatformCallbackHandler {
      * The passed verification token (as query parameter) must match the configured verification token.
      * In case this is true, the passed challenge string must be returned by this endpoint.
      */
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public ResponseEntity<String> verifyWebhook(@RequestParam(MODE_REQUEST_PARAM_NAME) final String mode,
                                                 @RequestParam(VERIFY_TOKEN_REQUEST_PARAM_NAME) final String verifyToken,
                                                 @RequestParam(CHALLENGE_REQUEST_PARAM_NAME) final String challenge) {
@@ -56,9 +56,9 @@ public class MessengerPlatformCallbackHandler {
     }
 
     /**
-     * Callback endpoint responsible for processing the inbound messages and events.
+     * Callback endpoint responsible for processing the inbound messages and event.
      */
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public ResponseEntity<Void> handleCallback(@RequestBody final String payload,
                                                @RequestHeader(SIGNATURE_HEADER_NAME) final String signature) {
 
