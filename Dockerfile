@@ -5,4 +5,8 @@ ADD . /app
 RUN mvn install
 #TODO: add use of 'docker' profile, when docker run;
 #TODO: specify appropriate properties in application-docker.yml
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar", "target/twitter-stream-analysis-1.0.jar"]
+ENTRYPOINT ["java",
+"-Djava.security.egd=file:/dev/./urandom",
+"-Dspring.profiles.active=docker",
+"-jar", "target/twitter-stream-analysis-1.0.jar"
+]
