@@ -15,4 +15,4 @@ jobs:
 #      - docker push $DOCKER_USERNAME/twitter-stream-analysis
     - stage: delpoy to digital ocean
       script:
-      - bash scripts/deploy.sh
+      - bash printf 'yes' | scripts/deploy.sh
