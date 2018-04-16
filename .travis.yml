@@ -1,6 +1,13 @@
 sudo: true
 dist: trusty
 
+services:
+  - docker
+before_install:
+
+  - sudo apt-get update
+  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
+
 jobs:
   include:
     - stage: build docker image
@@ -10,3 +17,6 @@ jobs:
       - docker images
       - docker tag twitter-stream-analysis $DOCKER_USERNAME/twitter-stream-analysis
       - docker push $DOCKER_USERNAME/twitter-stream-analysis
+    - stage: delpoy to digital ocean
+      script:
+      - bash scripts/deploy.sh
