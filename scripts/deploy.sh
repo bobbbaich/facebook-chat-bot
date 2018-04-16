@@ -2,6 +2,6 @@
 
 echo "Hello World!"
 
-ssh $PROD_HOST_IP -l root
+ssh -o "StrictHostKeyChecking no" root@$PROD_HOST_IP
 
 
