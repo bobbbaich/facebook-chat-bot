@@ -6,13 +6,13 @@ services:
 
 jobs:
   include:
-    - stage: build docker image
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build -t twitter-stream-analysis .
-      - docker images
-      - docker tag twitter-stream-analysis $DOCKER_USERNAME/twitter-stream-analysis
-      - docker push $DOCKER_USERNAME/twitter-stream-analysis
+#    - stage: build docker image
+#      script:
+#      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#      - docker build -t twitter-stream-analysis .
+#      - docker images
+#      - docker tag twitter-stream-analysis $DOCKER_USERNAME/twitter-stream-analysis
+#      - docker push $DOCKER_USERNAME/twitter-stream-analysis
     - stage: delpoy to digital ocean
       script:
       - bash scripts/deploy.sh
