@@ -7,6 +7,6 @@ echo "Hello World!"
 #ssh-copy-id -i ~/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@$PROD_HOST_IP
 #cat ~/.ssh/id_rsa.pub |  mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat >> ~/.ssh/authorized_keys
 
-ssh root@$PROD_HOST_IP
-# -o PasswordAuthentication=no -o StrictHostKeyChecking=no
+ssh -o PasswordAuthentication=no -o StrictHostKeyChecking=no root@$PROD_HOST_IP
+#
 #cat ~/.ssh/id_rsa.pub
