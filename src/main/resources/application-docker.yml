@@ -15,3 +15,13 @@ spring:
       mongodb:
         uri: mongodb://mongo:27017
         database: social
+
+kafka:
+  bootstrap-servers: kafka:9092
+  topic:
+    tweet: test
+
+timeout:
+  time: 10000
+  thread:
+    pool: 2

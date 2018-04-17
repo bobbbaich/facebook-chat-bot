@@ -1,9 +1,9 @@
 #---Profile Properties---
 #Available profiles: local, remote, docker
 #Set remote when deploy to server
-spring:
-  profiles:
-    active: local
+#spring:
+#  profiles:
+#    active: local
 ##---Loggin Properties---
 logging:
   level:
@@ -19,13 +19,3 @@ messenger:
   setup:
     getStartedButton: "Get Started"
     greeting: "Hello {{user_full_name}}!"
-
-kafka:
-  bootstrap-servers: localhost:9092
-  topic:
-    tweet: test
-
-timeout:
-  time: 10000
-  thread:
-    pool: 2
