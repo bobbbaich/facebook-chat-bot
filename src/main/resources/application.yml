@@ -1,9 +1,9 @@
 #---Profile Properties---
 #Available profiles: local, remote, docker
 #Set remote when deploy to server
-#spring:
-#  profiles:
-#    active: local
+spring:
+  profiles:
+    active: docker
 ##---Loggin Properties---
 logging:
   level:
