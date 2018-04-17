@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
+echo "Stop containers"
 docker stop $(docker ps -a -q)
+echo "Remove containers"
 docker rm $(docker ps -a -q)
+echo "Remove images"
+docker rmi $(docker images -a -q)
 
+echo "Get git repository HEAD revision"
 git reset --hard HEAD
 git pull
 
+echo "Docker compose running..."
 cd ..
 cd docker
 docker-compose up
