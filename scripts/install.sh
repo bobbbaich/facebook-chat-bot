@@ -2,10 +2,11 @@
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
 
+git reset --hard HEAD
 git pull
 
 cd ..
-cd /docker
+cd docker
 docker-compose up
 
 
