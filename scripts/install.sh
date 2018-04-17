@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+
+git pull
+
+docker-compose up
+
 
 #echo "Hello World!"
 #
@@ -9,10 +16,3 @@
 #
 #ssh -o PasswordAuthentication=no -o StrictHostKeyChecking=no root@$PROD_HOST_IP
 #cat ~/.ssh/id_rsa.pub
-
-git pull
-
-cd ..
-cd docker
-
-docker-compose up
