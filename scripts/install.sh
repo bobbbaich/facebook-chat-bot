@@ -4,6 +4,8 @@ docker rm $(docker ps -a -q)
 
 git pull
 
+cd ..
+cd /docker
 docker-compose up
 
 
