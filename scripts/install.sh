@@ -3,15 +3,14 @@ echo "Stop containers"
 docker stop $(docker ps -a -q)
 echo "Remove containers"
 docker rm $(docker ps -a -q)
-echo "Remove images"
-docker rmi $(docker images -a -q)
+echo "Remove twitter-stream-service image"
+docker rmi bobbbaich/twitter-stream-analysis
 
 echo "Get git repository HEAD revision"
 git reset --hard HEAD
 git pull
 
 chmod +x start.sh stop.sh install.sh set_env.sh
-#./set_env.sh
 
 echo "Docker compose running..."
 cd ..
