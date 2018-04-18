@@ -1,16 +1,16 @@
-#LOCAL profile configuration
+#Remote profile configuration
 messenger4j:
-  appSecret: 1
-  verifyToken: 1
-  pageAccessToken: 1
+  appSecret: ${MESSENGER_APP_SECRET}
+  verifyToken: ${MESSENGER_VERIFY_TOKEN}
+  pageAccessToken: ${MESSENGER_PAGE_ACCESS_TOKEN}
 spring:
   social:
       twitter:
-        app-id: 1TbklIzewbPjwqXwwvDohBXSd
-        app-secret: R9xyjE0g7OUzZLBkVogLFwJaGzMIJ3Ab01i89gjdiGm51JCQuN
+        app-id: ${SOCIAL_TWITTER_APP_ID}
+        app-secret: ${SOCIAL_TWITTER_APP_SECRET}
       facebook:
-        app-id: 740743756119649
-        app-secret: 2d6f7bfae3a55fbd05f05eb15e906d6d
+        app-id: ${SOCIAL_FACEBOOK_APP_ID}
+        app-secret: ${SOCIAL_FACEBOOK_APP_SECRET}
   data:
       mongodb:
         uri: mongodb://mongo:27017
