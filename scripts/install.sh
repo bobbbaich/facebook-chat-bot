@@ -18,7 +18,7 @@ echo "Docker compose running..."
 cd ..
 cd docker
 
-if [ "$profile" == "kafka" ]; then
+if [ "$profile" = "kafka" ]; then
     echo "Run with profile: kafka"
     docker-compose -f docker-compose-without-web.yml up
 else
