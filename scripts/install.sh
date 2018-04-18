@@ -10,7 +10,7 @@ echo "Get git repository HEAD revision"
 git reset --hard HEAD
 git pull
 
-chmod +x start.sh stop.sh install.sh set_env.sh
+chmod +x start.sh stop.sh install.sh
 
 echo "Docker compose running..."
 cd ..
