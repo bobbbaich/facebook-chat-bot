@@ -19,7 +19,7 @@ services:
       - 27017:27017
       command: --smallfiles
       environment:
-        - MONGOCLIENT_DEFAULT_CONNECTION_URL=mongodb://mongo:27017
+        MONGOCLIENT_DEFAULT_CONNECTION_URL: mongodb://mongo:27017
 
   zookeeper:
     image: wurstmeister/zookeeper
@@ -34,7 +34,7 @@ services:
       - 9092:9092
     environment:
       GROUP_ID: 0
-      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ADVERTISED_HOST_NAME: PLAINTEXT://104.236.25.225:9092
       KAFKA_CREATE_TOPICS: "test:1:1"
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
 
