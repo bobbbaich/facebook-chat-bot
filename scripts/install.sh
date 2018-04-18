@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-read profile
+profile=$1
 echo "Stop containers"
 docker stop $(docker ps -a -q)
 echo "Remove containers"
