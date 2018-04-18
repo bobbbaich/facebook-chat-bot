@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class FactConsumerImpl {
+public class KafkaConsumer {
 
     @KafkaListener(topics = "test")
     public void listen(String message) {
-        System.out.println("Received Messasge in group foo: " + message);
+        log.debug("-----> Received Message in group foo: {}", message);
     }
 }
