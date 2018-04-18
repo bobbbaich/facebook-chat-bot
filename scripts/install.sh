@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+
+profile=$1
 echo "Stop containers"
 docker stop $(docker ps -a -q)
 echo "Remove containers"
@@ -15,7 +17,13 @@ chmod +x start.sh stop.sh install.sh
 echo "Docker compose running..."
 cd ..
 cd docker
-docker-compose up
+
+
+if profile == 'kafka'; then
+    docker-compose -f docker-compose-without-web.yml up
+else
+    docker-compose up
+fi
 
 
 #echo "Hello World!"
