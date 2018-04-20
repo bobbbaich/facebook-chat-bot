@@ -5,7 +5,7 @@ services:
     image: bobbbaich/twitter-stream-analysis
     container_name: twitter-stream-analysis
     ports:
-      - 8080:8080
+      - 80:80
     working_dir: /app
     env_file:
         - web-variables.env
