@@ -17,7 +17,7 @@ spring:
         database: social
 
 kafka:
-  bootstrap-servers: PLAINTEXT://104.236.25.225:9092
+  bootstrap-servers: PLAINTEXT://104.236.53.32:9092
   topic:
     tweet: test
 
