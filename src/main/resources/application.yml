@@ -2,7 +2,7 @@
 #Available profiles: local, remote, docker
 #Set remote when deploy to server
 server:
-  port: 80
+  port: 8080
 spring:
   profiles:
     active: docker
