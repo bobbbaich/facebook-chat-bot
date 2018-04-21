@@ -12,6 +12,7 @@ import com.github.messenger4j.send.message.template.ButtonTemplate;
 import com.github.messenger4j.send.message.template.button.Button;
 import com.github.messenger4j.send.message.template.button.PostbackButton;
 import com.github.messenger4j.send.message.template.button.UrlButton;
+import com.github.messenger4j.send.recipient.IdRecipient;
 import com.github.messenger4j.webhook.Event;
 import com.github.messenger4j.webhook.event.MessageDeliveredEvent;
 import com.github.messenger4j.webhook.event.TextMessageEvent;
@@ -44,7 +45,7 @@ public class MessengerEventHandler {
     }
 
     private void handle(Event event) throws MessengerApiException, MessengerIOException {
-        String recipientId = event.recipientId();
+        IdRecipient idRecipient = IdRecipient.create(event.recipientId());
 
         if (event.isTextMessageEvent()) {
             log.debug("Text Message event received.");
@@ -58,7 +59,7 @@ public class MessengerEventHandler {
             log.debug("Message has been delivered at timestamp: {}", timestamp);
         } else if (event.isPostbackEvent()) {
             log.debug("Postback event received.");
-            messenger.send(MessagePayload.create(recipientId, MessagingType.RESPONSE, TextMessage.create("Hi Hello!")));
+            messenger.send(MessagePayload.create(idRecipient, MessagingType.RESPONSE, TextMessage.create("Hi Hello!")));
         }
     }
 
