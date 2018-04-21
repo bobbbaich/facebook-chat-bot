@@ -52,7 +52,7 @@ public class MessengerCallbackController {
      */
     @PostMapping
     public ResponseEntity<Void> handleCallback(@RequestBody final String payload,
-                                               @RequestHeader(SIGNATURE_HEADER_NAME) final String signature) {
+                                               @RequestHeader(SIGNATURE_HEADER_NAME) final String signature)  {
 
         log.debug("Received Messenger Platform callback - payload: {} | signature: {}", payload, signature);
         try {

@@ -9,9 +9,9 @@ import com.github.messenger4j.messengerprofile.MessengerSettings;
 import com.github.messenger4j.messengerprofile.getstarted.StartButton;
 import com.github.messenger4j.messengerprofile.greeting.Greeting;
 import com.github.messenger4j.messengerprofile.persistentmenu.PersistentMenu;
-import com.github.messenger4j.messengerprofile.persistentmenu.action.NestedCallToAction;
 import com.github.messenger4j.messengerprofile.persistentmenu.action.PostbackCallToAction;
 import com.github.messenger4j.messengerprofile.persistentmenu.action.UrlCallToAction;
+import com.github.messenger4j.messengerprofile.targetaudience.AllTargetAudience;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,37 +41,33 @@ public class StartUpListener implements ApplicationListener<ApplicationReadyEven
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
-
-        PostbackCallToAction callToActionAA = PostbackCallToAction.create("Pay Bill", "PAYBILL_PAYLOAD");
-        PostbackCallToAction callToActionAB = PostbackCallToAction.create("History", "HISTORY_PAYLOAD");
-        PostbackCallToAction callToActionAC = PostbackCallToAction.create("Contact Info", "CONTACT_INFO_PAYLOAD");
-
-        NestedCallToAction callToActionA = NestedCallToAction.create("My Account",
-                Arrays.asList(callToActionAA, callToActionAB, callToActionAC));
-
-        UrlCallToAction callToActionB = null;
         try {
-            callToActionB = UrlCallToAction.create("Google",
-                    new URL("https://www.google.com.ua"), of(WebviewHeightRatio.FULL), empty(), empty(),
-                    of(WebviewShareButtonState.HIDE));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+            MessengerSettings messengerSettings = MessengerSettings
+                    .create(of(StartButton.create(startedButton)),
+                            of(Greeting.create(greeting)),
+                            of(persistentMenu()),
+                            empty(),
+                            empty(),
+                            empty(),
+                            of(AllTargetAudience.create()));
 
-
-        MessengerSettings messengerSettings = MessengerSettings
-                .create(of(StartButton.create(startedButton)),
-                        of(Greeting.create(greeting)),
-                        of(PersistentMenu.create(true, of(Arrays.asList(callToActionA, callToActionB)))),
-                        empty(),
-                        empty(),
-                        empty(),
-                        empty());
-        try {
             messenger.updateSettings(messengerSettings);
         } catch (MessengerApiException | MessengerIOException e) {
 //          TODO: handle exceptions
             log.warn("Exception occurred trying set messenger settings.", e);
+        }
+    }
+
+    private PersistentMenu persistentMenu() throws MessengerIOException {
+        try {
+            UrlCallToAction callToGoogle = UrlCallToAction.create("Google", new URL("https://www.google.com.ua"), of(WebviewHeightRatio.FULL), empty(), empty(), of(WebviewShareButtonState.HIDE));
+            UrlCallToAction callToTwitterConnect = UrlCallToAction.create("Connect Twitter", new URL("https://streammy.tk/signin/twitter"), of(WebviewHeightRatio.FULL), empty(), empty(), of(WebviewShareButtonState.HIDE));
+            PostbackCallToAction callToGetHelp = PostbackCallToAction.create("Get Help", "GET_HELP_PAYLOAD");
+
+            return PersistentMenu.create(true, of(Arrays.asList(callToGoogle, callToTwitterConnect, callToGetHelp)));
+        } catch (MalformedURLException e) {
+            log.error("Malformed URL has occurred. Check bot settings.", e);
+            throw new MessengerIOException(e);
         }
     }
 }
