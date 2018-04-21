@@ -26,44 +26,4 @@ public class MessengerConfig {
         log.debug("Initializing Messenger - pageAccessToken: {}", pageAccessToken);
         return Messenger.create(pageAccessToken, appSecret, verifyToken);
     }
-
-//    /**
-//     * Initializes the {@code MessengerReceiveClient}.
-//     *
-//     * @param appSecret   the {@code Application Secret}
-//     * @param verifyToken the {@code Verification Token} that has been provided by you during the setup of the {@code
-//     *                    Webhook}
-//     */
-//
-//    @Bean
-//    public MessengerReceiveClient messengerReceiveClient(@Value(APP_SECRET) final String appSecret,
-//                                                         @Value(VERIFY_TOKEN) final String verifyToken) {
-//        LOG.debug("Initializing MessengerReceiveClient - appSecret: {} | verifyToken: {}", appSecret, verifyToken);
-//        return MessengerPlatform.newReceiveClientBuilder(appSecret, verifyToken)
-//                .onTextMessageEvent(textMessageEventHandler)
-//                .onPostbackEvent(postbackEventHandler)
-//                .build();
-//    }
-//
-//    @Bean
-//    public MessengerSetupClient messengerSetupClient(@Value(PAGE_ACCESS_TOKEN) String pageAccessToken) {
-//        LOG.debug("Initializing MessengerSetupClient - pageAccessToken: {}", pageAccessToken);
-//        return MessengerPlatform.newSetupClientBuilder(pageAccessToken).build();
-//    }
-//
-//    @Bean
-//    public UserProfileClient userProfileClient(@Value(PAGE_ACCESS_TOKEN) String pageAccessToken) {
-//        LOG.debug("Initializing UserProfileClient - pageAccessToken: {}", pageAccessToken);
-//        return MessengerPlatform.newUserProfileClientBuilder(pageAccessToken).build();
-//    }
-//
-//    @Autowired
-//    public void setTextMessageEventHandler(TextMessageEventHandler textMessageEventHandler) {
-//        this.textMessageEventHandler = textMessageEventHandler;
-//    }
-//
-//    @Autowired
-//    public void setPostbackEventHandler(PostbackEventHandler postbackEventHandler) {
-//        this.postbackEventHandler = postbackEventHandler;
-//    }
 }

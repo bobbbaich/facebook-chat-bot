@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 import static com.github.messenger4j.Messenger.*;
+import static java.util.Optional.*;
 
 /**
  * This is the main class for inbound and outbound communication with the Facebook Messenger Platform.
@@ -53,10 +54,9 @@ public class MessengerCallbackController {
     @PostMapping
     public ResponseEntity<Void> handleCallback(@RequestBody final String payload,
                                                @RequestHeader(SIGNATURE_HEADER_NAME) final String signature)  {
-
         log.debug("Received Messenger Platform callback - payload: {} | signature: {}", payload, signature);
         try {
-            messenger.onReceiveEvents(payload, Optional.empty(), eventHandler::onEvent);
+            messenger.onReceiveEvents(payload, empty(), eventHandler::onEvent);
             log.debug("Processed callback payload successfully");
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (MessengerVerificationException e) {
