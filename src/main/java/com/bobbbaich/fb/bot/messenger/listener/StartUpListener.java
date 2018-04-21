@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -18,6 +19,7 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 @Component
+@Profile("docker")
 public class StartUpListener implements ApplicationListener<ApplicationReadyEvent> {
     private final Messenger messenger;
 

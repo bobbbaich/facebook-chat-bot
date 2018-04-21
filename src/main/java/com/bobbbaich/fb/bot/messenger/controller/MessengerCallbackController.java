@@ -56,7 +56,7 @@ public class MessengerCallbackController {
 
         log.debug("Received Messenger Platform callback - payload: {} | signature: {}", payload, signature);
         try {
-            messenger.onReceiveEvents(payload, Optional.of(signature), eventHandler::onEvent);
+            messenger.onReceiveEvents(payload, Optional.empty(), eventHandler::onEvent);
             log.debug("Processed callback payload successfully");
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (MessengerVerificationException e) {
