@@ -45,9 +45,8 @@ public class MessengerEventHandler {
     }
 
     private void handle(Event event) throws MessengerApiException, MessengerIOException {
-        IdRecipient idRecipient = IdRecipient.create(event.recipientId());
+        IdRecipient idRecipient = IdRecipient.create(event.senderId());
         log.debug("idRecipient: {}", idRecipient);
-        log.debug("event.recipientId: {}", event.recipientId());
 
         if (event.isTextMessageEvent()) {
             log.debug("Text Message event received.");

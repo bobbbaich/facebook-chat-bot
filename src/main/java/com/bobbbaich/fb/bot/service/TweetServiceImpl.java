@@ -15,8 +15,8 @@ public class TweetServiceImpl implements TweetService {
     private final StreamOperationsService streamOperationsService;
 
     @Override
-    public void onTweetWord(String topicName, String tweetWord, Integer limit) {
-        Stream stream = streamOperationsService.runStream(topicName, tweetWord, limit);
+    public void collectTweets(String topicName, String keyWord, Integer limit) {
+        Stream stream = streamOperationsService.runStream(topicName, keyWord, limit);
         log.debug("Stream {}", stream);
     }
 }

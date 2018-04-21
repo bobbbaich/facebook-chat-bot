@@ -21,7 +21,8 @@ public class StreamOperationsServiceImpl implements StreamOperationsService {
 
     @Override
     public Stream runStream(String topicName, String tweetWord, Integer limit) {
-        Stream stream = streamingOperations.filter(tweetWord, Collections.singletonList(listenerProvider.provide(topicName, tweetWord, limit)));
+        Stream stream = streamingOperations.filter(tweetWord,
+                Collections.singletonList(listenerProvider.provide(topicName, tweetWord, limit)));
         publisher.publishAdd(topicName, tweetWord, stream);
         return stream;
     }

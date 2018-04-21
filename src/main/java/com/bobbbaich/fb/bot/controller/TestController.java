@@ -28,7 +28,7 @@ public class TestController {
             @Value("${kafka.topic.tweet:test}") String tweetTopicName,
             @PathVariable String keyWord,
             @PathVariable Integer limit) {
-        tweetService.onTweetWord(tweetTopicName, keyWord, limit);
+        tweetService.collectTweets(tweetTopicName, keyWord, limit);
         return "Test message sent.";
     }
 }

@@ -16,7 +16,7 @@ logging:
     com.bobbbaich: DEBUG
 
 kafka:
-  bootstrap-servers: ${spring.embedded.kafka.brokers}
+  bootstrap-servers: ${spring.embedded.kafka.brokers},
   topic:
     helloworld: helloworld.t
 
