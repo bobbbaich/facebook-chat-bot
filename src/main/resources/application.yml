@@ -12,7 +12,7 @@ messenger:
   inTest: "true"
   homeURL: "https://streammy.tk"
   whitelistedURLs:
-    - "https://www.google.com.ua"
+    - "https://google.com.ua"
     - "https://streammy.tk"
   getStartedPayload: "GET_STARTED_PAYLOAD"
   helpPayload: "HELP_PAYLOAD"

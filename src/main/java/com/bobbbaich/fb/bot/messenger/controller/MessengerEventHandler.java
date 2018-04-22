@@ -1,6 +1,7 @@
 package com.bobbbaich.fb.bot.messenger.controller;
 
 import com.bobbbaich.fb.bot.messenger.config.MessengerProperties;
+import com.bobbbaich.fb.bot.messenger.handler.MessengerHandler;
 import com.github.messenger4j.Messenger;
 import com.github.messenger4j.common.WebviewHeightRatio;
 import com.github.messenger4j.exception.MessengerApiException;
@@ -15,7 +16,6 @@ import com.github.messenger4j.send.message.template.button.PostbackButton;
 import com.github.messenger4j.send.message.template.button.UrlButton;
 import com.github.messenger4j.send.recipient.IdRecipient;
 import com.github.messenger4j.webhook.Event;
-import com.github.messenger4j.webhook.event.MessageDeliveredEvent;
 import com.github.messenger4j.webhook.event.PostbackEvent;
 import com.github.messenger4j.webhook.event.TextMessageEvent;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,6 @@ import org.springframework.stereotype.Component;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,6 +37,8 @@ public class MessengerEventHandler {
     private final Messenger messenger;
     private final MessengerProperties props;
 
+    private final MessengerHandler<TextMessageEvent> textMessageHandler;
+
     public void onEvent(Event event) {
         final IdRecipient idRecipient = IdRecipient.create(event.senderId());
         log.debug("idRecipient: {}", idRecipient);
@@ -46,11 +47,6 @@ public class MessengerEventHandler {
             log.debug("Text Message event received.");
             TextMessageEvent textMessageEvent = event.asTextMessageEvent();
             log.debug("Message has been received with text: {}", textMessageEvent.text());
-        } else if (event.isMessageDeliveredEvent()) {
-            log.debug("Message Delivered event received.");
-            MessageDeliveredEvent messageDeliveredEvent = event.asMessageDeliveredEvent();
-            Instant timestamp = messageDeliveredEvent.timestamp();
-            log.debug("Message has been delivered at timestamp: {}", timestamp);
         } else if (event.isPostbackEvent()) {
             PostbackEvent postbackEvent = event.asPostbackEvent();
 

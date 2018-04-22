@@ -41,7 +41,6 @@ public class StartUpListener implements ApplicationListener<ApplicationReadyEven
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
-
         MessengerSettings messengerSettings = MessengerSettings
                 .create(of(StartButton.create(props.getGetStartedPayload())),
                         of(Greeting.create(props.getGreeting())),
@@ -60,7 +59,7 @@ public class StartUpListener implements ApplicationListener<ApplicationReadyEven
 
     private Optional<HomeUrl> homeUrl() {
         try {
-            return of(HomeUrl.create(new URL(props.getHomeURL()), true));
+            return of(HomeUrl.create(new URL(props.getHomeURL()), props.isInTest()));
         } catch (MalformedURLException e) {
             log.error("Malformed URL has occurred. Check bot settings.", e);
             return empty();
