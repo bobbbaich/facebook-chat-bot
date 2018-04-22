@@ -9,8 +9,10 @@ spring:
 
 messenger:
   greeting: "Hello {{user_full_name}}!\nYou can check any fact you want interacting with me!\nTap 'Get Started' and let's go!"
+  inTest: "true"
+  homeURL: "https://streammy.tk"
+  whitelistedURLs:
+    - "https://www.google.com.ua"
+    - "https://streammy.tk"
   getStartedPayload: "GET_STARTED_PAYLOAD"
   helpPayload: "HELP_PAYLOAD"
-  inTest: "true"
-  whitelistedURLs: "https://www.google.com.ua", "https://streammy.tk"
-  homeURLs: "https://streammy.tk"
