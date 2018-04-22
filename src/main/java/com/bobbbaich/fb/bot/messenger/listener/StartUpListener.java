@@ -34,8 +34,8 @@ import static java.util.Optional.of;
 public class StartUpListener implements ApplicationListener<ApplicationReadyEvent> {
     private final Messenger messenger;
 
-    @Value("${messenger.setup.startedButton}")
-    private String startedButton;
+    @Value("${messenger.setup.getStartedPayload}")
+    private String getStartedPayload;
     @Value("${messenger.setup.greeting}")
     private String greeting;
 
@@ -43,7 +43,7 @@ public class StartUpListener implements ApplicationListener<ApplicationReadyEven
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         try {
             MessengerSettings messengerSettings = MessengerSettings
-                    .create(of(StartButton.create(startedButton)),
+                    .create(of(StartButton.create(getStartedPayload)),
                             of(Greeting.create(greeting)),
                             of(persistentMenu()),
                             empty(),
@@ -64,7 +64,7 @@ public class StartUpListener implements ApplicationListener<ApplicationReadyEven
             UrlCallToAction callToTwitterConnect = UrlCallToAction.create("Connect Twitter", new URL("https://streammy.tk/signin/twitter"), of(WebviewHeightRatio.FULL), empty(), empty(), of(WebviewShareButtonState.HIDE));
             PostbackCallToAction callToGetHelp = PostbackCallToAction.create("Get Help", "GET_HELP_PAYLOAD");
 
-            return PersistentMenu.create(true, of(Arrays.asList(callToGoogle, callToTwitterConnect, callToGetHelp)));
+            return PersistentMenu.create(false, of(Arrays.asList(callToGoogle, callToTwitterConnect, callToGetHelp)));
         } catch (MalformedURLException e) {
             log.error("Malformed URL has occurred. Check bot settings.", e);
             throw new MessengerIOException(e);

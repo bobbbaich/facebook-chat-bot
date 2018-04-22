@@ -52,7 +52,6 @@ public class MessengerEventHandler {
             log.debug("Text Message event received.");
             TextMessageEvent textMessageEvent = event.asTextMessageEvent();
             log.debug("Message has been received with text: {}", textMessageEvent.text());
-            button(event);
         } else if (event.isMessageDeliveredEvent()) {
             log.debug("Message Delivered event received.");
             MessageDeliveredEvent messageDeliveredEvent = event.asMessageDeliveredEvent();
@@ -61,11 +60,11 @@ public class MessengerEventHandler {
         } else if (event.isPostbackEvent()) {
             log.debug("Postback event received.");
             messenger.send(MessagePayload.create(idRecipient, MessagingType.RESPONSE, TextMessage.create("Hi Hello!")));
+            button(idRecipient);
         }
     }
 
-    private void button(Event event) {
-        String recipientId = event.recipientId();
+    private void button(IdRecipient idRecipient) {
         try {
             UrlButton buttonA = UrlButton.create("Show Website", new URL("https://google.com.ua"));
             PostbackButton buttonB = PostbackButton.create("Start Chatting", "USER_DEFINED_PAYLOAD");
@@ -76,8 +75,7 @@ public class MessengerEventHandler {
             ButtonTemplate buttonTemplate = ButtonTemplate.create("What do you want to do next?", buttons);
 
             TemplateMessage templateMessage = TemplateMessage.create(buttonTemplate);
-            MessagePayload payload = MessagePayload.create(recipientId, MessagingType.RESPONSE,
-                    templateMessage);
+            MessagePayload payload = MessagePayload.create(idRecipient, MessagingType.RESPONSE, templateMessage);
 
             messenger.send(payload);
         } catch (MalformedURLException | MessengerIOException | MessengerApiException e) {

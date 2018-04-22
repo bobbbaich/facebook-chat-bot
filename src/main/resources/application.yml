@@ -20,4 +20,4 @@ logging:
 messenger:
   setup:
     startedButton: "Get Started"
-    greeting: "Hello {{user_full_name}}!"
+    greeting: "Hello {{user_full_name}}!\nYou can check any fact you want interacting with me!\nTap 'Get Started' and let's go!"
