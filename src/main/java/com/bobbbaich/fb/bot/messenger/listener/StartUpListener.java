@@ -9,6 +9,7 @@ import com.github.messenger4j.exception.MessengerIOException;
 import com.github.messenger4j.messengerprofile.MessengerSettings;
 import com.github.messenger4j.messengerprofile.getstarted.StartButton;
 import com.github.messenger4j.messengerprofile.greeting.Greeting;
+import com.github.messenger4j.messengerprofile.homeurl.HomeUrl;
 import com.github.messenger4j.messengerprofile.persistentmenu.PersistentMenu;
 import com.github.messenger4j.messengerprofile.persistentmenu.action.PostbackCallToAction;
 import com.github.messenger4j.messengerprofile.persistentmenu.action.UrlCallToAction;
@@ -23,6 +24,9 @@ import org.springframework.stereotype.Component;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
@@ -37,16 +41,16 @@ public class StartUpListener implements ApplicationListener<ApplicationReadyEven
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
-        try {
-            MessengerSettings messengerSettings = MessengerSettings
-                    .create(of(StartButton.create(props.getGetStartedPayload())),
-                            of(Greeting.create(props.getGreeting())),
-                            of(persistentMenu()),
-                            empty(),
-                            empty(),
-                            empty(),
-                            of(AllTargetAudience.create()));
 
+        MessengerSettings messengerSettings = MessengerSettings
+                .create(of(StartButton.create(props.getGetStartedPayload())),
+                        of(Greeting.create(props.getGreeting())),
+                        persistentMenu(),
+                        whitelistedURLs(),
+                        empty(),
+                        homeUrl(),
+                        of(AllTargetAudience.create()));
+        try {
             messenger.updateSettings(messengerSettings);
         } catch (MessengerApiException | MessengerIOException e) {
 //          TODO: handle exceptions
@@ -54,16 +58,36 @@ public class StartUpListener implements ApplicationListener<ApplicationReadyEven
         }
     }
 
-    private PersistentMenu persistentMenu() throws MessengerIOException {
+    private Optional<HomeUrl> homeUrl() {
+        try {
+            return of(HomeUrl.create(new URL(props.getHomeURL()), true));
+        } catch (MalformedURLException e) {
+            log.error("Malformed URL has occurred. Check bot settings.", e);
+            return empty();
+        }
+    }
+
+    private Optional<PersistentMenu> persistentMenu() {
         try {
             UrlCallToAction callToGoogle = UrlCallToAction.create("Google", new URL("https://www.google.com.ua"), of(WebviewHeightRatio.FULL), empty(), empty(), of(WebviewShareButtonState.HIDE));
             UrlCallToAction callToTwitterConnect = UrlCallToAction.create("Connect Twitter", new URL("https://streammy.tk/signin/twitter"), of(WebviewHeightRatio.FULL), empty(), empty(), of(WebviewShareButtonState.HIDE));
             PostbackCallToAction callToGetHelp = PostbackCallToAction.create("Get Help", props.getHelpPayload());
 
-            return PersistentMenu.create(false, of(Arrays.asList(callToGoogle, callToTwitterConnect, callToGetHelp)));
+            return of(PersistentMenu.create(false, of(Arrays.asList(callToGoogle, callToTwitterConnect, callToGetHelp))));
         } catch (MalformedURLException e) {
             log.error("Malformed URL has occurred. Check bot settings.", e);
-            throw new MessengerIOException(e);
+            return empty();
         }
+    }
+
+    private Optional<List<URL>> whitelistedURLs() {
+        return of(props.getWhitelistedURLs().stream().map(spec -> {
+            try {
+                return new URL(spec);
+            } catch (MalformedURLException e) {
+                log.error("There is incorrect whitelisted URL: {} in messenger properties. Check your configuration.", spec);
+                throw new IllegalArgumentException("Incorrect whitelisted URL in messenger properties.", e);
+            }
+        }).collect(Collectors.toList()));
     }
 }
