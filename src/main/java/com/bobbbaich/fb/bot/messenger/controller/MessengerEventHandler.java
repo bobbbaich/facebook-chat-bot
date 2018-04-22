@@ -1,7 +1,6 @@
 package com.bobbbaich.fb.bot.messenger.controller;
 
 import com.bobbbaich.fb.bot.messenger.config.MessengerProperties;
-import com.bobbbaich.fb.bot.messenger.handler.MessengerHandler;
 import com.github.messenger4j.Messenger;
 import com.github.messenger4j.common.WebviewHeightRatio;
 import com.github.messenger4j.exception.MessengerApiException;
@@ -36,8 +35,6 @@ import static java.util.Optional.of;
 public class MessengerEventHandler {
     private final Messenger messenger;
     private final MessengerProperties props;
-
-    private final MessengerHandler<TextMessageEvent> textMessageHandler;
 
     public void onEvent(Event event) {
         final IdRecipient idRecipient = IdRecipient.create(event.senderId());
