@@ -6,18 +6,8 @@ server:
 spring:
   profiles:
     active: docker
-##---Loggin Properties---
-logging:
-  level:
-    org.springframework.web: INFO
-    org.springframework.social: DEBUG
-    org.springframework.security: INFO
-    org.springframework.batch: DEBUG
-    org.springframework.web.servlet.mvc.method.annotation: ERROR
-    org.springframework.boot.actuate.endpoint.mvc: ERROR
-    com.bobbbaich: DEBUG
 
 messenger:
-  setup:
-    startedButton: "Get Started"
-    greeting: "Hello {{user_full_name}}!\nYou can check any fact you want interacting with me!\nTap 'Get Started' and let's go!"
+  greeting: "Hello {{user_full_name}}!\nYou can check any fact you want interacting with me!\nTap 'Get Started' and let's go!"
+  getStartedPayload: "GET_STARTED_PAYLOAD"
+  helpPayload: "HELP_PAYLOAD"

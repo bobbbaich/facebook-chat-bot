@@ -1,5 +1,5 @@
 #LOCAL profile configuration
-messenger4j:
+messenger:
   appSecret: 1
   verifyToken: 1
   pageAccessToken: 1

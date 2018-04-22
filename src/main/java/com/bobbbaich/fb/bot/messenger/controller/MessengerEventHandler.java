@@ -1,5 +1,6 @@
 package com.bobbbaich.fb.bot.messenger.controller;
 
+import com.bobbbaich.fb.bot.messenger.config.MessengerProperties;
 import com.github.messenger4j.Messenger;
 import com.github.messenger4j.common.WebviewHeightRatio;
 import com.github.messenger4j.exception.MessengerApiException;
@@ -15,6 +16,7 @@ import com.github.messenger4j.send.message.template.button.UrlButton;
 import com.github.messenger4j.send.recipient.IdRecipient;
 import com.github.messenger4j.webhook.Event;
 import com.github.messenger4j.webhook.event.MessageDeliveredEvent;
+import com.github.messenger4j.webhook.event.PostbackEvent;
 import com.github.messenger4j.webhook.event.TextMessageEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,18 +36,10 @@ import static java.util.Optional.of;
 @Component
 public class MessengerEventHandler {
     private final Messenger messenger;
+    private final MessengerProperties props;
 
     public void onEvent(Event event) {
-        try {
-            handle(event);
-        } catch (MessengerApiException | MessengerIOException e) {
-//          TODO: handle exceptions
-            e.printStackTrace();
-        }
-    }
-
-    private void handle(Event event) throws MessengerApiException, MessengerIOException {
-        IdRecipient idRecipient = IdRecipient.create(event.senderId());
+        final IdRecipient idRecipient = IdRecipient.create(event.senderId());
         log.debug("idRecipient: {}", idRecipient);
 
         if (event.isTextMessageEvent()) {
@@ -58,9 +52,23 @@ public class MessengerEventHandler {
             Instant timestamp = messageDeliveredEvent.timestamp();
             log.debug("Message has been delivered at timestamp: {}", timestamp);
         } else if (event.isPostbackEvent()) {
-            log.debug("Postback event received.");
+            PostbackEvent postbackEvent = event.asPostbackEvent();
+
+            postbackEvent.payload()
+                    .filter(p -> p.equals(props.getGetStartedPayload()))
+                    .ifPresent(p -> send(idRecipient));
+
+            postbackEvent.payload()
+                    .filter(p -> p.equals(props.getHelpPayload()))
+                    .ifPresent(p -> button(idRecipient));
+        }
+    }
+
+    private void send(IdRecipient idRecipient) {
+        try {
             messenger.send(MessagePayload.create(idRecipient, MessagingType.RESPONSE, TextMessage.create("Hi Hello!")));
-            button(idRecipient);
+        } catch (MessengerApiException | MessengerIOException e) {
+            e.printStackTrace();
         }
     }
 

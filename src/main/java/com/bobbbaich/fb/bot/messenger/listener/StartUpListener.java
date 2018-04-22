@@ -1,5 +1,6 @@
 package com.bobbbaich.fb.bot.messenger.listener;
 
+import com.bobbbaich.fb.bot.messenger.config.MessengerProperties;
 import com.github.messenger4j.Messenger;
 import com.github.messenger4j.common.WebviewHeightRatio;
 import com.github.messenger4j.common.WebviewShareButtonState;
@@ -14,7 +15,6 @@ import com.github.messenger4j.messengerprofile.persistentmenu.action.UrlCallToAc
 import com.github.messenger4j.messengerprofile.targetaudience.AllTargetAudience;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Profile;
@@ -33,18 +33,14 @@ import static java.util.Optional.of;
 @Profile("docker")
 public class StartUpListener implements ApplicationListener<ApplicationReadyEvent> {
     private final Messenger messenger;
-
-    @Value("${messenger.setup.getStartedPayload}")
-    private String getStartedPayload;
-    @Value("${messenger.setup.greeting}")
-    private String greeting;
+    private final MessengerProperties props;
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         try {
             MessengerSettings messengerSettings = MessengerSettings
-                    .create(of(StartButton.create(getStartedPayload)),
-                            of(Greeting.create(greeting)),
+                    .create(of(StartButton.create(props.getGetStartedPayload())),
+                            of(Greeting.create(props.getGreeting())),
                             of(persistentMenu()),
                             empty(),
                             empty(),
@@ -62,7 +58,7 @@ public class StartUpListener implements ApplicationListener<ApplicationReadyEven
         try {
             UrlCallToAction callToGoogle = UrlCallToAction.create("Google", new URL("https://www.google.com.ua"), of(WebviewHeightRatio.FULL), empty(), empty(), of(WebviewShareButtonState.HIDE));
             UrlCallToAction callToTwitterConnect = UrlCallToAction.create("Connect Twitter", new URL("https://streammy.tk/signin/twitter"), of(WebviewHeightRatio.FULL), empty(), empty(), of(WebviewShareButtonState.HIDE));
-            PostbackCallToAction callToGetHelp = PostbackCallToAction.create("Get Help", "GET_HELP_PAYLOAD");
+            PostbackCallToAction callToGetHelp = PostbackCallToAction.create("Get Help", props.getHelpPayload());
 
             return PersistentMenu.create(false, of(Arrays.asList(callToGoogle, callToTwitterConnect, callToGetHelp)));
         } catch (MalformedURLException e) {

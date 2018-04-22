@@ -1,5 +1,18 @@
-#Remote profile configuration
-messenger4j:
+#'docker' profile configuration
+
+##---Loggin Properties---
+logging:
+  level:
+    org.springframework.web: INFO
+    org.springframework.social: DEBUG
+    org.springframework.security: INFO
+    org.springframework.batch: DEBUG
+    org.springframework.web.servlet.mvc.method.annotation: ERROR
+    org.springframework.boot.actuate.endpoint.mvc: ERROR
+    com.bobbbaich: DEBUG
+
+
+messenger:
   appSecret: ${MESSENGER_APP_SECRET}
   verifyToken: ${MESSENGER_VERIFY_TOKEN}
   pageAccessToken: ${MESSENGER_PAGE_ACCESS_TOKEN}
