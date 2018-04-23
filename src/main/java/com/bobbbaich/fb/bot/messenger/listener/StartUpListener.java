@@ -46,7 +46,7 @@ public class StartUpListener implements ApplicationListener<ApplicationReadyEven
                         persistentMenu(),
                         whitelistedURLs(),
                         empty(),
-                        homeUrl(),
+                        empty(),
                         of(AllTargetAudience.create()));
         try {
             SetupResponse deleteResponse = messenger.deleteSettings(GREETING, ACCOUNT_LINKING_URL, HOME_URL, WHITELISTED_DOMAINS, TARGET_AUDIENCE, START_BUTTON, PERSISTENT_MENU);
@@ -54,7 +54,7 @@ public class StartUpListener implements ApplicationListener<ApplicationReadyEven
             log.info("Messenger settings updated with following results. Delete settings: {}; Update settings: {}", deleteResponse.result(), updateResponse.result());
         } catch (MessengerApiException | MessengerIOException e) {
 //          TODO: handle exceptions
-            log.warn("Exception occurred trying set messenger settings.", e);
+            log.warn("Exception occurred trying set messenger settings. Messenger Bot may work incorrect.", e);
         }
     }
 
