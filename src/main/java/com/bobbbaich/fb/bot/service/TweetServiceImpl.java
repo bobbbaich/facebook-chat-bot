@@ -13,6 +13,18 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class TweetServiceImpl implements TweetService {
     private final StreamOperationsService streamOperationsService;
+    private Integer defaultLimit = 100;
+    private String defaultTopic = "test";
+
+    @Override
+    public void collectTweets(String tweetWord) {
+        collectTweets(tweetWord, defaultLimit);
+    }
+
+    @Override
+    public void collectTweets(String tweetWord, Integer limit) {
+        collectTweets(defaultTopic, tweetWord, limit);
+    }
 
     @Override
     public void collectTweets(String topicName, String keyWord, Integer limit) {

@@ -1,6 +1,7 @@
 package com.bobbbaich.fb.bot.messenger.controller;
 
 import com.bobbbaich.fb.bot.messenger.config.MessengerProperties;
+import com.bobbbaich.fb.bot.service.api.AnalyseService;
 import com.github.messenger4j.Messenger;
 import com.github.messenger4j.common.WebviewHeightRatio;
 import com.github.messenger4j.exception.MessengerApiException;
@@ -35,6 +36,7 @@ import static java.util.Optional.of;
 public class MessengerEventHandler {
     private final Messenger messenger;
     private final MessengerProperties props;
+    private final AnalyseService analyseService;
 
     public void onEvent(Event event) {
         final IdRecipient idRecipient = IdRecipient.create(event.senderId());
@@ -44,6 +46,7 @@ public class MessengerEventHandler {
             log.debug("Text Message event received.");
             TextMessageEvent textMessageEvent = event.asTextMessageEvent();
             log.debug("Message has been received with text: {}", textMessageEvent.text());
+            analyseService.analyse(textMessageEvent.text());
         } else if (event.isPostbackEvent()) {
             PostbackEvent postbackEvent = event.asPostbackEvent();
 

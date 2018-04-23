@@ -1,9 +1,8 @@
 package com.bobbbaich.fb.bot.cache;
 
-import com.bobbbaich.fb.bot.cache.api.StreamCacheHandler;
-import com.bobbbaich.fb.bot.cache.api.StreamCacheService;
-import com.bobbbaich.fb.bot.cache.event.AddStreamEvent;
-import com.bobbbaich.fb.bot.cache.event.CloseStreamEvent;
+import com.bobbbaich.fb.bot.cache.api.CacheHandler;
+import com.bobbbaich.fb.bot.cache.api.CacheService;
+import com.bobbbaich.fb.bot.cache.api.Event;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.social.twitter.api.Stream;
@@ -13,12 +12,11 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class StreamCacheServiceImpl implements StreamCacheService {
-    private final StreamCacheHandler handler;
+public class StreamCacheService implements CacheService<Event<StreamInfo>> {
+    private final CacheHandler<Stream> handler;
 
-    @Override
-    public void closeStream(CloseStreamEvent event) {
-        StreamInfo streamInfo = event.getStreamInfo();
+    public void remove(Event<StreamInfo> event) {
+        StreamInfo streamInfo = event.getEventObj();
         if (!validateTopicAndKeyWord(streamInfo)) {
             throw new IllegalArgumentException("Validate stream info was failed");
         }
@@ -26,9 +24,8 @@ public class StreamCacheServiceImpl implements StreamCacheService {
         handler.close(streamInfo.getTopic(), streamInfo.getKeyWord());
     }
 
-    @Override
-    public void addStream(AddStreamEvent event) {
-        StreamInfo streamInfo = event.getStreamInfo();
+    public void add(Event<StreamInfo> event) {
+        StreamInfo streamInfo = event.getEventObj();
         log.debug("Stream info = {}", streamInfo);
         if (!validate(streamInfo)) {
             throw new IllegalArgumentException("Validate stream info was failed");
@@ -38,10 +35,7 @@ public class StreamCacheServiceImpl implements StreamCacheService {
     }
 
     private boolean validate(StreamInfo streamInfo) {
-        boolean f1 = validateTopicAndKeyWord(streamInfo);
-        boolean f2 = validateStream(streamInfo);
-        log.debug("FLAGS F1 = {}, F2 = {}", f1, f2);
-        return f1 && f2;
+        return validateTopicAndKeyWord(streamInfo) && validateStream(streamInfo);
     }
 
     private boolean validateTopicAndKeyWord(StreamInfo streamInfo) {

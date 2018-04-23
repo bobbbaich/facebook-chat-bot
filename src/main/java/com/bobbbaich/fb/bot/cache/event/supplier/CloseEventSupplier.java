@@ -1,23 +1,23 @@
 package com.bobbbaich.fb.bot.cache.event.supplier;
 
 import com.bobbbaich.fb.bot.cache.StreamInfo;
-import com.bobbbaich.fb.bot.cache.api.StreamEventSupplier;
+import com.bobbbaich.fb.bot.cache.api.Event;
+import com.bobbbaich.fb.bot.cache.api.EventSupplier;
 import com.bobbbaich.fb.bot.cache.api.annotaion.CloseStream;
-import com.bobbbaich.fb.bot.cache.event.CloseStreamEvent;
-import org.springframework.context.ApplicationEvent;
+import com.bobbbaich.fb.bot.cache.event.CloseEvent;
 import org.springframework.social.twitter.api.Stream;
 import org.springframework.stereotype.Component;
 
 @CloseStream
 @Component
-public class CloseStreamEventSupplier implements StreamEventSupplier {
+public class CloseEventSupplier implements EventSupplier<StreamInfo, Stream> {
     @Override
-    public ApplicationEvent supply(Object source, StreamInfo streamInfo) {
-        return new CloseStreamEvent(source, streamInfo);
+    public Event<StreamInfo> supply(Object source, StreamInfo streamInfo) {
+        return new CloseEvent(source, streamInfo);
     }
 
     @Override
-    public ApplicationEvent supply(Object source, String topic, String keyWord) {
+    public Event<StreamInfo> supply(Object source, String topic, String keyWord) {
         StreamInfo streamInfo = new StreamInfo();
         streamInfo.setTopic(topic);
         streamInfo.setKeyWord(keyWord);
@@ -25,7 +25,7 @@ public class CloseStreamEventSupplier implements StreamEventSupplier {
     }
 
     @Override
-    public ApplicationEvent supply(Object source, String topic, String keyWord, Stream stream) {
+    public Event<StreamInfo> supply(Object source, String topic, String keyWord, Stream stream) {
         throw new UnsupportedOperationException("Not supported for " + this.getClass().getSimpleName());
     }
 }

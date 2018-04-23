@@ -1,6 +1,6 @@
 package com.bobbbaich.fb.bot.cache;
 
-import com.bobbbaich.fb.bot.cache.api.StreamCache;
+import com.bobbbaich.fb.bot.cache.api.Cache;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.social.twitter.api.Stream;
 import org.springframework.stereotype.Component;
@@ -10,13 +10,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 @Component
-public class StreamCacheImpl implements StreamCache{
+public class StreamCache implements Cache<Stream> {
     private Map<String, Stream> streamCache;
 
-    public StreamCacheImpl() {
+    public StreamCache() {
         this.streamCache = new ConcurrentHashMap<>();
     }
-
 
     @Override
     public Stream add(String topic, String keyWord, Stream stream) {
