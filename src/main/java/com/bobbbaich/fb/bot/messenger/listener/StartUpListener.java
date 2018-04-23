@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.github.messenger4j.messengerprofile.MessengerSettingProperty.*;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 
@@ -50,6 +51,7 @@ public class StartUpListener implements ApplicationListener<ApplicationReadyEven
                         homeUrl(),
                         of(AllTargetAudience.create()));
         try {
+            messenger.deleteSettings(GREETING, ACCOUNT_LINKING_URL, HOME_URL, WHITELISTED_DOMAINS, TARGET_AUDIENCE, START_BUTTON, PERSISTENT_MENU);
             messenger.updateSettings(messengerSettings);
         } catch (MessengerApiException | MessengerIOException e) {
 //          TODO: handle exceptions
