@@ -1,14 +1,11 @@
 package com.bobbbaich.fb.bot.kafka;
 
-import com.bobbbaich.fb.bot.cache.api.StreamCacheEventPublisher;
+import com.bobbbaich.fb.bot.cache.api.EventPublisher;
 import com.bobbbaich.fb.bot.kafka.api.Producer;
 import com.bobbbaich.fb.bot.kafka.api.StreamListenerProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.social.twitter.api.StreamDeleteEvent;
-import org.springframework.social.twitter.api.StreamListener;
-import org.springframework.social.twitter.api.StreamWarningEvent;
-import org.springframework.social.twitter.api.Tweet;
+import org.springframework.social.twitter.api.*;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -16,7 +13,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class StreamListenerProviderImpl implements StreamListenerProvider {
     private final Producer<String> producer;
-    private final StreamCacheEventPublisher publisher;
+    private final EventPublisher<Stream> publisher;
 
     @Override
     public StreamListener provide(final String topic, final String keyWord, final Integer limit) {
@@ -32,7 +29,7 @@ public class StreamListenerProviderImpl implements StreamListenerProvider {
                     if (!sentStopEvent) {
                         log.debug("Try create CloseStreamEvent");
                         sentStopEvent = true;
-                        publisher.publishClose(topic, keyWord);
+                        publisher.close(topic, keyWord);
                     }
                 }
                 counter++;
