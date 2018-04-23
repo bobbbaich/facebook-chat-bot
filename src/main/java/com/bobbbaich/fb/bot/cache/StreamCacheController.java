@@ -1,7 +1,6 @@
 package com.bobbbaich.fb.bot.cache;
 
-import com.bobbbaich.fb.bot.cache.api.StreamCache;
-import com.bobbbaich.fb.bot.cache.api.StreamCacheHandler;
+import com.bobbbaich.fb.bot.cache.api.CacheController;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.social.twitter.api.Stream;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class StreamCacheHandlerImpl implements StreamCacheHandler {
+public class StreamCacheController implements CacheController<Stream> {
     private final StreamCache streamCache;
 
     @Override

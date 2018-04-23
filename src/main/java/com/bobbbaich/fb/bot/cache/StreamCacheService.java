@@ -1,6 +1,6 @@
 package com.bobbbaich.fb.bot.cache;
 
-import com.bobbbaich.fb.bot.cache.api.CacheHandler;
+import com.bobbbaich.fb.bot.cache.api.CacheController;
 import com.bobbbaich.fb.bot.cache.api.CacheService;
 import com.bobbbaich.fb.bot.cache.api.Event;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class StreamCacheService implements CacheService<Event<StreamInfo>> {
-    private final CacheHandler<Stream> handler;
+    private final CacheController<Stream> handler;
 
     public void remove(Event<StreamInfo> event) {
         StreamInfo streamInfo = event.getEventObj();

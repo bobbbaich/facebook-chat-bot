@@ -1,6 +1,6 @@
 package com.bobbbaich.fb.bot.cache.api;
 
-public interface CacheHandler<T> {
+public interface CacheController<T> {
     T find(String topic, String keyWord);
 
     void close(String topic, String keyWord);
