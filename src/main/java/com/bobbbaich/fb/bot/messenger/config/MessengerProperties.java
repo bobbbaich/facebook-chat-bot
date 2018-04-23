@@ -20,13 +20,14 @@ public class MessengerProperties {
 
     private String greeting;
 
-    private String getStartedPayload;
-    private String helpPayload;
-
     @Pattern(regexp = URL_REGEXP)
     private List<String> whitelistedURLs;
     @Pattern(regexp = URL_REGEXP)
     private String homeURL;
 
     private boolean inTest;
+
+    private String getStartedPayload;
+    private String helpPayload;
+    private String startAnalysisPayload;
 }

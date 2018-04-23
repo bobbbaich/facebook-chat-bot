@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -48,7 +48,7 @@ public class MessengerEventHandler {
                     .ifPresent(p -> send(idRecipient));
 
             postbackEvent.payload()
-                    .filter(p -> p.equals(props.getHelpPayload()))
+                    .filter(p -> p.equals(props.getStartAnalysisPayload()))
                     .ifPresent(p -> button(idRecipient));
         }
     }
@@ -65,7 +65,7 @@ public class MessengerEventHandler {
         try {
             PostbackButton buttonB = PostbackButton.create("Start Analysing", "START_ANALYSIS_PAYLOAD");
 
-            List<Button> buttons = Arrays.asList(buttonB);
+            List<Button> buttons = Collections.singletonList(buttonB);
             ButtonTemplate buttonTemplate = ButtonTemplate.create("What do you want to do next?", buttons);
 
             TemplateMessage templateMessage = TemplateMessage.create(buttonTemplate);

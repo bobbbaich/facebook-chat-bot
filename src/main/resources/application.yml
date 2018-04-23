@@ -16,3 +16,4 @@ messenger:
     - "https://streammy.tk"
   getStartedPayload: "GET_STARTED_PAYLOAD"
   helpPayload: "HELP_PAYLOAD"
+  startAnalysisPayload: "START_ANALYSIS_PAYLOAD"

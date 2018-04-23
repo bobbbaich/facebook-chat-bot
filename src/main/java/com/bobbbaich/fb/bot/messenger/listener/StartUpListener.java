@@ -2,17 +2,15 @@ package com.bobbbaich.fb.bot.messenger.listener;
 
 import com.bobbbaich.fb.bot.messenger.config.MessengerProperties;
 import com.github.messenger4j.Messenger;
-import com.github.messenger4j.common.WebviewHeightRatio;
-import com.github.messenger4j.common.WebviewShareButtonState;
 import com.github.messenger4j.exception.MessengerApiException;
 import com.github.messenger4j.exception.MessengerIOException;
 import com.github.messenger4j.messengerprofile.MessengerSettings;
+import com.github.messenger4j.messengerprofile.SetupResponse;
 import com.github.messenger4j.messengerprofile.getstarted.StartButton;
 import com.github.messenger4j.messengerprofile.greeting.Greeting;
 import com.github.messenger4j.messengerprofile.homeurl.HomeUrl;
 import com.github.messenger4j.messengerprofile.persistentmenu.PersistentMenu;
 import com.github.messenger4j.messengerprofile.persistentmenu.action.PostbackCallToAction;
-import com.github.messenger4j.messengerprofile.persistentmenu.action.UrlCallToAction;
 import com.github.messenger4j.messengerprofile.targetaudience.AllTargetAudience;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -51,8 +49,9 @@ public class StartUpListener implements ApplicationListener<ApplicationReadyEven
                         homeUrl(),
                         of(AllTargetAudience.create()));
         try {
-            messenger.deleteSettings(GREETING, ACCOUNT_LINKING_URL, HOME_URL, WHITELISTED_DOMAINS, TARGET_AUDIENCE, START_BUTTON, PERSISTENT_MENU);
-            messenger.updateSettings(messengerSettings);
+            SetupResponse deleteResponse = messenger.deleteSettings(GREETING, ACCOUNT_LINKING_URL, HOME_URL, WHITELISTED_DOMAINS, TARGET_AUDIENCE, START_BUTTON, PERSISTENT_MENU);
+            SetupResponse updateResponse = messenger.updateSettings(messengerSettings);
+            log.info("Messenger settings updated with following results. Delete settings: {}; Update settings: {}", deleteResponse.result(), updateResponse.result());
         } catch (MessengerApiException | MessengerIOException e) {
 //          TODO: handle exceptions
             log.warn("Exception occurred trying set messenger settings.", e);
@@ -69,16 +68,10 @@ public class StartUpListener implements ApplicationListener<ApplicationReadyEven
     }
 
     private Optional<PersistentMenu> persistentMenu() {
-        try {
-            UrlCallToAction callToGoogle = UrlCallToAction.create("Google", new URL("https://www.google.com.ua"), of(WebviewHeightRatio.FULL), empty(), empty(), of(WebviewShareButtonState.HIDE));
-            UrlCallToAction callToTwitterConnect = UrlCallToAction.create("Connect Twitter", new URL("https://streammy.tk/signin/twitter"), of(WebviewHeightRatio.FULL), empty(), empty(), of(WebviewShareButtonState.HIDE));
-            PostbackCallToAction callToGetHelp = PostbackCallToAction.create("Get Help", props.getHelpPayload());
+        PostbackCallToAction callToAnalyse = PostbackCallToAction.create("Start Analysis", props.getStartAnalysisPayload());
+        PostbackCallToAction callToGetHelp = PostbackCallToAction.create("Get Help", props.getHelpPayload());
 
-            return of(PersistentMenu.create(false, of(Arrays.asList(callToGoogle, callToTwitterConnect, callToGetHelp))));
-        } catch (MalformedURLException e) {
-            log.error("Malformed URL has occurred. Check bot settings.", e);
-            return empty();
-        }
+        return of(PersistentMenu.create(false, of(Arrays.asList(callToAnalyse, callToGetHelp))));
     }
 
     private Optional<List<URL>> whitelistedURLs() {
