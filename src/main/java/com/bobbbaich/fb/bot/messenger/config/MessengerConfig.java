@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 @Configuration
 public class MessengerConfig {
-    private final MessengerProperties props;
+    private final MessengerProperty props;
 
     /**
      * Initializes the {@code Messenger}.

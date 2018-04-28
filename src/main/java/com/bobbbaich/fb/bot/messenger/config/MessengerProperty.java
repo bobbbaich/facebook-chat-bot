@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @Configuration
 @ConfigurationProperties(prefix = "messenger")
-public class MessengerProperties {
+public class MessengerProperty {
     private static final String URL_REGEXP = "(https?|ftp)://(-\\.)?([^\\s/?\\.#-]+\\.?)+(/[^\\s]*)?$";
 
     private String verifyToken;

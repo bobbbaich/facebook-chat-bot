@@ -1,5 +1,6 @@
 package com.bobbbaich.fb.bot.messenger.controller;
 
+import com.bobbbaich.fb.bot.messenger.processor.MessengerEventDelegate;
 import com.github.messenger4j.Messenger;
 import com.github.messenger4j.exception.MessengerVerificationException;
 import lombok.RequiredArgsConstructor;
@@ -8,10 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 import static com.github.messenger4j.Messenger.*;
-import static java.util.Optional.*;
+import static java.util.Optional.empty;
 
 /**
  * This is the main class for inbound and outbound communication with the Facebook Messenger Platform.
@@ -24,7 +23,7 @@ import static java.util.Optional.*;
 @RequestMapping("/callback")
 public class MessengerCallbackController {
     private final Messenger messenger;
-    private final MessengerEventHandler eventHandler;
+    private final MessengerEventDelegate eventDelegate;
 
     /**
      * Webhook verification endpoint.
@@ -53,10 +52,10 @@ public class MessengerCallbackController {
      */
     @PostMapping
     public ResponseEntity<Void> handleCallback(@RequestBody final String payload,
-                                               @RequestHeader(SIGNATURE_HEADER_NAME) final String signature)  {
+                                               @RequestHeader(SIGNATURE_HEADER_NAME) final String signature) {
         log.debug("Received Messenger Platform callback - payload: {} | signature: {}", payload, signature);
         try {
-            messenger.onReceiveEvents(payload, empty(), eventHandler::onEvent);
+            messenger.onReceiveEvents(payload, empty(), eventDelegate::onEvent);
             log.debug("Processed callback payload successfully");
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (MessengerVerificationException e) {

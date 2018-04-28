@@ -1,6 +1,6 @@
 package com.bobbbaich.fb.bot.messenger.listener;
 
-import com.bobbbaich.fb.bot.messenger.config.MessengerProperties;
+import com.bobbbaich.fb.bot.messenger.config.MessengerProperty;
 import com.github.messenger4j.Messenger;
 import com.github.messenger4j.exception.MessengerApiException;
 import com.github.messenger4j.exception.MessengerIOException;
@@ -36,7 +36,7 @@ import static java.util.Optional.of;
 @Profile("docker")
 public class StartUpListener implements ApplicationListener<ApplicationReadyEvent> {
     private final Messenger messenger;
-    private final MessengerProperties props;
+    private final MessengerProperty props;
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
@@ -44,7 +44,7 @@ public class StartUpListener implements ApplicationListener<ApplicationReadyEven
                 .create(of(StartButton.create(props.getGetStartedPayload())),
                         of(Greeting.create(props.getGreeting())),
                         persistentMenu(),
-                        whitelistedURLs(),
+                        empty(),
                         empty(),
                         empty(),
                         of(AllTargetAudience.create()));
@@ -58,20 +58,20 @@ public class StartUpListener implements ApplicationListener<ApplicationReadyEven
         }
     }
 
-    private Optional<HomeUrl> homeUrl() {
-        try {
-            return of(HomeUrl.create(new URL(props.getHomeURL()), props.isInTest()));
-        } catch (MalformedURLException e) {
-            log.error("Malformed URL has occurred. Check bot settings.", e);
-            return empty();
-        }
-    }
-
     private Optional<PersistentMenu> persistentMenu() {
         PostbackCallToAction callToAnalyse = PostbackCallToAction.create("Start Analysis", props.getStartAnalysisPayload());
         PostbackCallToAction callToGetHelp = PostbackCallToAction.create("Get Help", props.getHelpPayload());
 
         return of(PersistentMenu.create(false, of(Arrays.asList(callToAnalyse, callToGetHelp))));
+    }
+
+    private Optional<HomeUrl> homeUrl() {
+        try {
+            return of(HomeUrl.create(new URL(props.getHomeURL()), props.isInTest()));
+        } catch (MalformedURLException e) {
+            log.error("Malformed URL has occurred. Messenger Bot may work incorrect.", e);
+            return empty();
+        }
     }
 
     private Optional<List<URL>> whitelistedURLs() {
@@ -80,7 +80,7 @@ public class StartUpListener implements ApplicationListener<ApplicationReadyEven
                 return new URL(spec);
             } catch (MalformedURLException e) {
                 log.error("There is incorrect whitelisted URL: {} in messenger properties. Check your configuration.", spec);
-                throw new IllegalArgumentException("Incorrect whitelisted URL in messenger properties.", e);
+                throw new IllegalArgumentException("Incorrect whitelisted URL in messenger properties. Messenger Bot may work incorrect.", e);
             }
         }).collect(Collectors.toList()));
     }
