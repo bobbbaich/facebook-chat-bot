@@ -12,13 +12,13 @@ import org.springframework.util.Assert;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class ProcessorLookupService implements LookupService {
+public class ProcessorLookupService implements ProcessorLookup {
     private final EventProcessor<BaseEvent> defaultEventProcessor;
     private final EventProcessor<PostbackEvent> postbackEventProcessor;
     private final EventProcessor<TextMessageEvent> textMessageEventProcessor;
 
     @Override
-    public EventProcessor getService(Event event) {
+    public EventProcessor getProcessor(Event event) {
         Assert.notNull(event, "Event cannot be null!");
 
         if (event.isPostbackEvent()) return postbackEventProcessor;

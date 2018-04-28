@@ -17,7 +17,7 @@ public class TextMessageEventProcessor implements EventProcessor<TextMessageEven
     @Override
     public void doProcessing(Event event) {
         TextMessageEvent textMessageEvent = event.asTextMessageEvent();
-        Assert.notNull(textMessageEvent, "PostbackEvent cannot be null!");
+        Assert.notNull(textMessageEvent, "TextMessageEvent cannot be null!");
 
         doProcessing(textMessageEvent);
     }

@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Component
 public class MessengerEventDelegate implements EventDelegate {
-    private final LookupService lookupService;
+    private final ProcessorLookup processorLookup;
 
     @Override
     public void onEvent(Event event) {
-        EventProcessor eventProcessor = lookupService.getService(event);
+        EventProcessor eventProcessor = processorLookup.getProcessor(event);
         eventProcessor.doProcessing(event);
     }
 }
