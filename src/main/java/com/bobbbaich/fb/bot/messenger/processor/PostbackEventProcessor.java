@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
-import static com.bobbbaich.fb.bot.messenger.config.Postback.*;
+import static com.bobbbaich.fb.bot.messenger.config.PostbackPayload.*;
 
 @Slf4j
 @RequiredArgsConstructor

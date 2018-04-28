@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.bobbbaich.fb.bot.messenger.config.PostbackPayload.*;
 import static com.github.messenger4j.messengerprofile.MessengerSettingProperty.*;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
@@ -41,7 +42,7 @@ public class StartUpListener implements ApplicationListener<ApplicationReadyEven
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         MessengerSettings messengerSettings = MessengerSettings
-                .create(of(StartButton.create(props.getGetStartedPayload())),
+                .create(of(StartButton.create(GET_STARTED_PAYLOAD)),
                         of(Greeting.create(props.getGreeting())),
                         persistentMenu(),
                         empty(),
@@ -59,8 +60,8 @@ public class StartUpListener implements ApplicationListener<ApplicationReadyEven
     }
 
     private Optional<PersistentMenu> persistentMenu() {
-        PostbackCallToAction callToAnalyse = PostbackCallToAction.create("Start Analysis", props.getStartAnalysisPayload());
-        PostbackCallToAction callToGetHelp = PostbackCallToAction.create("Get Help", props.getHelpPayload());
+        PostbackCallToAction callToAnalyse = PostbackCallToAction.create("Start Analysis", START_ANALYSIS_PAYLOAD);
+        PostbackCallToAction callToGetHelp = PostbackCallToAction.create("Get Help", HELP_PAYLOAD);
 
         return of(PersistentMenu.create(false, of(Arrays.asList(callToAnalyse, callToGetHelp))));
     }

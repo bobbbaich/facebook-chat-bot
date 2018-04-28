@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 
@@ -14,8 +15,11 @@ import java.util.List;
 public class MessengerProperty {
     private static final String URL_REGEXP = "(https?|ftp)://(-\\.)?([^\\s/?\\.#-]+\\.?)+(/[^\\s]*)?$";
 
+    @NotNull
     private String verifyToken;
+    @NotNull
     private String pageAccessToken;
+    @NotNull
     private String appSecret;
 
     private String greeting;
@@ -26,8 +30,4 @@ public class MessengerProperty {
     private String homeURL;
 
     private boolean inTest;
-
-    private String getStartedPayload;
-    private String helpPayload;
-    private String startAnalysisPayload;
 }
