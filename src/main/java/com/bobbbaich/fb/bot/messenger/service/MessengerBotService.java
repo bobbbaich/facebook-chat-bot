@@ -7,10 +7,12 @@ import com.github.messenger4j.Messenger;
 import com.github.messenger4j.exception.MessengerApiException;
 import com.github.messenger4j.exception.MessengerIOException;
 import com.github.messenger4j.send.MessagePayload;
+import com.github.messenger4j.send.MessagingType;
+import com.github.messenger4j.send.message.TemplateMessage;
 import com.github.messenger4j.send.message.TextMessage;
-import com.github.messenger4j.send.message.quickreply.TextQuickReply;
+import com.github.messenger4j.send.message.template.ButtonTemplate;
+import com.github.messenger4j.send.message.template.button.PostbackButton;
 import com.github.messenger4j.send.recipient.IdRecipient;
-import com.github.messenger4j.send.recipient.Recipient;
 import com.github.messenger4j.userprofile.UserProfile;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,9 +25,6 @@ import java.util.stream.Stream;
 import static com.bobbbaich.fb.bot.messenger.config.PostbackPayload.START_ANALYSIS_PAYLOAD;
 import static com.bobbbaich.fb.bot.model.UserRole.ROLE_MESSENGER;
 import static com.bobbbaich.fb.bot.model.UserRole.ROLE_USER;
-import static com.github.messenger4j.send.MessagingType.RESPONSE;
-import static java.util.Optional.empty;
-import static java.util.Optional.of;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -51,20 +50,21 @@ public class MessengerBotService implements BotService {
 
     @Override
     public void startAnalysis(String recipientId) throws MessengerApiException, MessengerIOException {
-        Recipient recipient = IdRecipient.create(recipientId);
-        TextMessage message = TextMessage.create(props.getFactRequest());
+        IdRecipient recipient = IdRecipient.create(recipientId);
 
-        messenger.send(MessagePayload.create(recipient, RESPONSE, message));
+        TextMessage message = TextMessage.create(props.getFactRequest());
+        
+        messenger.send(MessagePayload.create(recipient, MessagingType.RESPONSE, message));
     }
 
     @Override
     public void getHelp(String recipientId) throws MessengerApiException, MessengerIOException {
         IdRecipient recipient = IdRecipient.create(recipientId);
 
-        TextQuickReply quickStartAnalysis = TextQuickReply.create("Start Analysis", START_ANALYSIS_PAYLOAD);
-        TextMessage message = TextMessage.create(props.getBotGeneralInfo(),
-                of(Collections.singletonList(quickStartAnalysis)), empty());
+        PostbackButton buttonStartAnalysis = PostbackButton.create("Start Analysis", START_ANALYSIS_PAYLOAD);
+        ButtonTemplate buttonTemplate = ButtonTemplate.create(props.getBotGeneralInfo(), Collections.singletonList(buttonStartAnalysis));
+        TemplateMessage templateMessage = TemplateMessage.create(buttonTemplate);
 
-        messenger.send(MessagePayload.create(recipient, RESPONSE, message));
+        messenger.send(MessagePayload.create(recipient, MessagingType.RESPONSE, templateMessage));
     }
 }

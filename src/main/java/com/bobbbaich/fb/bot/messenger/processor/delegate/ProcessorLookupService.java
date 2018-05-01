@@ -1,7 +1,6 @@
 package com.bobbbaich.fb.bot.messenger.processor.delegate;
 
 import com.bobbbaich.fb.bot.messenger.processor.EventProcessor;
-import com.bobbbaich.fb.bot.messenger.processor.delegate.ProcessorLookup;
 import com.github.messenger4j.webhook.Event;
 import com.github.messenger4j.webhook.event.BaseEvent;
 import com.github.messenger4j.webhook.event.PostbackEvent;

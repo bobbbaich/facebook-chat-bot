@@ -12,6 +12,8 @@ public class TextMessageEventProcessor implements EventProcessor<TextMessageEven
     @Override
     public void doProcessing(TextMessageEvent event) {
         log.debug("TextMessageEvent has been processing...");
+
+        
     }
 
     @Override
