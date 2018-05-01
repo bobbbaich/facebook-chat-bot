@@ -3,7 +3,6 @@ package com.bobbbaich.fb.bot.social.mongo;
 
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.social.connect.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -11,30 +10,18 @@ import org.springframework.util.MultiValueMap;
 import java.util.*;
 
 class MongoConnectionRepository implements ConnectionRepository {
-
     private final String userId;
-
     private final ConnectionService connService;
-
     private final ConnectionFactoryLocator connectionFactoryLocator;
 
-    //private final TextEncryptor textEncryptor;
-
-    public MongoConnectionRepository(String userId,
-                                     ConnectionService connectionService,
-                                     ConnectionFactoryLocator connectionFactoryLocator,
-                                     TextEncryptor textEncryptor) {
+    MongoConnectionRepository(String userId,
+                              ConnectionService connectionService,
+                              ConnectionFactoryLocator connectionFactoryLocator) {
 
         this.userId = userId;
         this.connService = connectionService;
         this.connectionFactoryLocator = connectionFactoryLocator;
-        //this.textEncryptor = textEncryptor;
-        //this.connectionMapper = new ConnectionMapper(connectionFactoryLocator, textEncryptor);
     }
-
-//	private String encrypt(String text) {
-//		return text != null ? textEncryptor.encrypt(text) : text;
-//	}
 
     /**
      * Add a new connection to this repository for the current user.
@@ -59,16 +46,16 @@ class MongoConnectionRepository implements ConnectionRepository {
     public MultiValueMap<String, Connection<?>> findAllConnections() {
         List<Connection<?>> resultList = connService.getConnections(this.userId);
 
-        MultiValueMap<String, Connection<?>> connections = new LinkedMultiValueMap<String, Connection<?>>();
+        MultiValueMap<String, Connection<?>> connections = new LinkedMultiValueMap<>();
         Set<String> registeredProviderIds = this.connectionFactoryLocator.registeredProviderIds();
         for (String registeredProviderId : registeredProviderIds) {
-            connections.put(registeredProviderId, Collections.<Connection<?>>emptyList());
+            connections.put(registeredProviderId, Collections.emptyList());
         }
 
         for (Connection<?> connection : resultList) {
             String providerId = connection.getKey().getProviderId();
             if (connections.get(providerId).size() == 0) {
-                connections.put(providerId, new LinkedList<Connection<?>>());
+                connections.put(providerId, new LinkedList<>());
             }
             connections.add(providerId, connection);
         }
@@ -104,13 +91,13 @@ class MongoConnectionRepository implements ConnectionRepository {
 
         List<Connection<?>> resultList = connService.getConnections(userId, providerUsers);
 
-        MultiValueMap<String, Connection<?>> connectionsForUsers = new LinkedMultiValueMap<String, Connection<?>>();
+        MultiValueMap<String, Connection<?>> connectionsForUsers = new LinkedMultiValueMap<>();
         for (Connection<?> connection : resultList) {
             String providerId = connection.getKey().getProviderId();
             List<String> userIds = providerUsers.get(providerId);
             List<Connection<?>> connections = connectionsForUsers.get(providerId);
             if (connections == null) {
-                connections = new ArrayList<Connection<?>>(userIds.size());
+                connections = new ArrayList<>(userIds.size());
                 for (int i = 0; i < userIds.size(); i++) {
                     connections.add(null);
                 }

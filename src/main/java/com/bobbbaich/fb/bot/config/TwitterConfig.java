@@ -17,9 +17,6 @@ import java.util.concurrent.Executors;
 @Slf4j
 @Configuration
 public class TwitterConfig {
-    @Value("${timeout.thread.pool:1}")
-    private int timeoutThreads;
-
     @Bean
     @Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
     public StreamingOperations streamingOperations(Twitter twitter) {
@@ -31,14 +28,4 @@ public class TwitterConfig {
     public UserOperations userOperations(Twitter twitter) {
         return twitter.userOperations();
     }
-
-    @Bean
-    public ExecutorService executorService() {
-        return Executors.newFixedThreadPool(timeoutThreads);
-    }
-
-//    @Bean
-//    TwitterTemplate getTwtTemplate(){
-//        return new TwitterTemplate(consumerKey, consumerSecret, accessToken, accessTokenSecret);
-//    }
 }

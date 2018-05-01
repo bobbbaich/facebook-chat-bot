@@ -30,7 +30,6 @@ public final class SocialConnectionSignUp implements ConnectionSignUp {
         Object api = connection.getApi();
         String socialUserId = null;
 
-//      TODO: rewrite instanceof block
         if (api instanceof Twitter) {
             socialUserId = signUp((Twitter) api);
         } else if (api instanceof Facebook) {
@@ -57,12 +56,10 @@ public final class SocialConnectionSignUp implements ConnectionSignUp {
     }
 
     private User createLocalUser(String userId) {
-        User newUser = new User();
-
-        newUser.setUsername(userId);
-        newUser.setUserRoles(Collections.singleton(UserRole.ROLE_USER));
-//        TODO: create password for social user
-        newUser.setPassword("pass");
-        return userService.create(newUser);
+        return userService.create(User.builder()
+                .username(userId)
+                .password("pass")
+                .userRoles(Collections.singleton(UserRole.ROLE_USER))
+                .build());
     }
 }

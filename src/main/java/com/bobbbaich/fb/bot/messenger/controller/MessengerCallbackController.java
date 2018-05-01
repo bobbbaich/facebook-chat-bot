@@ -1,6 +1,6 @@
 package com.bobbbaich.fb.bot.messenger.controller;
 
-import com.bobbbaich.fb.bot.messenger.processor.MessengerEventDelegate;
+import com.bobbbaich.fb.bot.messenger.processor.delegate.MessengerEventDelegate;
 import com.github.messenger4j.Messenger;
 import com.github.messenger4j.exception.MessengerVerificationException;
 import lombok.RequiredArgsConstructor;

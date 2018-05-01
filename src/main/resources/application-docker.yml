@@ -32,9 +32,4 @@ spring:
 kafka:
   bootstrap-servers: PLAINTEXT://${SERVER_IP}:9092
   topic:
-    tweet: test
-
-timeout:
-  time: 10000
-  thread:
-    pool: 2
+    tweet: tweet
