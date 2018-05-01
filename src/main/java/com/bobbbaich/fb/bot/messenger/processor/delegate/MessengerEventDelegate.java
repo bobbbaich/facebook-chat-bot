@@ -21,8 +21,8 @@ public class MessengerEventDelegate implements EventDelegate {
             EventProcessor eventProcessor = processorLookup.getProcessor(event);
             eventProcessor.doProcessing(event);
         } catch (MessengerApiException | MessengerIOException e) {
-            log.error("", e);
-            throw new MessengerException("Exception occurred when event has been proceed.", e);
+            log.error("Exception occurred when event has been processing.", e);
+            throw new MessengerException("Exception occurred when event has been processing.", e);
         }
     }
 }

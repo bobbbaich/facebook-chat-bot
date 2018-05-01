@@ -8,7 +8,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 
-
 @Data
 @Configuration
 @ConfigurationProperties(prefix = "messenger")
@@ -21,8 +20,12 @@ public class MessengerProperty {
     private String pageAccessToken;
     @NotNull
     private String appSecret;
-
+    @NotNull
     private String greeting;
+    @NotNull
+    private String botGeneralInfo;
+    @NotNull
+    private String factRequest;
 
     @Pattern(regexp = URL_REGEXP)
     private List<String> whitelistedURLs;

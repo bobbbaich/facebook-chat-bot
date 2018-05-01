@@ -1,6 +1,7 @@
 package com.bobbbaich.fb.bot.messenger.processor;
 
 import com.bobbbaich.fb.bot.messenger.config.MessengerProperty;
+import com.bobbbaich.fb.bot.messenger.service.BotService;
 import com.github.messenger4j.exception.MessengerApiException;
 import com.github.messenger4j.exception.MessengerIOException;
 import com.github.messenger4j.webhook.Event;
@@ -16,7 +17,6 @@ import static com.bobbbaich.fb.bot.messenger.config.PostbackPayload.*;
 @RequiredArgsConstructor
 @Component
 public class PostbackEventProcessor implements EventProcessor<PostbackEvent> {
-    private final MessengerProperty props;
     private final BotService botService;
 
     @Override
@@ -28,11 +28,13 @@ public class PostbackEventProcessor implements EventProcessor<PostbackEvent> {
         switch (payload) {
             case GET_STARTED_PAYLOAD:
                 botService.createUser(recipientId);
-                botService.quickReply(recipientId);
+                botService.getHelp(recipientId);
                 break;
             case START_ANALYSIS_PAYLOAD:
+                botService.startAnalysis(recipientId);
                 break;
             case HELP_PAYLOAD:
+                botService.getHelp(recipientId);
                 break;
             default:
                 break;

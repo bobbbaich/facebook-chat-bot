@@ -14,3 +14,5 @@ messenger:
   whitelistedURLs:
     - "https://google.com.ua"
     - "https://streammy.tk"
+  botGeneralInfo: "I'm here to analyse facts you'll send me!"
+  factRequest: "Type fact you would like to check."
