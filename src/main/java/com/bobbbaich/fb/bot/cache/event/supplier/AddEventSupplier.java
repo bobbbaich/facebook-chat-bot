@@ -17,15 +17,15 @@ public class AddEventSupplier implements EventSupplier<StreamInfo, Stream> {
     }
 
     @Override
-    public Event<StreamInfo> supply(Object source, String topic, String keyWord) {
+    public Event<StreamInfo> supply(Object source, String recipientId, long streamNumber) {
         throw new UnsupportedOperationException("Not supported for " + this.getClass().getSimpleName());
     }
 
     @Override
-    public Event<StreamInfo> supply(Object source, String topic, String keyWord, Stream stream) {
+    public Event<StreamInfo> supply(Object source, String recipientId, long streamNumber, Stream stream) {
         StreamInfo streamInfo = new StreamInfo();
-        streamInfo.setTopic(topic);
-        streamInfo.setKeyWord(keyWord);
+        streamInfo.setRecipientId(recipientId);
+        streamInfo.setStreamNumber(streamNumber);
         streamInfo.setStream(stream);
         return supply(source, streamInfo);
     }

@@ -17,11 +17,11 @@ public class StreamCacheService implements CacheService<Event<StreamInfo>> {
 
     public void remove(Event<StreamInfo> event) {
         StreamInfo streamInfo = event.getEventObj();
-        if (!validateTopicAndKeyWord(streamInfo)) {
+        if (!validateRecipientId(streamInfo)) {
             throw new IllegalArgumentException("Validate stream info was failed");
         }
-        log.debug("Try to close stream with topic = {} and keyWord = {}", streamInfo.getTopic(), streamInfo.getKeyWord());
-        handler.close(streamInfo.getTopic(), streamInfo.getKeyWord());
+        log.debug("Try to close stream with recipientId = {} and stream number = {}", streamInfo.getRecipientId(), streamInfo.getStreamNumber());
+        handler.close(streamInfo.getRecipientId(), streamInfo.getStreamNumber());
     }
 
     public void add(Event<StreamInfo> event) {
@@ -30,18 +30,17 @@ public class StreamCacheService implements CacheService<Event<StreamInfo>> {
         if (!validate(streamInfo)) {
             throw new IllegalArgumentException("Validate stream info was failed");
         }
-        log.debug("Try to add stream with topic = {} and keyWord = {}", streamInfo.getTopic(), streamInfo.getKeyWord());
-        handler.add(streamInfo.getTopic(), streamInfo.getKeyWord(), streamInfo.getStream());
+        log.debug("Try to add stream with recipientId = {} and stream number = {}", streamInfo.getRecipientId(), streamInfo.getStreamNumber());
+        handler.add(streamInfo.getRecipientId(), streamInfo.getStreamNumber(), streamInfo.getStream());
     }
 
     private boolean validate(StreamInfo streamInfo) {
-        return validateTopicAndKeyWord(streamInfo) && validateStream(streamInfo);
+        return validateRecipientId(streamInfo) && validateStream(streamInfo);
     }
 
-    private boolean validateTopicAndKeyWord(StreamInfo streamInfo) {
-        String topic = streamInfo.getTopic();
-        String keyWord = streamInfo.getKeyWord();
-        return topic != null && keyWord != null && !topic.isEmpty() && !keyWord.isEmpty();
+    private boolean validateRecipientId(StreamInfo streamInfo) {
+        String recipientId = streamInfo.getRecipientId();
+        return recipientId != null && !recipientId.isEmpty();
     }
 
     private boolean validateStream(StreamInfo streamInfo) {

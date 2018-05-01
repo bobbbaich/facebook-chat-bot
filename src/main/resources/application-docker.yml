@@ -33,3 +33,4 @@ kafka:
   bootstrap-servers: PLAINTEXT://${SERVER_IP}:9092
   topic:
     tweet: tweet
+    analyse: analyse

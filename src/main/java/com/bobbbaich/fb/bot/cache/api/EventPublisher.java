@@ -2,7 +2,7 @@ package com.bobbbaich.fb.bot.cache.api;
 
 public interface EventPublisher<T> {
 
-    void add(String topic, String keyWord, T obj);
+    void add(String recipientId, long streamNumber, T obj);
 
-    void close(String topic, String keyWord);
+    void close(String recipientId, long streamNumber);
 }

@@ -1,9 +1,9 @@
 package com.bobbbaich.fb.bot.cache.api;
 
 public interface CacheController<T> {
-    T find(String topic, String keyWord);
+    T find(String recipientId, long streamNumber);
 
-    void close(String topic, String keyWord);
+    void close(String recipientId, long streamNumber);
 
-    void add(String topic, String keyWord, T obj);
+    void add(String recipientId, long streamNumber, T obj);
 }

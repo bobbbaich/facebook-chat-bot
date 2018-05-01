@@ -34,13 +34,13 @@ public class CacheEventPublisher implements EventPublisher<Stream> {
         log.debug("Stream cache event was published");
     }
 
-    public void add(String topic, String keyWord, Stream stream) {
+    public void add(String recipientId, long streamNumber, Stream stream) {
         log.debug("Try to publish add stream event");
-        publish(addEventSupplier.supply(this, topic, keyWord, stream));
+        publish(addEventSupplier.supply(this, recipientId, streamNumber, stream));
     }
 
-    public void close(String topic, String keyWord) {
+    public void close(String recipientId, long streamNumber) {
         log.debug("Try to publish close stream event");
-        publish(closeEventSupplier.supply(this, topic, keyWord));
+        publish(closeEventSupplier.supply(this, recipientId, streamNumber));
     }
 }

@@ -1,9 +1,7 @@
 package com.bobbbaich.fb.bot.service.api;
 
+import com.bobbbaich.fb.bot.model.Message;
+
 public interface TweetService {
-    void collectTweets(String tweetWord);
-
-    void collectTweets(String tweetWord, Integer limit);
-
-    void collectTweets(String topicName, String tweetWord, Integer limit);
+    void collectTweets(Message message);
 }

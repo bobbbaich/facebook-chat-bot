@@ -17,15 +17,15 @@ public class CloseEventSupplier implements EventSupplier<StreamInfo, Stream> {
     }
 
     @Override
-    public Event<StreamInfo> supply(Object source, String topic, String keyWord) {
+    public Event<StreamInfo> supply(Object source, String recipientId, long streamNumber) {
         StreamInfo streamInfo = new StreamInfo();
-        streamInfo.setTopic(topic);
-        streamInfo.setKeyWord(keyWord);
+        streamInfo.setRecipientId(recipientId);
+        streamInfo.setStreamNumber(streamNumber);
         return supply(source, streamInfo);
     }
 
     @Override
-    public Event<StreamInfo> supply(Object source, String topic, String keyWord, Stream stream) {
+    public Event<StreamInfo> supply(Object source, String recipientId, long streamNumber, Stream stream) {
         throw new UnsupportedOperationException("Not supported for " + this.getClass().getSimpleName());
     }
 }

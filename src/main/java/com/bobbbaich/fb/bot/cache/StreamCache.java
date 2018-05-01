@@ -12,26 +12,27 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class StreamCache implements Cache<Stream> {
     private Map<String, Stream> streamCache;
+    private String keyPattern = "%s_%d";
 
     public StreamCache() {
         this.streamCache = new ConcurrentHashMap<>();
     }
 
     @Override
-    public Stream add(String topic, String keyWord, Stream stream) {
-        log.debug("Add stream with key = {}", topic + keyWord);
-        return streamCache.putIfAbsent(topic + keyWord, stream);
+    public Stream add(String recipientId, long streamNumber, Stream stream) {
+        log.debug("Add stream with key = {}", String.format(keyPattern,recipientId,streamNumber));
+        return streamCache.putIfAbsent(String.format(keyPattern,recipientId,streamNumber), stream);
     }
 
     @Override
-    public Stream get(String topic, String keyWord) {
-        log.debug("Get stream with key = {}", topic + keyWord);
-        return streamCache.get(topic + keyWord);
+    public Stream get(String recipientId, long streamNumber) {
+        log.debug("Get stream with key = {}", String.format(keyPattern,recipientId,streamNumber));
+        return streamCache.get(String.format(keyPattern,recipientId,streamNumber));
     }
 
     @Override
-    public Stream remove(String topic, String keyWord) {
-        log.debug("Remove stream with key = {}", topic + keyWord);
-        return streamCache.remove(topic + keyWord);
+    public Stream remove(String recipientId, long streamNumber) {
+        log.debug("Remove stream with key = {}", String.format(keyPattern,recipientId,streamNumber));
+        return streamCache.remove(String.format(keyPattern,recipientId,streamNumber));
     }
 }

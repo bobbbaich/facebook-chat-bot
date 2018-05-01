@@ -1,5 +1,6 @@
 package com.bobbbaich.fb.bot.cache;
 
+import com.bobbbaich.fb.bot.cache.api.Cache;
 import com.bobbbaich.fb.bot.cache.api.CacheController;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,25 +11,25 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class StreamCacheController implements CacheController<Stream> {
-    private final StreamCache streamCache;
+    private final Cache<Stream> streamCache;
 
     @Override
-    public Stream find(String topic, String keyWord) {
-        return streamCache.get(topic, keyWord);
+    public Stream find(String recipientId, long streamNumber) {
+        return streamCache.get(recipientId, streamNumber);
     }
 
     @Override
-    public void close(String topic, String keyWord) {
-        Stream stream = streamCache.get(topic, keyWord);
+    public void close(String recipientId, long streamNumber) {
+        Stream stream = streamCache.get(recipientId, streamNumber);
         stream.close();
-        log.debug("Stream by topic = {} and keyWord = {} was closed", topic, keyWord);
-        streamCache.remove(topic, keyWord);
-        log.debug("Stream by topic = {} and keyWord = {} was removed from cache", topic, keyWord);
+        log.debug("Stream by recipientId = {} and streamNumber = {} was closed", recipientId, streamNumber);
+        streamCache.remove(recipientId, streamNumber);
+        log.debug("Stream by recipientId = {} and streamNumber = {} was removed from cache", recipientId, streamNumber);
     }
 
     @Override
-    public void add(String topic, String keyWord, Stream stream) {
-        streamCache.add(topic, keyWord, stream);
-        log.debug("Stream with topic = {} and keyWord = {} was added to cache", topic, keyWord);
+    public void add(String topic, long streamNumber, Stream stream) {
+        streamCache.add(topic, streamNumber, stream);
+        log.debug("Stream with recipientId = {} and streamNumber = {} was added to cache", topic, streamNumber);
     }
 }

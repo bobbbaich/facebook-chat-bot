@@ -19,14 +19,15 @@ public class StreamOperationsServiceImpl implements StreamOperationsService {
     private final StreamingOperations streamingOperations;
     private final StreamListenerProvider listenerProvider;
     private final EventPublisher<Stream> publisher;
+    private long streamNumber;
 
     @Override
-    public Stream runStream(String topicName, String tweetWord, Integer limit) {
+    public Stream runStream(String recipientId, String topicName, String tweetWord, Integer limit) {
         FilterStreamParameters filterParams = new FilterStreamParameters();
         filterParams.track(tweetWord);
         Stream stream = streamingOperations.filter(filterParams,
-                Collections.singletonList(listenerProvider.provide(topicName, tweetWord, limit)));
-        publisher.add(topicName, tweetWord, stream);
+                Collections.singletonList(listenerProvider.provide(topicName, recipientId, ++streamNumber, limit)));
+        publisher.add(recipientId, streamNumber, stream);
         return stream;
     }
 }

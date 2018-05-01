@@ -23,12 +23,12 @@ public class TestController {
         return String.valueOf(authentication != null);
     }
 
-    @GetMapping("/kafka/send/{keyWord}/{limit}")
-    public String trackByKeyWord(
-            @Value("${kafka.topic.tweet:test}") String tweetTopicName,
-            @PathVariable String keyWord,
-            @PathVariable Integer limit) {
-        tweetService.collectTweets(tweetTopicName, keyWord, limit);
-        return "Test message sent.";
-    }
+//    @GetMapping("/kafka/send/{keyWord}/{limit}")
+//    public String trackByKeyWord(
+//            @Value("${kafka.topic.tweet:test}") String tweetTopicName,
+//            @PathVariable String keyWord,
+//            @PathVariable Integer limit) {
+//        tweetService.collectTweets(tweetTopicName, keyWord, limit);
+//        return "Test message sent.";
+//    }
 }

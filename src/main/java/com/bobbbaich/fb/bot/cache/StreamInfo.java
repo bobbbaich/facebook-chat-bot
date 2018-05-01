@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Data
 public class StreamInfo {
-    private String topic;
-    private String keyWord;
+    private String recipientId;
+    private long streamNumber;
     private Stream stream;
 }

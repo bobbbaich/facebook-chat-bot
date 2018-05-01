@@ -2,6 +2,7 @@ package com.bobbbaich.fb.bot.service;
 
 
 import com.bobbbaich.fb.bot.kafka.api.StreamOperationsService;
+import com.bobbbaich.fb.bot.model.Message;
 import com.bobbbaich.fb.bot.service.api.TweetService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,22 +14,15 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class TweetServiceImpl implements TweetService {
     private final StreamOperationsService streamOperationsService;
-    private Integer defaultLimit = 100;
-    private String defaultTopic = "test";
+    private final static Integer DEFAULT_LIMIT = 100;
 
     @Override
-    public void collectTweets(String tweetWord) {
-        collectTweets(tweetWord, defaultLimit);
-    }
-
-    @Override
-    public void collectTweets(String tweetWord, Integer limit) {
-        collectTweets(defaultTopic, tweetWord, limit);
-    }
-
-    @Override
-    public void collectTweets(String topicName, String keyWord, Integer limit) {
-        Stream stream = streamOperationsService.runStream(topicName, keyWord, limit);
+    public void collectTweets(Message message) {
+        String recipientId = message.getRecipientId();
+        String topicName = message.getTopic();
+        String keyWord = message.getMessage();
+        int limit = message.getLimit() != null ? message.getLimit() : DEFAULT_LIMIT;
+        Stream stream = streamOperationsService.runStream(recipientId, topicName, keyWord, limit);
         log.debug("Stream {}", stream);
     }
 }

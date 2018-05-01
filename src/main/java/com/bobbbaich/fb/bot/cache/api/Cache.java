@@ -1,9 +1,9 @@
 package com.bobbbaich.fb.bot.cache.api;
 
 public interface Cache<T> {
-    T add(String topic, String keyWord, T obj);
+    T add(String recipientId, long streamNumber, T obj);
 
-    T get(String topic, String keyWord);
+    T get(String recipientId, long streamNumber);
 
-    T remove(String topic, String keyWord);
+    T remove(String recipientId, long streamNumber);
 }
