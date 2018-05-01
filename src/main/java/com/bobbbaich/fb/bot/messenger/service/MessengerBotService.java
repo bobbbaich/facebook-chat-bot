@@ -23,9 +23,7 @@ import java.util.stream.Stream;
 import static com.bobbbaich.fb.bot.messenger.config.PostbackPayload.START_ANALYSIS_PAYLOAD;
 import static com.bobbbaich.fb.bot.model.UserRole.ROLE_MESSENGER;
 import static com.bobbbaich.fb.bot.model.UserRole.ROLE_USER;
-import static com.github.messenger4j.send.MessageTag.APPLICATION_UPDATE;
 import static com.github.messenger4j.send.MessagingType.RESPONSE;
-import static com.github.messenger4j.send.NotificationType.REGULAR;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 
@@ -56,9 +54,7 @@ public class MessengerBotService implements BotService {
         Recipient recipient = IdRecipient.create(recipientId);
         TextMessage message = TextMessage.create(props.getFactRequest());
 
-        MessagePayload payload = MessagePayload.create(recipient, RESPONSE, message, of(REGULAR), of(APPLICATION_UPDATE));
-
-        messenger.send(payload);
+        messenger.send(MessagePayload.create(recipient, RESPONSE, message));
     }
 
     @Override
