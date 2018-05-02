@@ -21,6 +21,8 @@ public class PostbackEventProcessor implements EventProcessor<PostbackEvent> {
     @Override
     public void doProcessing(PostbackEvent event) throws MessengerApiException, MessengerIOException {
         log.debug("PostbackEvent has been processing...");
+        log.debug("PostbackEvent = {}", event);
+        log.debug("PostbackEvent payload = {}", event.payload());
         String payload = event.payload().orElseThrow(() -> new IllegalArgumentException("Unsupported postback, payload is null!"));
 
         final String recipientId = event.senderId();
