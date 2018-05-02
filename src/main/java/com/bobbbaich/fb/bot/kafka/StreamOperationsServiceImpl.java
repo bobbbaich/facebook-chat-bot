@@ -27,7 +27,9 @@ public class StreamOperationsServiceImpl implements StreamOperationsService {
         filterParams.track(tweetWord);
         Stream stream = streamingOperations.filter(filterParams,
                 Collections.singletonList(listenerProvider.provide(topicName, recipientId, ++streamNumber, limit)));
+        log.debug("Stream created");
         publisher.add(recipientId, streamNumber, stream);
+        log.debug("Stream added in cache");
         return stream;
     }
 }
