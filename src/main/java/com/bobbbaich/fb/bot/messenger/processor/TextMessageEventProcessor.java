@@ -18,7 +18,6 @@ public class TextMessageEventProcessor implements EventProcessor<TextMessageEven
     public void doProcessing(TextMessageEvent event) {
         log.debug("TextMessageEvent has been processing...");
         analyseService.startAnalyse(event.recipientId(), event.text());
-
     }
 
     @Override

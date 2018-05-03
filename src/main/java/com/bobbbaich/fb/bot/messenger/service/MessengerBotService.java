@@ -58,6 +58,13 @@ public class MessengerBotService implements BotService {
     }
 
     @Override
+    public void sendResponse(String recipientId, String response) throws MessengerApiException, MessengerIOException {
+        IdRecipient recipient = IdRecipient.create(recipientId);
+        TextMessage message = TextMessage.create(response);
+        messenger.send(MessagePayload.create(recipient, MessagingType.RESPONSE, message));
+    }
+
+    @Override
     public void getHelp(String recipientId) throws MessengerApiException, MessengerIOException {
         IdRecipient recipient = IdRecipient.create(recipientId);
 

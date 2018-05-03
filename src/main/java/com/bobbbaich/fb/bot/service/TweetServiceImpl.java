@@ -22,6 +22,7 @@ public class TweetServiceImpl implements TweetService {
         String topicName = message.getTopic();
         String keyWord = message.getMessage();
         int limit = message.getLimit() != null ? message.getLimit() : DEFAULT_LIMIT;
+        log.debug(">>>>>>Recipient ID = {}, topic name = {}, keyWord = {}, Limit = {}", recipientId, topicName, keyWord, limit);
         Stream stream = streamOperationsService.runStream(recipientId, topicName, keyWord, limit);
         log.debug("Stream {}", stream);
     }

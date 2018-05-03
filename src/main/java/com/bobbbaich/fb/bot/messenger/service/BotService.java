@@ -8,5 +8,7 @@ public interface BotService {
 
     void startAnalysis(String recipientId) throws MessengerApiException, MessengerIOException;
 
+    void sendResponse(String recipientId, String response) throws MessengerApiException, MessengerIOException;
+
     void getHelp(String recipientId) throws MessengerApiException, MessengerIOException;
 }
