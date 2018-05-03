@@ -23,9 +23,7 @@ public class StreamOperationsServiceImpl implements StreamOperationsService {
 
     @Override
     public Stream runStream(String recipientId, String topicName, String tweetWord, Integer limit) {
-        FilterStreamParameters filterParams = new FilterStreamParameters();
-        filterParams.track(tweetWord);
-        Stream stream = streamingOperations.filter(filterParams,
+        Stream stream = streamingOperations.filter((FilterStreamParameters) new FilterStreamParameters().track(tweetWord),
                 Collections.singletonList(listenerProvider.provide(topicName, recipientId, ++streamNumber, limit)));
         log.debug("Stream created");
         publisher.add(recipientId, streamNumber, stream);

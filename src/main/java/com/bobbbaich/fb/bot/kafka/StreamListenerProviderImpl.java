@@ -28,6 +28,7 @@ public class StreamListenerProviderImpl implements StreamListenerProvider {
             @Override
             public void onTweet(Tweet tweet) {
                 if (counter < limit) {
+                    log.debug("Tweet = {}", tweet.getText());
                     producer.send(topic, mapper.toJson(TweetMessage.builder()
                             .recipientId(recipientId)
                             .streamNumber(streamNumber)
