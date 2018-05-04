@@ -1,4 +1,4 @@
-package com.bobbbaich.fb.bot.service;
+package com.bobbbaich.fb.bot.listener;
 
 import com.bobbbaich.fb.bot.model.Message;
 import com.bobbbaich.fb.bot.model.TweetMessage;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class KafkaConsumer {
+public class KafkaTopicListener {
     private final TweetService tweetService;
     private Gson mapper = new Gson();
 
@@ -22,7 +22,7 @@ public class KafkaConsumer {
     }
 
     @KafkaListener(topics = "analyse")
-    public void startAnalyse(String json) {
+    public void startAnalysis(String json) {
         Message message = mapper.fromJson(json, Message.class);
         tweetService.collectTweets(message);
         log.debug("=====> Received Message for analise: {}", message);

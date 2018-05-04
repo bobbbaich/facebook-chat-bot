@@ -1,8 +1,8 @@
-package com.bobbbaich.fb.bot.kafka;
+package com.bobbbaich.fb.bot.service;
 
 import com.bobbbaich.fb.bot.cache.api.EventPublisher;
-import com.bobbbaich.fb.bot.kafka.api.StreamListenerProvider;
-import com.bobbbaich.fb.bot.kafka.api.StreamOperationsService;
+import com.bobbbaich.fb.bot.supplier.api.StreamListenerSupplier;
+import com.bobbbaich.fb.bot.service.api.StreamOperationsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.social.twitter.api.FilterStreamParameters;
@@ -15,16 +15,16 @@ import java.util.Collections;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class StreamOperationsServiceImpl implements StreamOperationsService {
+public class TwitterStreamOperationsService implements StreamOperationsService {
     private final StreamingOperations streamingOperations;
-    private final StreamListenerProvider listenerProvider;
+    private final StreamListenerSupplier listenerProvider;
     private final EventPublisher<Stream> publisher;
     private long streamNumber;
 
     @Override
     public Stream runStream(String recipientId, String topicName, String tweetWord, Integer limit) {
         Stream stream = streamingOperations.filter((FilterStreamParameters) new FilterStreamParameters().track(tweetWord),
-                Collections.singletonList(listenerProvider.provide(topicName, recipientId, ++streamNumber, limit)));
+                Collections.singletonList(listenerProvider.supply(topicName, recipientId, ++streamNumber, limit)));
         log.debug("Stream created");
         publisher.add(recipientId, streamNumber, stream);
         log.debug("Stream added in cache");

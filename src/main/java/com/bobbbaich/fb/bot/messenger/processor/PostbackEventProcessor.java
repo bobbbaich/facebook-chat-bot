@@ -1,6 +1,7 @@
 package com.bobbbaich.fb.bot.messenger.processor;
 
-import com.bobbbaich.fb.bot.messenger.service.BotService;
+import com.bobbbaich.fb.bot.messenger.processor.api.EventProcessor;
+import com.bobbbaich.fb.bot.messenger.service.api.BotService;
 import com.github.messenger4j.exception.MessengerApiException;
 import com.github.messenger4j.exception.MessengerIOException;
 import com.github.messenger4j.webhook.Event;

@@ -1,6 +1,7 @@
 package com.bobbbaich.fb.bot.messenger.service;
 
 import com.bobbbaich.fb.bot.messenger.config.MessengerProperty;
+import com.bobbbaich.fb.bot.messenger.service.api.BotService;
 import com.bobbbaich.fb.bot.model.User;
 import com.bobbbaich.fb.bot.service.api.UserService;
 import com.github.messenger4j.Messenger;

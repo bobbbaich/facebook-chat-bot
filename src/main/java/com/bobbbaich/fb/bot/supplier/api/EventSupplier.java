@@ -1,4 +1,6 @@
-package com.bobbbaich.fb.bot.cache.api;
+package com.bobbbaich.fb.bot.supplier.api;
+
+import com.bobbbaich.fb.bot.cache.api.Event;
 
 public interface EventSupplier<T, X> {
     Event<T> supply(Object source, T eventObj);

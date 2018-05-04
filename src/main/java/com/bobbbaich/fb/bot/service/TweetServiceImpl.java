@@ -1,7 +1,7 @@
 package com.bobbbaich.fb.bot.service;
 
 
-import com.bobbbaich.fb.bot.kafka.api.StreamOperationsService;
+import com.bobbbaich.fb.bot.service.api.StreamOperationsService;
 import com.bobbbaich.fb.bot.model.Message;
 import com.bobbbaich.fb.bot.service.api.TweetService;
 import lombok.RequiredArgsConstructor;

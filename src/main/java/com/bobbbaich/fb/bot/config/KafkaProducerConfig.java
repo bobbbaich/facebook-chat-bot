@@ -1,4 +1,4 @@
-package com.bobbbaich.fb.bot.kafka;
+package com.bobbbaich.fb.bot.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerConfig;

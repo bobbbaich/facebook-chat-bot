@@ -1,5 +1,6 @@
 package com.bobbbaich.fb.bot.messenger.processor;
 
+import com.bobbbaich.fb.bot.messenger.processor.api.EventProcessor;
 import com.github.messenger4j.webhook.Event;
 import com.github.messenger4j.webhook.event.BaseEvent;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.bobbbaich.fb.bot.kafka.api;
+package com.bobbbaich.fb.bot.service.api;
 
 import org.springframework.social.twitter.api.Stream;
 

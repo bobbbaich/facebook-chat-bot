@@ -1,7 +1,7 @@
 package com.bobbbaich.fb.bot.messenger.processor.delegate;
 
 import com.bobbbaich.fb.bot.messenger.exception.MessengerException;
-import com.bobbbaich.fb.bot.messenger.processor.EventProcessor;
+import com.bobbbaich.fb.bot.messenger.processor.api.EventProcessor;
 import com.github.messenger4j.exception.MessengerApiException;
 import com.github.messenger4j.exception.MessengerIOException;
 import com.github.messenger4j.webhook.Event;

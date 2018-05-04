@@ -1,4 +1,4 @@
-package com.bobbbaich.fb.bot.messenger.service;
+package com.bobbbaich.fb.bot.messenger.service.api;
 
 import com.github.messenger4j.exception.MessengerApiException;
 import com.github.messenger4j.exception.MessengerIOException;

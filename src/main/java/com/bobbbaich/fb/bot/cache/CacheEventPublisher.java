@@ -2,12 +2,11 @@ package com.bobbbaich.fb.bot.cache;
 
 import com.bobbbaich.fb.bot.cache.api.Event;
 import com.bobbbaich.fb.bot.cache.api.EventPublisher;
-import com.bobbbaich.fb.bot.cache.api.EventSupplier;
+import com.bobbbaich.fb.bot.supplier.api.EventSupplier;
 import com.bobbbaich.fb.bot.cache.api.annotaion.AddStream;
 import com.bobbbaich.fb.bot.cache.api.annotaion.CloseStream;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.social.twitter.api.Stream;
 import org.springframework.stereotype.Component;

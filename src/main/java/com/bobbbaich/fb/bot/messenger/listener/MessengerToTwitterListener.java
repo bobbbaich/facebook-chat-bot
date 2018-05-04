@@ -11,13 +11,13 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class AnalyseListener {
+public class MessengerToTwitterListener {
     private final TweetService tweetService;
 
     @EventListener
-    public void add(Event<Message> event) {
+    public void sendToTweetAnalysis(Event<Message> event) {
         Message message = event.getEventObj();
         tweetService.collectTweets(message);
-        log.debug("++++> Received event for analyse: {}", message);
+        log.debug("++++> Received event for analysing: {}", message);
     }
 }

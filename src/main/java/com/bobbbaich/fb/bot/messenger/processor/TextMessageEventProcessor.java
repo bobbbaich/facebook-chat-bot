@@ -1,6 +1,7 @@
 package com.bobbbaich.fb.bot.messenger.processor;
 
-import com.bobbbaich.fb.bot.messenger.service.AnalyseService;
+import com.bobbbaich.fb.bot.messenger.processor.api.EventProcessor;
+import com.bobbbaich.fb.bot.messenger.service.api.MessageService;
 import com.github.messenger4j.webhook.Event;
 import com.github.messenger4j.webhook.event.TextMessageEvent;
 import lombok.RequiredArgsConstructor;
@@ -12,12 +13,12 @@ import org.springframework.util.Assert;
 @RequiredArgsConstructor
 @Component
 public class TextMessageEventProcessor implements EventProcessor<TextMessageEvent> {
-    private final AnalyseService analyseService;
+    private final MessageService messageService;
 
     @Override
     public void doProcessing(TextMessageEvent event) {
         log.debug("TextMessageEvent has been processing...");
-        analyseService.startAnalyse(event.recipientId(), event.text());
+        messageService.sendToAnalysis(event.recipientId(), event.text());
     }
 
     @Override

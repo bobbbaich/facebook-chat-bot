@@ -5,7 +5,7 @@ import com.bobbbaich.fb.bot.cache.api.CacheService;
 import com.bobbbaich.fb.bot.cache.api.Event;
 import com.bobbbaich.fb.bot.cache.event.AddEvent;
 import com.bobbbaich.fb.bot.cache.event.CloseEvent;
-import com.bobbbaich.fb.bot.messenger.service.BotService;
+import com.bobbbaich.fb.bot.messenger.service.api.BotService;
 import com.github.messenger4j.exception.MessengerApiException;
 import com.github.messenger4j.exception.MessengerIOException;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ public class CacheListener {
         try {
             botService.sendResponse(event.getEventObj().getRecipientId(), "Stream was closed");
         } catch (MessengerApiException | MessengerIOException e) {
-            log.error("Error during send close response", e);
+            log.error("Error during redirect close response", e);
         }
     }
 

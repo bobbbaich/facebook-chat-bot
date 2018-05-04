@@ -1,6 +1,6 @@
 package com.bobbbaich.fb.bot.messenger.processor.delegate;
 
-import com.bobbbaich.fb.bot.messenger.processor.EventProcessor;
+import com.bobbbaich.fb.bot.messenger.processor.api.EventProcessor;
 import com.github.messenger4j.webhook.Event;
 import com.github.messenger4j.webhook.event.BaseEvent;
 import com.github.messenger4j.webhook.event.PostbackEvent;
@@ -13,7 +13,7 @@ import org.springframework.util.Assert;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class ProcessorLookupService implements ProcessorLookup {
+public class EventProcessorLookup implements ProcessorLookup {
     private final EventProcessor<BaseEvent> defaultEventProcessor;
     private final EventProcessor<PostbackEvent> postbackEventProcessor;
     private final EventProcessor<TextMessageEvent> textMessageEventProcessor;

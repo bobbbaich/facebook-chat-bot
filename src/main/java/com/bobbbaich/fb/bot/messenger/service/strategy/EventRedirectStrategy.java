@@ -1,4 +1,4 @@
-package com.bobbbaich.fb.bot.messenger.service;
+package com.bobbbaich.fb.bot.messenger.service.strategy;
 
 import com.bobbbaich.fb.bot.cache.api.Event;
 import com.bobbbaich.fb.bot.messenger.service.annotaion.EventQualifier;
@@ -12,12 +12,12 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @EventQualifier
 @Component
-public class EventMessageProvider implements MessageProvider<Message> {
+public class EventRedirectStrategy implements MessageRedirectStrategy<Message> {
     private final ApplicationEventPublisher applicationEventPublisher;
 
     @Override
-    public void send2Analyse(Message obj) {
-        applicationEventPublisher.publishEvent(AnalyseEvent.supply(this, obj));
+    public void redirect(Message message) {
+        applicationEventPublisher.publishEvent(AnalyseEvent.supply(this, message));
         log.debug("Publish message for running analyse");
     }
 

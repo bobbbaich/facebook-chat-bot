@@ -1,6 +1,6 @@
-package com.bobbbaich.fb.bot.kafka;
+package com.bobbbaich.fb.bot.producer;
 
-import com.bobbbaich.fb.bot.kafka.api.Producer;
+import com.bobbbaich.fb.bot.producer.api.Producer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
