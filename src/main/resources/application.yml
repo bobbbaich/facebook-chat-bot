@@ -12,7 +12,7 @@ spring:
         spring:
           json:
             trusted:
-              packages: *
+              packages: com.bobbbaich.*
 
 messenger:
   greeting: "Hello {{user_full_name}}!\nHere you can check any fact you want!\nTap 'Get Started' and let's go!"
