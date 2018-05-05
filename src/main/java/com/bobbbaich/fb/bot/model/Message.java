@@ -7,7 +7,5 @@ import lombok.Data;
 @Builder
 public class Message {
     private String recipientId;
-    private String topic;
     private String message;
-    private Integer limit;
 }

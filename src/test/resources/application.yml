@@ -4,23 +4,11 @@
 spring:
   profiles:
     active: local
-##---Loggin Properties---
-logging:
-  level:
-    org.springframework.web: INFO
-    org.springframework.social: DEBUG
-    org.springframework.security: INFO
-    org.springframework.batch: DEBUG
-    org.springframework.web.servlet.mvc.method.annotation: ERROR
-    org.springframework.boot.actuate.endpoint.mvc: ERROR
-    com.bobbbaich: DEBUG
 
 kafka:
-  bootstrap-servers: ${spring.embedded.kafka.brokers},
-  topic:
-    helloworld: helloworld.t
-
-messenger:
-  setup:
-    startedButton: "Get Started"
-    greeting: "Hello {{user_full_name}}!"
+  logDir: kafka
+  group-id: "analysis-service"
+  key-serializer: org.apache.kafka.common.serialization.StringSerializer
+  value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer

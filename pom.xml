@@ -93,6 +93,12 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.9.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>com.github.messenger4j</groupId>
             <artifactId>messenger4j</artifactId>
             <version>1.0.0-M3</version>

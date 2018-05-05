@@ -11,26 +11,23 @@ logging:
     org.springframework.boot.actuate.endpoint.mvc: ERROR
     com.bobbbaich: DEBUG
 
-
 messenger:
   appSecret: ${MESSENGER_APP_SECRET}
   verifyToken: ${MESSENGER_VERIFY_TOKEN}
   pageAccessToken: ${MESSENGER_PAGE_ACCESS_TOKEN}
+
 spring:
   social:
-      twitter:
-        app-id: ${SOCIAL_TWITTER_APP_ID}
-        app-secret: ${SOCIAL_TWITTER_APP_SECRET}
-      facebook:
-        app-id: ${SOCIAL_FACEBOOK_APP_ID}
-        app-secret: ${SOCIAL_FACEBOOK_APP_SECRET}
+    twitter:
+      app-id: ${SOCIAL_TWITTER_APP_ID}
+      app-secret: ${SOCIAL_TWITTER_APP_SECRET}
+    facebook:
+      app-id: ${SOCIAL_FACEBOOK_APP_ID}
+      app-secret: ${SOCIAL_FACEBOOK_APP_SECRET}
   data:
-      mongodb:
-        uri: mongodb://mongo:27017
-        database: social
+    mongodb:
+      uri: mongodb://mongo:27017
+      database: social
 
 kafka:
-  bootstrap-servers: PLAINTEXT://${SERVER_IP}:9092
-  topic:
-    tweet: tweet
-    analyse: analyse
+  bootstrap-servers: "PLAINTEXT://${SERVER_IP}:9092"

@@ -59,7 +59,7 @@ public class MessengerBotService implements BotService {
     }
 
     @Override
-    public void sendResponse(String recipientId, String response) throws MessengerApiException, MessengerIOException {
+    public void sendTextResponse(String recipientId, String response) throws MessengerApiException, MessengerIOException {
         IdRecipient recipient = IdRecipient.create(recipientId);
         TextMessage message = TextMessage.create(response);
         messenger.send(MessagePayload.create(recipient, MessagingType.RESPONSE, message));

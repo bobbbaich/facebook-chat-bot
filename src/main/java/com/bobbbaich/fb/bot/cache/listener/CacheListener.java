@@ -25,7 +25,7 @@ public class CacheListener {
         log.debug("Was corrupted CloseStreamEvent");
         service.remove(event);
         try {
-            botService.sendResponse(event.getEventObj().getRecipientId(), "Stream was closed");
+            botService.sendTextResponse(event.getEventObj().getRecipientId(), "Stream was closed");
         } catch (MessengerApiException | MessengerIOException e) {
             log.error("Error during redirect close response", e);
         }

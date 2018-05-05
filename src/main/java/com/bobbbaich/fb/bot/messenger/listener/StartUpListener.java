@@ -54,8 +54,8 @@ public class StartUpListener implements ApplicationListener<ApplicationReadyEven
             SetupResponse updateResponse = messenger.updateSettings(messengerSettings);
             log.info("Messenger settings updated with following results. Delete settings: {}; Update settings: {}", deleteResponse.result(), updateResponse.result());
         } catch (MessengerApiException | MessengerIOException e) {
-//          TODO: handle exceptions
             log.warn("Exception occurred trying set messenger settings. Messenger Bot may work incorrect.", e);
+            //          TODO: handle exceptions
         }
     }
 
