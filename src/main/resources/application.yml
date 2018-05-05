@@ -9,7 +9,10 @@ spring:
   kafka:
     consumer:
       properties:
-        spring.json.trusted.packages: сom.bobbbaich.*
+        spring:
+          json:
+            trusted:
+              packages: сom.bobbbaich.*
 
 messenger:
   greeting: "Hello {{user_full_name}}!\nHere you can check any fact you want!\nTap 'Get Started' and let's go!"
