@@ -3,7 +3,7 @@
 #Set remote when deploy to server
 spring:
   profiles:
-    active: docker
+    active: local
 
 kafka:
   logDir: kafka
