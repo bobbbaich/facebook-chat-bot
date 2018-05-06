@@ -6,6 +6,7 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 import javax.validation.constraints.NotNull;
 import java.util.HashMap;
@@ -27,6 +28,7 @@ public class KafkaProperties {
 
     private String keyDeserializer;
     private String valueDeserializer;
+    private String trustedPackages;
 
     private Map<String, Object> buildCommonProperties() {
         Map<String, Object> commonProperties = new HashMap<>();
@@ -53,6 +55,8 @@ public class KafkaProperties {
         consumerProperties.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
         consumerProperties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, keyDeserializer);
         consumerProperties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, valueDeserializer);
+
+        consumerProperties.put(JsonDeserializer.TRUSTED_PACKAGES, trustedPackages);
 
         return consumerProperties;
     }

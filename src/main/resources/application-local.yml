@@ -1,4 +1,4 @@
-#LOCAL profile configuration
+#'local' profile configuration
 messenger:
   appSecret: 1
   verifyToken: 1
