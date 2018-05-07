@@ -1,5 +1,5 @@
 FROM maven:3.5-jdk-8-alpine
-#VOLUME /tmp
+VOLUME /tmp
 WORKDIR /app
 ADD . /app
 RUN mvn install
