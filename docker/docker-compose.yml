@@ -1,17 +1,63 @@
 version: "2"
 
 services:
-  web:
-    image: bobbbaich/twitter-stream-analysis
-    container_name: twitter-stream-analysis
+#  web:
+#    image: bobbbaich/twitter-stream-analysis
+#    container_name: twitter-stream-analysis
+#    ports:
+#      - 8888:8080
+#    working_dir: /app
+#    env_file:
+#        - web-variables.env
+#    depends_on:
+#      - mongo
+#      - kafka
+
+  bot-kafka:
+    image: bobbbaich/bot-kafka
+    container_name: bot-kafka
     ports:
-      - 8888:8080
+      - 8891:8081
+    working_dir: /app
+    env_file:
+        - web-variables.env
+    depends_on:
+      - kafka
+
+  social:
+    image: bobbbaich/social
+    container_name: social
+    ports:
+      - 8893:8083
     working_dir: /app
     env_file:
         - web-variables.env
     depends_on:
       - mongo
-      - kafka
+
+  messenger:
+    image: bobbbaich/messenger
+    container_name: messenger
+    ports:
+      - 8892:8082
+    working_dir: /app
+    env_file:
+        - web-variables.env
+    depends_on:
+      - social
+      - bot-kafka
+
+  twitter:
+    image: bobbbaich/twitter
+    container_name: twitter
+    ports:
+      - 8894:8080
+    working_dir: /app
+    env_file:
+        - web-variables.env
+    depends_on:
+      - social
+      - bot-kafka
 
   mongo:
       image: mongo:3.2.4
