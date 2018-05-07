@@ -1,0 +1,5 @@
+#'local' profile configuration
+messenger:
+  appSecret: 1
+  verifyToken: 1
+  pageAccessToken: 1

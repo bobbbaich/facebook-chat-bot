@@ -1,0 +1,12 @@
+server:
+  port: 8082
+
+messenger:
+  greeting: "Hello {{user_full_name}}!\nHere you can check any fact you want!\nTap 'Get Started' and let's go!"
+  inTest: "true"
+  homeURL: "https://streammy.tk"
+  whitelistedURLs:
+    - "https://google.com.ua"
+    - "https://streammy.tk"
+  botGeneralInfo: "I'm here to analyse facts you'll ask me!"
+  factRequest: "Type fact you would like to check."

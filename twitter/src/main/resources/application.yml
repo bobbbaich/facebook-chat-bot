@@ -1,0 +1,5 @@
+#---Profile Properties---
+#Available profiles: local, remote, docker
+#Set remote when deploy to server
+server:
+  port: 8084
