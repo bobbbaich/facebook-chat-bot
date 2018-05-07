@@ -9,22 +9,22 @@ jobs:
     - stage: build docker image
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build -f social/Dockerfile -t $DOCKER_USERNAME/social .
+      - docker build -f social/Dockerfile -t social .
       - docker images
       - docker tag social $DOCKER_USERNAME/social
       - docker push $DOCKER_USERNAME/social
 
-      - docker build -f bot-kafka/Dockerfile -t $DOCKER_USERNAME/bot-kafka .
+      - docker build -f bot-kafka/Dockerfile -t bot-kafka .
       - docker images
       - docker tag bot-kafka $DOCKER_USERNAME/bot-kafka
       - docker push $DOCKER_USERNAME/bot-kafka
 
-      - docker build -f messenger/Dockerfile -t $DOCKER_USERNAME/messenger .
+      - docker build -f messenger/Dockerfile -t messenger .
       - docker images
       - docker tag messenger $DOCKER_USERNAME/messenger
       - docker push $DOCKER_USERNAME/messenger
 
-      - docker build -f twitter/Dockerfile -t $DOCKER_USERNAME/twitter .
+      - docker build -f twitter/Dockerfile -t twitter .
       - docker images
       - docker tag twitter $DOCKER_USERNAME/twitter
       - docker push $DOCKER_USERNAME/twitter
