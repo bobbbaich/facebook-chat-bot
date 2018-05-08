@@ -1,5 +1,7 @@
 FROM maven:3.5-jdk-8-alpine
 VOLUME /messenger_tmp
-COPY . app.jar
+WORKDIR /app
+ADD . /app
 RUN mvn install
-ENTRYPOINT ["java","-Dspring.profiles.active=docker","-Djava.security.egd=file:/dev/./urandom","-jar", "/app.jar"]
+ENTRYPOINT ["java","-Dspring.profiles.active=docker","-Djava.security.egd=file:/dev/./urandom","-jar", "/messenger-1.0.jar"]
+
