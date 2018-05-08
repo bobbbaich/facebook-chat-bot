@@ -3,4 +3,4 @@ VOLUME /tmp
 WORKDIR /app
 ADD . /app
 RUN mvn install
-ENTRYPOINT ["java","-Dspring.profiles.active=docker","-Djava.security.egd=file:/dev/./urandom","-jar", "/social-1.0.jar"]
+ENTRYPOINT ["java","-Dspring.profiles.active=docker","-Djava.security.egd=file:/dev/./urandom","-jar", "target/social-1.0.jar"]
