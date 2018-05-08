@@ -1,6 +1,5 @@
 FROM maven:3.5-jdk-8-alpine
-VOLUME /tmp
-WORKDIR /app
-ADD . /app
+VOLUME /twitter_tmp
+COPY target/twitter-1.0.jar app.jar
 RUN mvn install
-ENTRYPOINT ["java","-Dspring.profiles.active=docker","-Djava.security.egd=file:/dev/./urandom","-jar", "app/twitter-1.0.jar"]
+ENTRYPOINT ["java","-Dspring.profiles.active=docker","-Djava.security.egd=file:/dev/./urandom","-jar", "/app.jar"]
