@@ -13,22 +13,22 @@ jobs:
       - docker build -f social/Dockerfile -t social .
       - docker images
       - docker tag social $DOCKER_USERNAME/social
-      - docker push social
+      - docker push $DOCKER_USERNAME/social
 
       - docker build -f bot-kafka/Dockerfile -t bot-kafka .
       - docker images
       - docker tag bot-kafka $DOCKER_USERNAME/bot-kafka
-      - docker push bot-kafka
+      - docker push $DOCKER_USERNAME/bot-kafka
 
       - docker build -f messenger/Dockerfile -t messenger .
       - docker images
       - docker tag messenger $DOCKER_USERNAME/messenger
-      - docker push messenger
+      - docker push $DOCKER_USERNAME/messenger
 
       - docker build -f twitter/Dockerfile -t twitter .
       - docker images
       - docker tag twitter $DOCKER_USERNAME/twitter
-      - docker push twitter
+      - docker push $DOCKER_USERNAME/twitter
 #    - stage: delpoy to digital ocean
 #      script:
 #      - bash scripts/deploy.sh
