@@ -10,25 +10,25 @@ jobs:
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
-      - docker build -f social/Dockerfile -t social .
+      - docker build -f social/Dockerfile -t social:latest .
       - docker images
-      - docker tag latest $DOCKER_USERNAME/social
-      - docker push $DOCKER_USERNAME/social
+      - docker tag social:latest $DOCKER_USERNAME/social
+      - docker push social:latest
 
-      - docker build -f bot-kafka/Dockerfile -t bot-kafka .
+      - docker build -f bot-kafka/Dockerfile -t bot-kafka:latest .
       - docker images
-      - docker tag latest $DOCKER_USERNAME/bot-kafka
-      - docker push $DOCKER_USERNAME/bot-kafka
+      - docker tag bot-kafka:latest $DOCKER_USERNAME/bot-kafka
+      - docker push bot-kafka:latest
 
-      - docker build -f messenger/Dockerfile -t messenger .
+      - docker build -f messenger/Dockerfile -t messenger:latest .
       - docker images
-      - docker tag latest $DOCKER_USERNAME/messenger
-      - docker push $DOCKER_USERNAME/messenger
+      - docker tag messenger:latest $DOCKER_USERNAME/messenger
+      - docker push messenger:latest
 
-      - docker build -f twitter/Dockerfile -t twitter .
+      - docker build -f twitter/Dockerfile -t twitter:latest .
       - docker images
-      - docker tag latest $DOCKER_USERNAME/twitter
-      - docker push $DOCKER_USERNAME/twitter
+      - docker tag twitter:latest $DOCKER_USERNAME/twitter
+      - docker push twitter:latest
 #    - stage: delpoy to digital ocean
 #      script:
 #      - bash scripts/deploy.sh
