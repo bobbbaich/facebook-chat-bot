@@ -5,6 +5,10 @@ services:
   - docker
   - maven
 
+before_install:
+    - cd kafka
+    - mvn install
+    - cd ..
 jobs:
   include:
     - stage: build docker image

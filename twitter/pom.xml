@@ -14,10 +14,6 @@
         <version>2.0.0.M6</version>
     </parent>
 
-    <modules>
-        <module>../kafka</module>
-    </modules>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
