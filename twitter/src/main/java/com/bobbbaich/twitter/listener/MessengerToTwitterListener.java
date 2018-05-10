@@ -1,7 +1,7 @@
 package com.bobbbaich.twitter.listener;
 
+import com.bobbbaich.kafka.model.Message;
 import com.bobbbaich.twitter.cache.api.Event;
-import com.bobbbaich.twitter.model.Message;
 import com.bobbbaich.twitter.service.api.TweetService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

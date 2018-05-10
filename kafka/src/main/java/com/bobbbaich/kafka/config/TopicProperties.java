@@ -1,4 +1,4 @@
-package com.bobbbaich.messenger.config.kafka;
+package com.bobbbaich.kafka.config;
 
 public class TopicProperties {
     public static final String TOPIC_ANALYSE = "analyse";

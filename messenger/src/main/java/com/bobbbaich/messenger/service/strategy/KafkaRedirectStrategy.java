@@ -1,13 +1,13 @@
 package com.bobbbaich.messenger.service.strategy;
 
-import com.bobbbaich.messenger.model.Message;
-import com.bobbbaich.messenger.producer.api.Producer;
+import com.bobbbaich.kafka.model.Message;
+import com.bobbbaich.kafka.producer.api.Producer;
 import com.bobbbaich.messenger.service.annotaion.KafkaQualifier;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import static com.bobbbaich.messenger.config.kafka.TopicProperties.TOPIC_ANALYSE;
+import static com.bobbbaich.kafka.config.TopicProperties.TOPIC_ANALYSE;
 
 @Slf4j
 @RequiredArgsConstructor

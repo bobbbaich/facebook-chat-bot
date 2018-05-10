@@ -1,6 +1,6 @@
 package com.bobbbaich.twitter.service;
 
-import com.bobbbaich.twitter.model.Message;
+import com.bobbbaich.kafka.model.Message;
 import com.bobbbaich.twitter.service.api.StreamOperationsService;
 import com.bobbbaich.twitter.service.api.TweetService;
 import lombok.RequiredArgsConstructor;

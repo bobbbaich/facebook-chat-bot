@@ -1,9 +1,8 @@
 package com.bobbbaich.twitter.supplier;
 
+import com.bobbbaich.kafka.producer.api.Producer;
 import com.bobbbaich.twitter.cache.api.EventPublisher;
 import com.bobbbaich.twitter.listener.TwitterStreamListener;
-
-import com.bobbbaich.twitter.producer.api.Producer;
 import com.bobbbaich.twitter.supplier.api.StreamListenerSupplier;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

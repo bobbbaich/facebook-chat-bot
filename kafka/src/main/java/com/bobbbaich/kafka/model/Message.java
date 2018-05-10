@@ -1,4 +1,4 @@
-package com.bobbbaich.messenger.model;
+package com.bobbbaich.kafka.model;
 
 import lombok.Builder;
 import lombok.Data;

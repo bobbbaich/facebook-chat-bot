@@ -1,7 +1,8 @@
-package com.bobbbaich.twitter.producer;
+package com.bobbbaich.kafka.producer;
 
-import com.bobbbaich.twitter.model.Message;
-import com.bobbbaich.twitter.producer.api.Producer;
+
+import com.bobbbaich.kafka.model.Message;
+import com.bobbbaich.kafka.producer.api.Producer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;

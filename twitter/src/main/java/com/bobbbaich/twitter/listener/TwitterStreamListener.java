@@ -1,8 +1,8 @@
 package com.bobbbaich.twitter.listener;
 
+import com.bobbbaich.kafka.producer.api.Producer;
 import com.bobbbaich.twitter.cache.api.EventPublisher;
 import com.bobbbaich.twitter.model.TweetMessage;
-import com.bobbbaich.twitter.producer.api.Producer;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.social.twitter.api.*;

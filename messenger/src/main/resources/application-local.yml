@@ -11,8 +11,6 @@ spring:
       mongodb:
         uri: mongodb://127.0.0.1:27017
         database: social
-kafka:
-  bootstrap-servers: "localhost:9092"
 messenger:
   appSecret: 1
   verifyToken: 1

@@ -1,14 +1,14 @@
-package com.bobbbaich.messenger.config.kafka;
+package com.bobbbaich.kafka.config;
 
 import lombok.Data;
 import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
-import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +19,6 @@ public class KafkaProperties {
     private static final String LOG_DIR = "log.dir";
 
     private String logDir;
-    @NotNull
     private String groupId;
     private String bootstrapServers;
 

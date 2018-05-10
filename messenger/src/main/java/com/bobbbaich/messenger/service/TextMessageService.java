@@ -1,8 +1,6 @@
 package com.bobbbaich.messenger.service;
 
-
-
-import com.bobbbaich.messenger.model.Message;
+import com.bobbbaich.kafka.model.Message;
 import com.bobbbaich.messenger.service.annotaion.KafkaQualifier;
 import com.bobbbaich.messenger.service.api.MessageService;
 

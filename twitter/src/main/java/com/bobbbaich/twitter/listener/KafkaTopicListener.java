@@ -1,13 +1,13 @@
 package com.bobbbaich.twitter.listener;
 
-import com.bobbbaich.twitter.model.Message;
+import com.bobbbaich.kafka.model.Message;
 import com.bobbbaich.twitter.service.api.TweetService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
-import static com.bobbbaich.twitter.config.kafka.TopicProperties.TOPIC_ANALYSE;
+import static com.bobbbaich.kafka.config.TopicProperties.TOPIC_ANALYSE;
 
 
 @Slf4j

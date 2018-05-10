@@ -1,7 +1,7 @@
 package com.bobbbaich.messenger.service.strategy;
 
+import com.bobbbaich.kafka.model.Message;
 import com.bobbbaich.messenger.model.Event;
-import com.bobbbaich.messenger.model.Message;
 import com.bobbbaich.messenger.service.annotaion.EventQualifier;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
