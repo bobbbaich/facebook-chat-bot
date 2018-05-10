@@ -8,9 +8,6 @@ docker rm $(docker ps -a -q)
 echo "Remove twitter-stream-service image"
 docker rmi bobbbaich/twitter
 docker rmi bobbbaich/messenger
-docker rmi bobbbaich/bot-kafka
-docker rmi bobbbaich/social
-
 
 echo "Get git repository HEAD revision"
 git reset --hard HEAD

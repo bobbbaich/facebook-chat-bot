@@ -12,6 +12,7 @@ services:
     depends_on:
       - kafka
       - mongo
+      - twitter
 
   twitter:
     image: bobbbaich/twitter
