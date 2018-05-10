@@ -1,6 +1,13 @@
 server:
-  port: 8082
-
+  port: 8080
+kafka:
+  logDir: kafka
+  group-id: "analysis-service"
+  key-serializer: org.apache.kafka.common.serialization.StringSerializer
+  value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+  trusted-packages: com.bobbbaich
 messenger:
   greeting: "Hello {{user_full_name}}!\nHere you can check any fact you want!\nTap 'Get Started' and let's go!"
   inTest: "true"

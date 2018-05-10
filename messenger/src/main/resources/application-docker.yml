@@ -1,6 +1,14 @@
 #'docker' profile configuration
 
 ##---Loggin Properties---
+spring:
+  social:
+    twitter:
+      app-id: ${SOCIAL_TWITTER_APP_ID}
+      app-secret: ${SOCIAL_TWITTER_APP_SECRET}
+    facebook:
+      app-id: ${SOCIAL_FACEBOOK_APP_ID}
+      app-secret: ${SOCIAL_FACEBOOK_APP_SECRET}
 logging:
   level:
     org.springframework.web: INFO
@@ -10,7 +18,8 @@ logging:
     org.springframework.web.servlet.mvc.method.annotation: ERROR
     org.springframework.boot.actuate.endpoint.mvc: ERROR
     com.bobbbaich: DEBUG
-
+kafka:
+  bootstrap-servers: "PLAINTEXT://${SERVER_IP}:9092"
 messenger:
   appSecret: ${MESSENGER_APP_SECRET}
   verifyToken: ${MESSENGER_VERIFY_TOKEN}

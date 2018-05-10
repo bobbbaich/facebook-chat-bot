@@ -1,8 +1,11 @@
 package com.bobbbaich.messenger.service;
 
-import com.bobbbaich.kafka.model.Message;
+
+
+import com.bobbbaich.messenger.model.Message;
 import com.bobbbaich.messenger.service.annotaion.KafkaQualifier;
 import com.bobbbaich.messenger.service.api.MessageService;
+
 import com.bobbbaich.messenger.service.strategy.MessageRedirectStrategy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
