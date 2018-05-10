@@ -1,5 +1,6 @@
 FROM maven:3.5-jdk-8-alpine
 VOLUME /tmp
+COPY /kafka /app
 WORKDIR /app
 ADD . /app
 RUN mvn install -amd
