@@ -5,19 +5,27 @@ services:
   - docker
   - maven
 
-before_install:
-    - cd kafka
-    - mvn install
-    - cd ..
+deploy:
+  provider: script
+  script: "cp .travis.settings.xml $HOME/.m2/settings.xml && mvn deploy"
+  skip_cleanup: true
+  on:
+    tags: true
+
+#before_install:
+#    - cd kafka
+#    - mvn install
+#    - cd ..
+
 jobs:
   include:
     - stage: build docker image
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
-#      - cd kafka
-#      - mvn install
-#      - cd ..
+      - cd kafka
+      - mvn install
+      - cd ..
       - cd messenger
 
       - docker build -t messenger .
