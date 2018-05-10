@@ -11,9 +11,9 @@ jobs:
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
-      - cd kafka
-      - mvn install
-      - cd ..
+#      - cd kafka
+#      - mvn install
+#      - cd ..
       - cd messenger
 
       - docker build -t messenger .
