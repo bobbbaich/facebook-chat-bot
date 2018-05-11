@@ -15,12 +15,12 @@ before_install :
 #  - docker push $DOCKER_USERNAME/twitter
 #  - maven
 #
-#jobs:
-#  include:
-#    - stage: build docker image
-#      script:
-#      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-#
+jobs:
+  include:
+    - stage: build docker image
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
 #      - cd messenger
 #      - docker build -t messenger .
 #      - docker images
