@@ -6,9 +6,7 @@ jdk: oraclejdk8
 
 services:
   - docker
+  - maven
 
-after_success:
-  # test coverage reporting
-  - bash <(curl -s https://codecov.io/bash)
-  # deploy snapshots to Maven central, but only from master branch
-  - mvn --settings docker-setting.xml -DskipTests -B deploy"
+before_install :
+  - mvn -s docker-setting.xml
