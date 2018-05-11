@@ -6,6 +6,7 @@
 
     <artifactId>twitter</artifactId>
     <packaging>jar</packaging>
+    <name>${project.artifactId}</name>
     <version>1.0</version>
 
     <parent>
@@ -13,6 +14,10 @@
         <artifactId>twitter-stream-analysis</artifactId>
         <version>1.0</version>
     </parent>
+
+    <properties>
+        <docker.image.dockerfile.dir>${basedir}/../docker</docker.image.dockerfile.dir>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -22,6 +27,11 @@
     </dependencies>
     <build>
         <plugins>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>${docker.plugin.version}</version>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

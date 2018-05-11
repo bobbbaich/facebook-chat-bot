@@ -1,28 +1,30 @@
-sudo: true
-dist: trusty
-
-services:
-  - docker
-  - maven
-
-jobs:
-  include:
-    - stage: build docker image
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-
-      - cd messenger
-      - docker build -t messenger .
-      - docker images
-      - docker tag messenger $DOCKER_USERNAME/messenger
-      - docker push $DOCKER_USERNAME/messenger
-      - cd ..
-
-      - cd twitter
-      - docker build -t twitter .
-      - docker images
-      - docker tag twitter $DOCKER_USERNAME/twitter
-      - docker push $DOCKER_USERNAME/twitter
-#    - stage: delpoy to digital ocean
+#sudo: true
+#dist: trusty
+#
+#services:
+#  - docker
+#  - maven
+#
+#jobs:
+#  include:
+#    - stage: build docker image
 #      script:
-#      - bash scripts/deploy.sh
+#      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#
+#      - cd messenger
+#      - docker build -t messenger .
+#      - docker images
+#      - docker tag messenger $DOCKER_USERNAME/messenger
+#      - docker push $DOCKER_USERNAME/messenger
+#      - cd ..
+#
+#      - cd twitter
+#      - docker build -t twitter .
+#      - docker images
+#      - docker tag twitter $DOCKER_USERNAME/twitter
+#      - docker push $DOCKER_USERNAME/twitter
+##    - stage: delpoy to digital ocean
+##      script:
+##      - bash scripts/deploy.sh
+language: java
+jdk: oraclejdk8

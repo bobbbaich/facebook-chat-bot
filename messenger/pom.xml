@@ -5,6 +5,7 @@
 
     <artifactId>messenger</artifactId>
     <packaging>jar</packaging>
+    <name>${project.artifactId}</name>
     <version>1.0</version>
 
     <parent>
@@ -13,7 +14,9 @@
         <version>1.0</version>
     </parent>
 
-
+    <properties>
+        <docker.image.dockerfile.dir>${basedir}/../docker</docker.image.dockerfile.dir>
+    </properties>
 
     <dependencies>
         <!-- Messenger -->
@@ -31,6 +34,11 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>${docker.plugin.version}</version>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
