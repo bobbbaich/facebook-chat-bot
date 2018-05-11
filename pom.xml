@@ -32,7 +32,7 @@
         <assert-core.version>3.9.1</assert-core.version>
         <!-- Docker -->
         <docker.image.prefix>bobbbaich</docker.image.prefix>
-        <!--<docker.image.exposed.port>9090</docker.image.exposed.port>-->
+        <docker.image.exposed.port>9090</docker.image.exposed.port>
         <docker.image.dockerfile.dir>${basedir}</docker.image.dockerfile.dir>
         <docker.plugin.version>0.4.13</docker.plugin.version>
     </properties>
