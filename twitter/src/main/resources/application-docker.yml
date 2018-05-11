@@ -10,3 +10,5 @@ logging:
     org.springframework.web.servlet.mvc.method.annotation: ERROR
     org.springframework.boot.actuate.endpoint.mvc: ERROR
     com.bobbbaich: DEBUG
+kafka:
+  bootstrap-servers: "PLAINTEXT://${SERVER_IP}:9092"

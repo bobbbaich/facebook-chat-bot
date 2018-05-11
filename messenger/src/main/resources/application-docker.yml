@@ -26,3 +26,5 @@ messenger:
   appSecret: ${MESSENGER_APP_SECRET}
   verifyToken: ${MESSENGER_VERIFY_TOKEN}
   pageAccessToken: ${MESSENGER_PAGE_ACCESS_TOKEN}
+kafka:
+  bootstrap-servers: "PLAINTEXT://${SERVER_IP}:9092"

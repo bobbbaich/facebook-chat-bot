@@ -15,3 +15,5 @@ messenger:
   appSecret: 1
   verifyToken: 1
   pageAccessToken: 1
+kafka:
+  bootstrap-servers: "localhost:9092"

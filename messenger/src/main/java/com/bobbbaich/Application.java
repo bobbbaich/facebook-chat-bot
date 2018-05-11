@@ -1,4 +1,4 @@
-package com.bobbbaich.messenger;
+package com.bobbbaich;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

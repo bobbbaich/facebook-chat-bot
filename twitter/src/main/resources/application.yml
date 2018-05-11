@@ -3,3 +3,11 @@
 #Set remote when deploy to server
 server:
   port: 8081
+kafka:
+  logDir: kafka
+  group-id: "analysis-service"
+  key-serializer: org.apache.kafka.common.serialization.StringSerializer
+  value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+  trusted-packages: com.bobbbaich.kafka.model
