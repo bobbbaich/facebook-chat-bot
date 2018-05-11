@@ -4,8 +4,8 @@
 language: java
 jdk: oraclejdk8
 
-services:
-  - docker
+#services:
+#  - docker
 #  - maven
 #
 #jobs:
