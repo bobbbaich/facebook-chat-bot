@@ -151,6 +151,7 @@
                     <configuration>
                         <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
                         <dockerDirectory>${docker.image.dockerfile.dir}</dockerDirectory>
+                        <!--<dockerHost>tcp://192.168.99.100:2376</dockerHost>-->
                         <resources>
                             <resource>
                                 <targetPath>/</targetPath>
