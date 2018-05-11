@@ -10,9 +10,9 @@ services:
 before_install :
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
-after_success :
-  - docker push $DOCKER_USERNAME/messenger
-  - docker push $DOCKER_USERNAME/twitter
+#after_success :
+#  - docker push $DOCKER_USERNAME/messenger
+#  - docker push $DOCKER_USERNAME/twitter
 #  - maven
 #
 #jobs:
