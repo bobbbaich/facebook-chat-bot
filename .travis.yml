@@ -6,7 +6,8 @@ jdk: oraclejdk8
 
 services:
   - docker
-  - maven
 
-before_install :
-  - mvn -s docker-setting.xml
+env:
+  global:
+    - SONATYPE_USERNAME=DOCKER_USERNAME
+    - SONATYPE_PASSWORD=DOCKER_PASSWORD
