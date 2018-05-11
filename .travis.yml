@@ -24,14 +24,14 @@ jobs:
 #      - cd messenger
 #      - docker build -t messenger .
 #      - docker images
-#      - docker tag messenger $DOCKER_USERNAME/messenger
+      - docker tag messenger $DOCKER_USERNAME/messenger
 #      - docker push $DOCKER_USERNAME/messenger
 #      - cd ..
 #
 #      - cd twitter
 #      - docker build -t twitter .
 #      - docker images
-#      - docker tag twitter $DOCKER_USERNAME/twitter
+      - docker tag twitter $DOCKER_USERNAME/twitter
 #      - docker push $DOCKER_USERNAME/twitter
 ##    - stage: delpoy to digital ocean
 ##      script:
