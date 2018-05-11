@@ -16,7 +16,7 @@
     </parent>
 
     <properties>
-        <docker.image.exposed.port>9090</docker.image.exposed.port>
+        <docker.image.exposed.port>8081</docker.image.exposed.port>
         <docker.image.dockerfile.dir>${basedir}/../docker</docker.image.dockerfile.dir>
     </properties>
 
