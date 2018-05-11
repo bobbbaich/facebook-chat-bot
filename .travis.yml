@@ -7,33 +7,8 @@ jdk: oraclejdk8
 services:
   - docker
 
-#before_install :
-#  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-
-after_success :
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push $DOCKER_USERNAME/messenger
-  - docker push $DOCKER_USERNAME/twitter
-#  - maven
-#
-#jobs:
-#  include:
-#    - stage: build docker image
-#      script:
-#      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-
-#      - cd messenger
-#      - docker build -t messenger .
-#      - docker images
-#      - docker tag messenger $DOCKER_USERNAME/messenger
-#      - docker push $DOCKER_USERNAME/messenger
-#      - cd ..
-#
-#      - cd twitter
-#      - docker build -t twitter .
-#      - docker images
-#      - docker tag twitter $DOCKER_USERNAME/twitter
-#      - docker push $DOCKER_USERNAME/twitter
-##    - stage: delpoy to digital ocean
-##      script:
-##      - bash scripts/deploy.sh
+after_success:
+  # test coverage reporting
+  - bash <(curl -s https://codecov.io/bash)
+  # deploy snapshots to Maven central, but only from master branch
+  - mvn --settings docker-setting.xml -DskipTests -B deploy"

@@ -149,8 +149,8 @@
                     </executions>
                     <configuration>
                         <serverId>docker-hub</serverId>
-                        <!--<pushImage>true</pushImage>-->
-                        <imageName>hub.docker.com/r/${docker.image.prefix}/${project.artifactId}</imageName>
+                        <pushImage>true</pushImage>
+                        <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
                         <dockerDirectory>${docker.image.dockerfile.dir}</dockerDirectory>
                         <resources>
                             <resource>
@@ -162,8 +162,6 @@
                         <buildArgs>
                             <ARTIFACT_NAME>${project.build.finalName}</ARTIFACT_NAME>
                             <EXPOSED_PORT>${docker.image.exposed.port}</EXPOSED_PORT>
-                            <!--<DOCKER_USERNAME>${DOCKER_USERNAME}</DOCKER_USERNAME>-->
-                            <!--<DOCKER_PASSWORD>${DOCKER_PASSWORD}</DOCKER_PASSWORD>-->
                         </buildArgs>
                     </configuration>
                 </plugin>
