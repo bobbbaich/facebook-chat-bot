@@ -3,6 +3,14 @@
 #Set remote when deploy to server
 server:
   port: 8081
+spring:
+  social:
+    twitter:
+      app-id: ${SOCIAL_TWITTER_APP_ID}
+      app-secret: ${SOCIAL_TWITTER_APP_SECRET}
+    facebook:
+      app-id: ${SOCIAL_FACEBOOK_APP_ID}
+      app-secret: ${SOCIAL_FACEBOOK_APP_SECRET}
 kafka:
   logDir: kafka
   group-id: "analysis-service"

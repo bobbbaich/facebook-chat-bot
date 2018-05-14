@@ -13,13 +13,13 @@ import org.springframework.social.twitter.api.UserOperations;
 @Configuration
 public class TwitterConfig {
     @Bean
-    @Scope(value = "session", proxyMode = ScopedProxyMode.INTERFACES)
+//    @Scope(value = "session", proxyMode = ScopedProxyMode.INTERFACES)
     public StreamingOperations streamingOperations(Twitter twitter) {
         return twitter.streamingOperations();
     }
 
     @Bean
-    @Scope(value = "session", proxyMode = ScopedProxyMode.INTERFACES)
+//    @Scope(value = "session", proxyMode = ScopedProxyMode.INTERFACES)
     public UserOperations userOperations(Twitter twitter) {
         return twitter.userOperations();
     }
