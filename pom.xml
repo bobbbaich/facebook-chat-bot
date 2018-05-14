@@ -149,7 +149,6 @@
                     </executions>
                     <configuration>
                         <serverId>docker-hub</serverId>
-                        <pushImage>true</pushImage>
                         <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
                         <dockerDirectory>${docker.image.dockerfile.dir}</dockerDirectory>
                         <resources>

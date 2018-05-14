@@ -1,4 +1,4 @@
-FROM openjdk:8
+FROM maven:3.3-jdk-8
 VOLUME /tmp
 ARG ARTIFACT_NAME
 ARG EXPOSED_PORT
