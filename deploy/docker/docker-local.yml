@@ -23,7 +23,7 @@ services:
     environment:
       GROUP_ID: 0
       KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
-      KAFKA_CREATE_TOPICS: "test:1:1,analyse:1:1"
+      KAFKA_CREATE_TOPICS: "tweet:1:1,analyse:1:1"
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
 
 
