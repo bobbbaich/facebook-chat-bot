@@ -1,0 +1,23 @@
+#---Profile Properties---
+#Available profiles: local, remote, docker
+#Set remote when deploy to server
+server:
+  port: 8081
+spring:
+  social:
+    twitter:
+      app-id: ${SOCIAL_TWITTER_APP_ID}
+      app-secret: ${SOCIAL_TWITTER_APP_SECRET}
+      token-id: ${SOCIAL_TWITTER_APP_ACCESS_TOKEN}
+      token-secret: ${SOCIAL_TWITTER_APP_ACCESS_TOKEN_SECRET}
+    facebook:
+      app-id: ${SOCIAL_FACEBOOK_APP_ID}
+      app-secret: ${SOCIAL_FACEBOOK_APP_SECRET}
+kafka:
+  logDir: kafka
+  group-id: "analysis-service"
+  key-serializer: org.apache.kafka.common.serialization.StringSerializer
+  value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+  trusted-packages: com.bobbbaich.kafka.model
