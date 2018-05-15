@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.social.twitter.api.Stream;
 import org.springframework.stereotype.Service;
 
+import static com.bobbbaich.kafka.config.TopicProperties.TOPIC_TWEET;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -19,10 +21,9 @@ public class TweetServiceImpl implements TweetService {
     public void collectTweets(Message message) {
         String recipientId = message.getRecipientId();
 //        TODO: change topic definition strategy
-        String topicName = "analyze";
         String keyWord = message.getMessage();
-        log.debug(">>>>>>Recipient ID = {}, topic name = {}, keyWord = {}, Limit = {}", recipientId, topicName, keyWord, DEFAULT_LIMIT);
-        Stream stream = streamOperationsService.runStream(recipientId, topicName, keyWord, DEFAULT_LIMIT);
+        log.debug(">>>>>>Recipient ID = {}, topic name = {}, keyWord = {}, Limit = {}", recipientId, TOPIC_TWEET, keyWord, DEFAULT_LIMIT);
+        Stream stream = streamOperationsService.runStream(recipientId, TOPIC_TWEET, keyWord, DEFAULT_LIMIT);
         log.debug("Stream {}", stream);
     }
 }
