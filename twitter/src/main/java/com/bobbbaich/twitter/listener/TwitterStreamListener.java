@@ -1,25 +1,24 @@
 package com.bobbbaich.twitter.listener;
 
+
+import com.bobbbaich.kafka.model.TweetMessage;
 import com.bobbbaich.kafka.producer.api.Producer;
 import com.bobbbaich.twitter.cache.api.EventPublisher;
-import com.bobbbaich.twitter.model.TweetMessage;
-import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.social.twitter.api.*;
 
 @Slf4j
 public class TwitterStreamListener implements StreamListener {
-    private Gson mapper = new Gson();
     private int counter;
     private boolean sentStopEvent = false;
     private int limit;
     private long streamNumber;
     private String topic;
     private String recipientId;
-    private Producer<String> producer;
+    private Producer<TweetMessage> producer;
     private EventPublisher<Stream> publisher;
 
-    public TwitterStreamListener(Producer<String> producer, EventPublisher<Stream> publisher, String recipientId, String topic, int limit, long streamNumber) {
+    public TwitterStreamListener(Producer<TweetMessage> producer, EventPublisher<Stream> publisher, String recipientId, String topic, int limit, long streamNumber) {
         this.limit = limit;
         this.streamNumber = streamNumber;
         this.topic = topic;
@@ -32,12 +31,7 @@ public class TwitterStreamListener implements StreamListener {
     public void onTweet(Tweet tweet) {
         if (counter < limit) {
             log.debug("Tweet = {}", tweet.getText());
-            producer.send(topic, mapper.toJson(TweetMessage.builder()
-                    .recipientId(recipientId)
-                    .streamNumber(streamNumber)
-                    .text(tweet.getText())
-                    .build()
-            ));
+            producer.send(topic, TweetMessage.builder().recipientId(recipientId).streamNumber(streamNumber).text(tweet.getText()).build());
         } else {
             if (!sentStopEvent) {
                 log.debug("Try create CloseStreamEvent");

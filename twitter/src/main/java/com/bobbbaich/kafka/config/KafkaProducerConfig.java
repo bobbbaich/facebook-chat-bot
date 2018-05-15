@@ -2,6 +2,7 @@ package com.bobbbaich.kafka.config;
 
 
 import com.bobbbaich.kafka.model.Message;
+import com.bobbbaich.kafka.model.TweetMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -28,6 +29,11 @@ public class KafkaProducerConfig {
 
     @Bean
     public KafkaTemplate<String, Message> kafkaMessageTemplate() {
+        return new KafkaTemplate<>(producerFactory());
+    }
+
+    @Bean
+    public KafkaTemplate<String, TweetMessage> kafkaTweetMessageTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 }

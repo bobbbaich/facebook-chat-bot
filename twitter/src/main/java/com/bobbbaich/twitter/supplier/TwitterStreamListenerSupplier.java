@@ -1,5 +1,6 @@
 package com.bobbbaich.twitter.supplier;
 
+import com.bobbbaich.kafka.model.TweetMessage;
 import com.bobbbaich.kafka.producer.api.Producer;
 import com.bobbbaich.twitter.cache.api.EventPublisher;
 import com.bobbbaich.twitter.listener.TwitterStreamListener;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class TwitterStreamListenerSupplier implements StreamListenerSupplier {
-    private final Producer<String> producer;
+    private final Producer<TweetMessage> producer;
     private final EventPublisher<Stream> publisher;
 
     @Override
