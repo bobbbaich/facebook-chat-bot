@@ -25,7 +25,7 @@ public class KafkaTopicListener {
     }
 
     @KafkaListener(topics = TOPIC_TWEET)
-    public void startAnalysis(TweetMessage message) {
+    public void tweetMessage(TweetMessage message) {
         log.debug("++++++> Received TweetMessage for analise: {}", message);
     }
 }
