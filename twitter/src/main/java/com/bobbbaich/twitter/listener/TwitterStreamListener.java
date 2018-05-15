@@ -25,6 +25,7 @@ public class TwitterStreamListener implements StreamListener {
         this.recipientId = recipientId;
         this.producer = producer;
         this.publisher = publisher;
+        log.debug("TwitterStreamListener created");
     }
 
     @Override

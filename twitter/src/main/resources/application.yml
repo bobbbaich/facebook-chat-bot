@@ -8,6 +8,8 @@ spring:
     twitter:
       app-id: ${SOCIAL_TWITTER_APP_ID}
       app-secret: ${SOCIAL_TWITTER_APP_SECRET}
+      token-id: ${SOCIAL_TWITTER_APP_ACCESS_TOKEN}
+      token-secret: ${SOCIAL_TWITTER_APP_ACCESS_TOKEN_SECRET}
     facebook:
       app-id: ${SOCIAL_FACEBOOK_APP_ID}
       app-secret: ${SOCIAL_FACEBOOK_APP_SECRET}

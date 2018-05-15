@@ -18,6 +18,10 @@ public class TwitterConfig {
     private String twitterId;
     @Value("${spring.social.twitter.app-secret}")
     private String twitterSecret;
+    @Value("${spring.social.twitter.token-id}")
+    private String twitterTokenId;
+    @Value("${spring.social.twitter.token-secret}")
+    private String twitterTokenSecret;
     @Bean
     public StreamingOperations streamingOperations() {
         return twitter().streamingOperations();
@@ -30,6 +34,6 @@ public class TwitterConfig {
 
     @Bean
     public Twitter twitter(){
-        return new TwitterTemplate(twitterId, twitterSecret);
+        return new TwitterTemplate(twitterId, twitterSecret, twitterTokenId, twitterTokenSecret);
     }
 }
