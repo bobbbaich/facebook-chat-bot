@@ -5,10 +5,9 @@
 
     <groupId>com.bobbbaich</groupId>
     <artifactId>twitter-stream-analysis</artifactId>
+    <name>${project.artifactId}</name>
     <version>1.0</version>
-    <packaging>jar</packaging>
-
-    <description>Facebook Messenger Chatbot using Java, Spring Boot, and messenger4j</description>
+    <packaging>pom</packaging>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -16,28 +15,35 @@
         <version>2.0.0.M6</version>
     </parent>
 
+    <modules>
+        <module>messenger</module>
+        <module>twitter</module>
+    </modules>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <!-- Kafka -->
+        <kafka.version>1.1.0</kafka.version>
         <spring-kafka.version>2.1.5.RELEASE</spring-kafka.version>
-        <kafka.version>1.0.0</kafka.version>
+        <messenger4j.version>1.0.0-M3</messenger4j.version>
+        <lombok.version>1.16.20</lombok.version>
+        <assert-core.version>3.9.1</assert-core.version>
+        <!-- Docker -->
+        <docker.image.prefix>bobbbaich</docker.image.prefix>
+        <docker.image.exposed.port>9090</docker.image.exposed.port>
+        <docker.image.dockerfile.dir>${basedir}</docker.image.dockerfile.dir>
+        <docker.plugin.version>0.4.13</docker.plugin.version>
     </properties>
 
     <dependencies>
-        <!-- Lombok -->
+        <!-- Spring Security -->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.16.20</version>
-            <scope>provided</scope>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
         </dependency>
-        <!-- Spring Boot Data Mongo-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-mongodb</artifactId>
-        </dependency>
+        <!-- Spring Web-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -46,9 +52,18 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+        <!--Spring Social-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
+            <artifactId>spring-boot-starter-social-facebook</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-social-twitter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-security</artifactId>
         </dependency>
         <!-- Spring Kafka -->
         <dependency>
@@ -67,24 +82,27 @@
             <artifactId>kafka-streams</artifactId>
             <version>${kafka.version}</version>
         </dependency>
-        <!--Spring Social-->
+        <!-- Boot starter-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-social-facebook</artifactId>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-social-twitter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.social</groupId>
-            <artifactId>spring-social-security</artifactId>
+            <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
         <!--Spring Boot Configuration Processor-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
+        </dependency>
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
         </dependency>
         <!--Test-->
         <dependency>
@@ -95,13 +113,8 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.9.1</version>
+            <version>${assert-core.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.messenger4j</groupId>
-            <artifactId>messenger4j</artifactId>
-            <version>1.0.0-M3</version>
         </dependency>
     </dependencies>
     <repositories>
@@ -118,12 +131,40 @@
             <url>https://repo.spring.io/plugins-release/</url>
         </pluginRepository>
     </pluginRepositories>
+
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>${docker.plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <phase>install</phase>
+                            <goals>
+                                <goal>build</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <serverId>docker-hub</serverId>
+                        <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                        <dockerDirectory>${docker.image.dockerfile.dir}</dockerDirectory>
+                        <resources>
+                            <resource>
+                                <targetPath>/</targetPath>
+                                <directory>${project.build.directory}</directory>
+                                <include>${project.build.finalName}.jar</include>
+                            </resource>
+                        </resources>
+                        <buildArgs>
+                            <ARTIFACT_NAME>${project.build.finalName}</ARTIFACT_NAME>
+                            <EXPOSED_PORT>${docker.image.exposed.port}</EXPOSED_PORT>
+                        </buildArgs>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 </project>
