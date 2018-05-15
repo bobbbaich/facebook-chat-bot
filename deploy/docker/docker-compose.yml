@@ -48,7 +48,7 @@ services:
       GROUP_ID: 0
       KAFKA_HEAP_OPTS: "-Xmx1G -Xms1G"
       KAFKA_ADVERTISED_HOST_NAME: 104.236.53.32
-      KAFKA_CREATE_TOPICS: "test:1:1,analyse:1:1"
+      KAFKA_CREATE_TOPICS: "tweet:1:1,analyse:1:1"
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
 
 
