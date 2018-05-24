@@ -51,6 +51,15 @@ services:
       KAFKA_CREATE_TOPICS: "tweet:1:1,analyse:1:1"
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
 
+  elk:
+    depends_on:
+      - web
+      - twitter
+    image: sebp/elk
+    ports:
+      - "5601:5601"
+      - "9200:9200"
+      - "5044:5044"
 
   kafka_manager:
     image: mzagar/kafka-manager-docker:1.3.3.4
